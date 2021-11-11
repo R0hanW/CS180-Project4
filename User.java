@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class User {
     private String name;
-    private int age;
     private String userType; // student or teacher
     private String username;
     private String password;
