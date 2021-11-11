@@ -141,16 +141,24 @@ public class ProgramManager {
 
     }
     public void addUser(User user){ // Thanmaya
-        //adds a user
-        //updates arraylist and file
+		users.add(user);
+		writeFile(true);
     }
-    public void removeUser(User user){ // Thanmaya
-        //removes from array list
-        //updates arraylist and file
+    public boolean removeUser(User user){ // Thanmaya
+		for (int i = 0; i <users.size(); i++){
+			if(users.get(i).equals(user)){
+				users.remove(i);
+				writeFile(true);
+				return true;
+			}
+		}
+		return false; //if user asked to remove doesnt exist
     }
-    public void modifyUser(User user){ // Thanmaya
-        //modifies user
-        //updates arraylist and file
+    public void modifyUser(User oldUser, String name, String username, String usertype, String password){ // Thanmaya
+		oldUser.setName(name);
+		oldUser.setUsername(username);
+		oldUser.setPassword(password);
+		writeFile(true); // an object from the array has to be passed (or another reference object in the array)
     }
 
     public User findUser(String username){
