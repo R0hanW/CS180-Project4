@@ -1,16 +1,24 @@
 import java.util.ArrayList;
 
 public class User {
-    private String name;
-    private String userType; // student or teacher
+    private String name; 
     private String username;
     private String password;
+    private ArrayList<Comment> comments = new ArrayList<Comment>(); 
     private ArrayList<Post> posts = new ArrayList<Post>();
+    private boolean isTeacher;
 
     public User() {
         name = "";
         username = "";
         password = "";
+    }
+
+    public User(String name, String username, String password, boolean isTeacher){
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.isTeacher = isTeacher;
     }
 
     public String getName() {
@@ -30,6 +38,15 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public boolean isTeacher() {
+        return this.isTeacher;
+    }
+    public void removeComments(){
+        comments.stream().forEach(comment -> comment.removeComment());
+    }
+    public void removePosts(){
+        posts.stream().forEach(post -> post.removePost());
     }
     public void updatePosts(){
         // Grabs from the Users.txt file (only the posts from the user themselves)
