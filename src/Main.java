@@ -92,6 +92,7 @@ public class Main {
                 System.out.println("[3]Proceed to Discussion Board");
                 System.out.println("[4]Log out");
                 int input2 = scan.nextInt();
+                scan.nextLine();
                 if (input2 == 1) {
                     System.out.println("What is your name");
                     String newName = scan.nextLine();
