@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -77,14 +78,64 @@ public class Main {
                 }
                 User newUser = new User(newName, newUsername, newPassword, isTeacher);
                 program.addUser(newUser);
-            }
-
-            else if(input == 3){
+            } else if (input == 3) {
                 break;
             }
 
-        }while (!login);
-        
+        } while (!login);
+        do {
+            if (login) {
+                //menu#2
+                System.out.println(explanation);
+                System.out.println("[1]Edit my Account");
+                System.out.println("[2]Delete my Account");
+                System.out.println("[3]Proceed to Discussion Board");
+                System.out.println("[4]Log out");
+                int input2 = scan.nextInt();
+                if (input2 == 1) {
+                    System.out.println("What is your name");
+                    String newName = scan.nextLine();
+                    System.out.println("Enter the name you would like to keep for your username");
+                    String newUsername = scan.nextLine();
+                    System.out.println("Enter what would you like to be for your password");
+                    String newPassword = scan.nextLine();
+                    System.out.println("Are you a teacher?");
+                    System.out.println(explanation);
+                    System.out.println(yesNo);
+                    boolean isTeacher = false;
+                    int ans = scan.nextInt();
+                    scan.nextLine();
+                    if (ans == 1) {
+                        isTeacher = true;
+                    } else if (ans == 2) {
+                        isTeacher = false;
+                    }
+                    program.modifyUser(currentUser, newName, newUsername, newPassword, isTeacher);
+                } else if (input2 == 2) {
+                    program.removeUser(currentUser);
+                    System.out.println("Successfully deleted, farewell!");
+                    break;
+                } else if(input2 == 3) {
+                    //Teacher menu for discussion
+                    if (currentUser.isTeacher()) {
+                        System.out.println(explanation);
+                        System.out.println("[1]Create");
+                        System.out.println(("[2]Edit"));
+                        System.out.println("[3]Delete");
+                    }
+                    //Student menu
+                    else {
+
+                    }
+                }
+                else if(input2 == 4){
+                    break;
+                }
+
+
+
+            }
+        }while(false);
     }
 
 }
