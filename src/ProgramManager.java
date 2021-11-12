@@ -118,7 +118,7 @@ public class ProgramManager {
         			if (line.charAt(i) == '"') {
         				numQuotes++;
         				if (numQuotes < 9) {
-            				quoteIndices[numQuotes] = i;        					
+            				quoteIndices[numQuotes - 1] = i;        					
         				}
         			}
         		}
