@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 public class ProgramManager {
-    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
-    private ArrayList<Course> courses = new ArrayList<>();
+    private ArrayList<Course> courses = new ArrayList<Course>();
 
     public void writeFile(){// aidan
         //write from arraylist to txt files
@@ -28,6 +28,7 @@ public class ProgramManager {
         try {
             pw = new PrintWriter(new FileWriter(new File("Courses.txt")), true);
             for(Course course: courses) pw.println(course.toString());
+            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,6 +94,9 @@ public class ProgramManager {
     	File f = new File("Users.txt");
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
         	String line = bfr.readLine();
+        	if (line == null) {
+        		return;
+        	}
         	while (line != null) {
         		int numQuotes = 0;
         		int[] quoteIndices = new int[8];	//each line should have 8 quotation marks
@@ -106,7 +110,7 @@ public class ProgramManager {
         			}
         		}
         		
-        		if (numQuotes != 8) {	//checking for user format error
+        		if (numQuotes != 8) {	//checking for storage format error
         			System.out.println("Internal storage error. Your account may have been deleted.");
         	        try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
         	        	for (int i = 0; i < users.size(); i++) {
@@ -117,17 +121,14 @@ public class ProgramManager {
         	        }
         			return;
         		}
-        		
         		//adds new user to list of users
         		users.add(new User(line.substring(quoteIndices[0] + 1, quoteIndices[1]),
         				line.substring(quoteIndices[2] + 1, quoteIndices[3]), 
         				line.substring(quoteIndices[4] + 1, quoteIndices[5]),
-        				line.substring(quoteIndices[6] + 1, quoteIndices[7])));
+        				(line.substring(quoteIndices[6] + 1, quoteIndices[7]).toLowerCase().equals("true"))));
         		line = bfr.readLine();
         	}
-        } catch (FileNotFoundException e) {		//exception handling
-        	e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e) { //exception handling
         	e.printStackTrace();
         }
     }

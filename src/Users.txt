@@ -1,1 +1,1 @@
-User{name="John Doe",userType="Student",username="JDoe25",password="password123"}
+User{name="John Doe",username="JDoe25",password="password123",isTeacher="false"}
