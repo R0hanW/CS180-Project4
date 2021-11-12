@@ -19,6 +19,10 @@ public class Course {
         return this.owner;
     }
 
+    public ArrayList<Post> getPosts(){
+        return this.posts;
+    }
+
     public void addPost(Post post){
         posts.add(post);
     }
@@ -53,5 +57,11 @@ public class Course {
 
     public void displayCourse(){
         //TODO
+    }
+
+    public boolean equals(Object o){
+        if(!(o instanceof Course)) return false;
+        Course obj = (Course) o;
+        return obj.getName().equals(this.name) && obj.getOwner().equals(this.owner) && obj.getPosts().equals(this.posts);
     }
 }

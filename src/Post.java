@@ -19,6 +19,10 @@ public class Post {
         this.topic = "";
     }
 
+    public User getOwner(){
+        return this.owner;
+    }
+
     public String getContent(){
         return this.content;
     }
@@ -47,6 +51,10 @@ public class Post {
         comments.remove(comment);
     }
 
+    public Course getCourse(){
+        return this.course;
+    }
+
     public void removePost(){
         course.removePost(this);
     }
@@ -61,5 +69,9 @@ public class Post {
         //TODO
     }
 
-    
+    public boolean equals(Object o){
+        if(!(o instanceof Post)) return false;
+        Post obj = (Post) o;
+        return obj.getOwner().equals(this.owner) && obj.getContent().equals(this.content) && obj.getTopic().equals(this.topic) && obj.getCourse().equals(this.course);
+    } 
 }

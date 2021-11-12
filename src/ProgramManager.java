@@ -10,18 +10,18 @@ public class ProgramManager {
     private ArrayList<User> users = new ArrayList<>();
     // private ArrayList<Post> posts = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<>();
-    public void writeFile(boolean isUser){// aidan
+
+    public void writeFile(){// aidan
         //write from arraylist to txt files
         //updates the txt files
-    	if (isUser) {	//if writing to the user storage file
-    		File f = new File("Users.txt");
-    		try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
-            	for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
-            		pw.println(users.get(i).toString());
-            	}
-            } catch (IOException e) {	//exception handling
-            	e.printStackTrace();
+    	//if writing to the user storage file
+        File f = new File("Users.txt");
+        try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
+            for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
+                pw.println(users.get(i).toString());
             }
+        } catch (IOException e) {	//exception handling
+            e.printStackTrace();
         }
         //writes to Courses.txt
         PrintWriter pw;
@@ -142,13 +142,13 @@ public class ProgramManager {
     }
     public void addUser(User user){ // Thanmaya
 		users.add(user);
-		writeFile(true);
+		writeFile();
     }
     public boolean removeUser(User user){ // Thanmaya
 		for (int i = 0; i <users.size(); i++){
 			if(users.get(i).equals(user)){
 				users.remove(i);
-				writeFile(true);
+				writeFile();
 				return true;
 			}
 		}
@@ -158,7 +158,7 @@ public class ProgramManager {
 		oldUser.setName(name);
 		oldUser.setUsername(username);
 		oldUser.setPassword(password);
-		writeFile(true); // an object from the array has to be passed (or another reference object in the array)
+		writeFile(); // an object from the array has to be passed (or another reference object in the array)
     }
 
     public User findUser(String username){
