@@ -46,6 +46,10 @@ public class Comment {
         return this.post;
     }
 
+    public ArrayList<Comment> getComments() {
+    	return replies;
+    }
+    
     public String getContent() {
         return this.content;
     }

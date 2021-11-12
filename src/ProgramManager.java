@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 public class ProgramManager {
     private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
@@ -178,5 +181,23 @@ public class ProgramManager {
     public User findUser(String username){
         return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
+    
+    //returns list of comments sorted by votes in descending order
+    public ArrayList<Comment> sortByVotes(int courseNumber) {
+    	ArrayList<Comment> commentList = new ArrayList<Comment>(1);
+    	for (int i = 0; i < courses.get(courseNumber).posts.size(); i++) {	//take all comments in a course
+    		commentList.addAll(courses.get(courseNumber).posts.get(i).getComments());
+    	}
+    	if (commentList.size() < 2) {	//if there is 0-1 comments only
+    		return commentList;
+    	}
+    	Collections.sort(commentList, new Comparator<Comment>() {	//learned off of stackOverflow lol
+    		public int compare(Comment c1, Comment c2) {			//sorts list
+    			return ((Integer)c2.getVotes()).compareTo((Integer)(c1.getVotes()));
+    		}
+    	});
+    	return commentList;
+    }
+
 
 }
