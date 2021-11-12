@@ -28,7 +28,7 @@ public class ProgramManager {
         //write from arraylist to txt files
         //updates the txt files
     	//if writing to the user storage file
-        File f = new File("Users.txt");
+        File f = new File("src/Users.txt");
         try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
             for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
                 pw.println(users.get(i).toString());
@@ -104,7 +104,7 @@ public class ProgramManager {
     public void readUserFile(){ // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
-    	File f = new File("Users.txt");
+    	File f = new File("src/Users.txt");
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
         	String line = bfr.readLine();
         	if (line == null) {
