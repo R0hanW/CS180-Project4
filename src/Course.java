@@ -15,6 +15,9 @@ public class Course {
         return this.name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
     public User getOwner(){
         return this.owner;
     }

@@ -137,13 +137,15 @@ public class ProgramManager {
         	e.printStackTrace();
         }
     }
-    public void addCourse(){
-
+    public void addCourse(Course course){
+        courses.add(course);
+        writeFile();
     }
     public void removeCourse(Course course){
         courses.remove(course);
     }   
-    public void modifyCourse(){
+    public void modifyCourse(Course oldCourse, String name){
+        oldCourse.setName(name);
 
     }
     public void addUser(User user){ // Thanmaya
