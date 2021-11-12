@@ -16,6 +16,11 @@ public class ProgramManager {
         this.courses = courses;
     }
 
+    public ProgramManager(){
+        readUserFile();
+        readFile();
+    }
+
     public void writeFile(){// aidan
         //write from arraylist to txt files
         //updates the txt files
