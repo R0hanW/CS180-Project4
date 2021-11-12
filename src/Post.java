@@ -66,7 +66,11 @@ public class Post {
     }
 
     public void displayPost(){
-        //TODO
+        System.out.println(topic + "\n");
+        System.out.println(content);
+        for (Comment c : comments){
+            System.out.println(c);
+        }
     }
 
     public boolean equals(Object o){

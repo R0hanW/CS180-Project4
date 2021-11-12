@@ -58,7 +58,12 @@ public class Comment {
     }
 
     public void displayComment(){
-        //TODO
+        System.out.println(owner.getName() + "\t" + timestamp);
+        System.out.println(content);
+        for(Comment r : replies){
+            System.out.println(r);
+        }
+        System.out.println();
     }
 
     public String toString(){

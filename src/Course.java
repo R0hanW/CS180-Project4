@@ -56,7 +56,10 @@ public class Course {
     }
 
     public void displayCourse(){
-        //TODO
+        System.out.println(name + "\n");
+        for (Post p : posts) {
+            System.out.println(p.getTopic());
+        }
     }
 
     public boolean equals(Object o){
