@@ -56,7 +56,7 @@ public class ProgramManager {
     public void readFile(){
          //reads from Courses.txt (won't work unless users has already been read)
          try {
-            BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/Courses.txt"));
             String message;
             Course course = null;
             Post post = null;
@@ -72,7 +72,7 @@ public class ProgramManager {
                 else if(message.contains("Post")) {
                     message = message.replaceAll(".*:", "");
                     messageArr = message.split(",");
-                    post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2]);
+                    post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
                 }
                 else if(message.contains("Comment")){
                     message = message.replaceAll(".*:", "");
@@ -145,9 +145,9 @@ public class ProgramManager {
     public void addCourse(){
 
     }
-    public void removeCourse(){
-
-    }
+    public void removeCourse(Course course){
+        courses.remove(course);
+    }   
     public void modifyCourse(){
 
     }
@@ -156,6 +156,7 @@ public class ProgramManager {
 		writeFile();
     }
     public boolean removeUser(User user){ // Thanmaya
+        user.removeComments();
 		for (int i = 0; i <users.size(); i++){
 			if(users.get(i).equals(user)){
 				users.remove(i);
@@ -173,7 +174,7 @@ public class ProgramManager {
     }
 
     public User findUser(String username){
-        return (User) users.stream().filter(user -> user.getUsername() == username);
+        return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
 
 }

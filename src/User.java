@@ -4,8 +4,7 @@ public class User {
     private String name; 
     private String username;
     private String password;
-    //private ArrayList<Comment> comments = new ArrayList<Comment>(); 
-    //private ArrayList<Post> posts = new ArrayList<Post>();
+    private ArrayList<Comment> comments = new ArrayList<Comment>(); 
     private boolean isTeacher;
 
     public User() {
@@ -42,14 +41,11 @@ public class User {
     public boolean isTeacher() {
         return this.isTeacher;
     }
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
     public void removeComments(){
-        //comments.stream().forEach(comment -> comment.removeComment());
-    }
-    public void removePosts(){
-        //posts.stream().forEach(post -> post.removePost());
-    }
-    public void updatePosts(){
-        // Grabs from the Users.txt file (only the posts from the user themselves)
+        comments.stream().forEach(comment -> comment.removeComment());
     }
     public String toString() {
     	return String.format("User{name=\"%s\",username=\"%s\",password=\"%s\",isTeacher=\"%b\"}", 

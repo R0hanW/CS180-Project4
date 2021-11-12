@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;  
 
 public class Post {
     private User owner;
@@ -6,11 +7,22 @@ public class Post {
     private String topic;
     private Course course;
     private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private String timestamp;
 
     public Post(User owner, Course course, String content, String topic){
         this.owner = owner;
         this.content = content;
         this.topic = topic;
+        //get current timestamp
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        timestamp = java.time.LocalDateTime.now().format(formatter);
+    }
+
+    public Post(User owner, Course course, String content, String topic, String timestamp){
+        this.owner = owner;
+        this.content = content;
+        this.topic = topic;
+        this.timestamp = timestamp;
     }
 
     public Post(){
@@ -39,12 +51,18 @@ public class Post {
         this.topic = topic;
     }
     
+    public String getTimestamp(){
+        return this.timestamp;
+    }
     public void addComment(Comment comment) {
         comments.add(comment);
     }
 
     public void addComment(User author, String content){
-        comments.add(new Comment(author, this, content));
+        Comment comment = new Comment(author, this, content);
+        comments.add(comment);
+        author.addComment(comment);
+
     }
 
     public void removeComment(Comment comment){
@@ -60,13 +78,17 @@ public class Post {
     }
 
     public String toString(){
-        String out = String.format("Post:%s,%s,%s\nComments:\n", owner.getUsername(), content, topic);
+        String out = String.format("Post:%s,%s,%s,%s\nComments:\n", owner.getUsername(), content, topic, timestamp);
         for(Comment comment: comments) out += String.format("%s\n", comment.toString());
         return out;
     }
 
     public void displayPost(){
-        //TODO
+        System.out.println(topic + "\n");
+        System.out.println(content);
+        for (Comment c : comments){
+            System.out.println(c);
+        }
     }
 
     public boolean equals(Object o){
