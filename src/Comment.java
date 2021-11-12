@@ -12,10 +12,10 @@ public class Comment {
         owner = this.owner;
         post = this.post;
         content = this.content;
-        //get current timestamp
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
-        timestamp = java.time.LocalDateTime.now().format(formatter);
-        if(replies == null) post.addComment(this);
+            //get current timestamp
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+            timestamp = java.time.LocalDateTime.now().format(formatter);
+            if(replies == null) post.addComment(this);
     }
 
     public Comment(User owner, Post post, String content, String timestamp){

@@ -46,7 +46,7 @@ public class ProgramManager {
     public void readFile(){
          //reads from Courses.txt (won't work unless users has already been read)
          try {
-            BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/Courses.txt"));
             String message;
             Course course = null;
             Post post = null;
@@ -62,7 +62,7 @@ public class ProgramManager {
                 else if(message.contains("Post")) {
                     message = message.replaceAll(".*:", "");
                     messageArr = message.split(",");
-                    post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2]);
+                    post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
                 }
                 else if(message.contains("Comment")){
                     message = message.replaceAll(".*:", "");
