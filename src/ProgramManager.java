@@ -11,6 +11,11 @@ public class ProgramManager {
     // private ArrayList<Post> posts = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<Course>();
 
+    public ProgramManager(ArrayList<User> users, ArrayList<Course> courses) {
+        this.users = users;
+        this.courses = courses;
+    }
+
     public void writeFile(){// aidan
         //write from arraylist to txt files
         //updates the txt files
@@ -135,9 +140,9 @@ public class ProgramManager {
     public void addCourse(){
 
     }
-    public void removeCourse(){
-
-    }
+    public void removeCourse(Course course){
+        courses.remove(course);
+    }   
     public void modifyCourse(){
 
     }
@@ -146,6 +151,7 @@ public class ProgramManager {
 		writeFile();
     }
     public boolean removeUser(User user){ // Thanmaya
+        user.removeComments();
 		for (int i = 0; i <users.size(); i++){
 			if(users.get(i).equals(user)){
 				users.remove(i);
@@ -163,6 +169,7 @@ public class ProgramManager {
     }
 
     public User findUser(String username){
-        return (User) users.stream().filter(user -> user.getUsername() == username);
+        return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
+
 }

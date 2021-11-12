@@ -59,7 +59,10 @@ public class Post {
     }
 
     public void addComment(User author, String content){
-        comments.add(new Comment(author, this, content));
+        Comment comment = new Comment(author, this, content);
+        comments.add(comment);
+        author.addComment(comment);
+
     }
 
     public void removeComment(Comment comment){
@@ -81,7 +84,11 @@ public class Post {
     }
 
     public void displayPost(){
-        //TODO
+        System.out.println(topic + "\n");
+        System.out.println(content);
+        for (Comment c : comments){
+            System.out.println(c);
+        }
     }
 
     public boolean equals(Object o){

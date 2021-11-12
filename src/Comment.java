@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.io.*;
 import java.time.format.DateTimeFormatter;    
 
 public class Comment {
@@ -6,24 +7,36 @@ public class Comment {
     private Post post;
     private String content;
     private String timestamp;
+    private int votes;
+    private double grade;
     private ArrayList<Comment> replies = new ArrayList<Comment>();
-   
+    
     public Comment(User owner, Post post, String content){
-        owner = this.owner;
-        post = this.post;
-        content = this.content;
-            //get current timestamp
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
-            timestamp = java.time.LocalDateTime.now().format(formatter);
-            if(replies == null) post.addComment(this);
+        this.owner = owner;
+        this.post = post;
+        this.content = content;
+        //get current timestamp
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        timestamp = java.time.LocalDateTime.now().format(formatter);
+        if(replies == null) post.addComment(this);
     }
-
+    
     public Comment(User owner, Post post, String content, String timestamp){
-        owner = this.owner;
-        post = this.post;
-        content = this.content;
-        timestamp = this.timestamp;
+        this.owner = owner;
+        this.post = post;
+        this.content = content;
+        this.timestamp = timestamp;
+        this.votes = 0;
     }
+    
+    public Comment(User owner, Post post, String content, String timestamp, int votes, double grade){
+        this.owner = owner;
+        this.post = post;
+        this.content = content;
+        this.timestamp = timestamp;
+        this.votes = votes;
+        this.grade = grade;
+    }    
 
     public User getOwner() {
         return this.owner;
@@ -39,6 +52,22 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+    
+    public void addVote() {
+    	votes++;
+    }
+    
+    public int getVotes() {
+    	return votes;
+    }
+    
+    public void setGrade(double grade) {
+    	this.grade = grade;
+    }
+    
+    public double getGrade() {
+    	return grade;
     }
 
     public ArrayList<Comment> getReplies() {
@@ -58,7 +87,12 @@ public class Comment {
     }
 
     public void displayComment(){
-        //TODO
+        System.out.println(owner.getName() + "\t" + timestamp);
+        System.out.println(content);
+        for(Comment r : replies){
+            System.out.println(r);
+        }
+        System.out.println();
     }
 
     public String toString(){
