@@ -52,6 +52,4 @@ public class User {
     			name, username, password, isTeacher);
     }
 
-    //Hello
-
 }
