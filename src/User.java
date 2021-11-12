@@ -41,6 +41,7 @@ public class User {
     public boolean isTeacher() {
         return this.isTeacher;
     }
+    public void setIsTeacher(boolean isTeacher){this.isTeacher = isTeacher;}
     public void addComment(Comment comment){
         comments.add(comment);
     }

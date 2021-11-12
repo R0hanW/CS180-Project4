@@ -24,7 +24,7 @@ public class ProgramManager {
         readFile();
     }
 
-    public void writeFile(){// aidan
+    public void writeFile(){// works
         //write from arraylist to txt files
         //updates the txt files
     	//if writing to the user storage file
@@ -101,7 +101,7 @@ public class ProgramManager {
             e.printStackTrace();
         }
     }
-    public void readUserFile(){ // aidan
+    public void readUserFile(){ // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
     	File f = new File("Users.txt");
@@ -156,11 +156,11 @@ public class ProgramManager {
         oldCourse.setName(name);
 
     }
-    public void addUser(User user){ // Thanmaya
+    public void addUser(User user){ // works
 		users.add(user);
 		writeFile();
     }
-    public boolean removeUser(User user){ // Thanmaya
+    public boolean removeUser(User user){ // works
         user.removeComments();
 		for (int i = 0; i <users.size(); i++){
 			if(users.get(i).equals(user)){
@@ -171,15 +171,22 @@ public class ProgramManager {
 		}
 		return false; //if user asked to remove doesnt exist
     }
-    public void modifyUser(User oldUser, String name, String username, String usertype, String password){ // Thanmaya
+    public void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher){ // works
 		oldUser.setName(name);
 		oldUser.setUsername(username);
 		oldUser.setPassword(password);
+        oldUser.setIsTeacher(isTeacher);
 		writeFile(); // an object from the array has to be passed (or another reference object in the array)
     }
 
-    public User findUser(String username){
-        return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
+    public User findUser(String username) { // works
+        for (int i = 0; i < users.size(); i++){
+            if (users.get(i).getUsername().equals(username)){
+                return users.get(i);
+            }
+        }
+        return null;
+        //return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
     
     //returns list of comments sorted by votes in descending order
