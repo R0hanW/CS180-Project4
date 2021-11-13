@@ -11,8 +11,7 @@ public class Main {
         //all the menus go here (asking to login/modify/log out etc.)
         Scanner scan = new Scanner(System.in);
         ProgramManager program = new ProgramManager();
-        program.readUserFile();
-        program.readFile();
+
 
         System.out.println("Welcome to Discussion Posts");
 
