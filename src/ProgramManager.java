@@ -19,6 +19,10 @@ public class ProgramManager {
         this.courses = courses;
     }
 
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
     public ProgramManager(){
         readUserFile();
         readFile();
@@ -39,7 +43,7 @@ public class ProgramManager {
         //writes to Courses.txt
         PrintWriter pw;
         try {
-            pw = new PrintWriter(new FileWriter(new File("Courses.txt")), true);
+            pw = new PrintWriter(new FileWriter(new File("src/Courses.txt")), true);
             for(Course course: courses) pw.println(course.toString());
             pw.close();
         } catch (IOException e) {
