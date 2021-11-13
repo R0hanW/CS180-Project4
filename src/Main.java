@@ -12,7 +12,6 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         ProgramManager program = new ProgramManager();
 
-
         System.out.println("Welcome to Discussion Posts");
 
         do {
@@ -149,9 +148,7 @@ public class Main {
                                 } else if (input == 2) {
                                     //display courses etc
                                     for (int i = 0; i < courses.size(); i++) {
-                                        if (courses.get(i).getOwner() == currentUser) {
-                                            System.out.println("[" + i + 1 + "]" + courses.get(i).getName());
-                                        }
+                                        System.out.printf("[%d]%s\n", i+1, courses.get(i).getName());
                                     }
                                 } else if (input == 3) {
                                     back = true;
@@ -190,6 +187,6 @@ public class Main {
             } while (back);
             break;
         } while (false);
+        program.writeFile();
     }
-
 }

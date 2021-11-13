@@ -43,7 +43,7 @@ public class ProgramManager {
         //writes to Courses.txt
         PrintWriter pw;
         try {
-            pw = new PrintWriter(new FileWriter(new File("src/Courses.txt")), true);
+            pw = new PrintWriter(new FileWriter(new File("src/Courses.txt"), false));
             for(Course course: courses) pw.println(course.toString());
             pw.close();
         } catch (IOException e) {
@@ -91,7 +91,7 @@ public class ProgramManager {
                     course.addPost(post);
                 }
                 else if(message.equals("END OF COURSE")){
-                    course = null;
+                    courses.add(course);
                 }
                 else{
                     //should never reach this else statement, for debugging purposes
@@ -151,7 +151,6 @@ public class ProgramManager {
     }
     public void addCourse(Course course){
         courses.add(course);
-        writeFile();
     }
     public void removeCourse(Course course){
         courses.remove(course);
@@ -162,14 +161,12 @@ public class ProgramManager {
     }
     public void addUser(User user){ // works
 		users.add(user);
-		writeFile();
     }
     public boolean removeUser(User user){ // works
         user.removeComments();
 		for (int i = 0; i <users.size(); i++){
 			if(users.get(i).equals(user)){
 				users.remove(i);
-				writeFile();
 				return true;
 			}
 		}
@@ -179,8 +176,7 @@ public class ProgramManager {
 		oldUser.setName(name);
 		oldUser.setUsername(username);
 		oldUser.setPassword(password);
-        oldUser.setIsTeacher(isTeacher);
-		writeFile(); // an object from the array has to be passed (or another reference object in the array)
+        oldUser.setIsTeacher(isTeacher);// an object from the array has to be passed (or another reference object in the array)
     }
 
     public User findUser(String username) { // works
@@ -195,23 +191,19 @@ public class ProgramManager {
     
     //returns list of comments sorted by votes in descending order
     public ArrayList<Comment> sortByVotes(int courseNumber) {
-    	ArrayList<Comment> commentList = new ArrayList<Comment>(1);
-    	for (int i = 0; i < courses.get(courseNumber).posts.size(); i++) {	//take all comments in a course
-    		commentList.addAll(courses.get(courseNumber).posts.get(i).getComments());
-    	}
-    	if (commentList.size() < 2) {	//if there is 0-1 comments only
-    		return commentList;
-    	}
-    	Collections.sort(commentList, new Comparator<Comment>() {	//learned off of stackOverflow lol
-    		public int compare(Comment c1, Comment c2) {			//sorts list
-    			return ((Integer)c2.getVotes()).compareTo((Integer)(c1.getVotes()));
-    		}
-    	});
+        ArrayList<Comment> commentList = new ArrayList<Comment>();
+        Course course = courses.get(courseNumber);
+        course.getPosts().stream().forEach(post -> commentList.addAll(post.getComments()));
+        if(commentList.size() < 2) return commentList;
+        commentList.sort(Comparator.comparing(Comment::getVotes));
     	return commentList;
     }
 
-
-
-    //sortAUthor
-    //sortuUpvotes
+    public ArrayList<Comment> sortByAuthor(Course course){
+        ArrayList<Comment> out = new ArrayList<Comment>(0);
+        course.getPosts().stream().forEach(post -> out.addAll(post.getComments()));
+        if(out.size() <= 1) return out;
+        Collections.sort(out, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+        return out;
+    }
 }

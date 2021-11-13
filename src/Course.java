@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Course {
     String name;
@@ -52,7 +54,7 @@ public class Course {
     }
 
     public String toString(){
-        String out = String.format("Course:%s,%s", name, owner.getUsername());
+        String out = String.format("Course:%s,%s\n", name, owner.getUsername());
         for(Post post: posts) out += String.format("%s\nEND OF POST\n", post.toString());
         out += "END OF COURSE\n";
         return out;
@@ -63,6 +65,21 @@ public class Course {
         for (Post p : posts) {
             System.out.println(p.getTopic());
         }
+    }
+
+    public void displayDashboard(boolean sortByVotes){
+        ArrayList<Comment> commentList = new ArrayList<Comment>();
+        posts.stream().forEach(post -> commentList.addAll(post.getComments()));
+        // if(commentList.size() <= 1) return commentList;
+        if(sortByVotes) commentList.sort(Comparator.comparing(Comment::getVotes));
+        else Collections.sort(commentList, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+        System.out.printf("Dashboard for %s\n", name);
+        commentList.stream()
+            .forEach(comment -> 
+            { 
+                System.out.printf("(Post: %s)   ");
+                comment.displayComment();
+            });
     }
 
     public boolean equals(Object o){
