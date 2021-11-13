@@ -177,4 +177,7 @@ public class ProgramManager {
         return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
 
+
+    //sortAUthor
+    //sortuUpvotes
 }
