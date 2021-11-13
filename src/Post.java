@@ -54,6 +54,7 @@ public class Post {
     public String getTimestamp(){
         return this.timestamp;
     }
+    
     public void addComment(Comment comment) {
         comments.add(comment);
     }
@@ -83,6 +84,10 @@ public class Post {
         return out;
     }
 
+    public ArrayList<Comment> getComments() {
+    	return comments;
+    }
+    
     public void displayPost(){
         System.out.println(topic + "\n");
         System.out.println(content);
