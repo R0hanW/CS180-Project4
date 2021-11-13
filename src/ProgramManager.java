@@ -189,21 +189,21 @@ public class ProgramManager {
         //return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
     }
     
-    //returns list of comments sorted by votes in descending order
-    public ArrayList<Comment> sortByVotes(int courseNumber) {
-        ArrayList<Comment> commentList = new ArrayList<Comment>();
-        Course course = courses.get(courseNumber);
-        course.getPosts().stream().forEach(post -> commentList.addAll(post.getComments()));
-        if(commentList.size() < 2) return commentList;
-        commentList.sort(Comparator.comparing(Comment::getVotes));
-    	return commentList;
-    }
+    // //returns list of comments sorted by votes in descending order
+    // public ArrayList<Comment> sortByVotes(int courseNumber) {
+    //     ArrayList<Comment> commentList = new ArrayList<Comment>();
+    //     Course course = courses.get(courseNumber);
+    //     course.getPosts().stream().forEach(post -> commentList.addAll(post.getComments()));
+    //     if(commentList.size() < 2) return commentList;
+    //     commentList.sort(Comparator.comparing(Comment::getVotes));
+    // 	return commentList;
+    // }
 
-    public ArrayList<Comment> sortByAuthor(Course course){
-        ArrayList<Comment> out = new ArrayList<Comment>(0);
-        course.getPosts().stream().forEach(post -> out.addAll(post.getComments()));
-        if(out.size() <= 1) return out;
-        Collections.sort(out, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-        return out;
-    }
+    // public ArrayList<Comment> sortByAuthor(Course course){
+    //     ArrayList<Comment> out = new ArrayList<Comment>(0);
+    //     course.getPosts().stream().forEach(post -> out.addAll(post.getComments()));
+    //     if(out.size() <= 1) return out;
+    //     Collections.sort(out, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+    //     return out;
+    // }
 }
