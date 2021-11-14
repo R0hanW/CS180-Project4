@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+=======
+User{name="John Doe",username="JDoe25",password="password123",isTeacher="false"}
+User{name="Rohan ",username="r0hanw",password="test",isTeacher="true"}
+User{name="Chen",username="chen4002",password="password012",isTeacher="false"}
+>>>>>>> parent of efdb718 (Merge branch 'main' of https://github.com/R0hanW/CS180-Project4 into main)
