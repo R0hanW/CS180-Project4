@@ -80,8 +80,8 @@ public class Post {
     }
 
     public String toString(){
-        String out = String.format("Post:%s,%s,%s,%s\nComments:\n", owner.getUsername(), content, topic, timestamp);
-        for(Comment comment: comments) out += String.format("%s\n", comment.toString());
+        String out = String.format("Post:%s,%s,%s,%s\n", owner.getUsername(), content, topic, timestamp);
+        for(Comment comment: comments) out += String.format("Comment:%s\n", comment.toString());
         return out;
     }
 
