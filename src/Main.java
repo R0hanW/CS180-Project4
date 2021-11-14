@@ -158,7 +158,8 @@ public class Main {
                                     //display courses etc
                                     System.out.println(explanation);
                                     for (int i = 0; i < courses.size(); i++) {
-                                        System.out.printf("[%d]%s\n", i + 1, courses.get(i).getName());
+                                        //System.out.printf("[%d]%s\n", i + 1, courses.get(i).getName());
+                                        System.out.println("[" + i+1+ "] " + courses.get(i).getName());
                                     }
 
                                     int courseNum = scan.nextInt() - 1;
@@ -195,16 +196,61 @@ public class Main {
                                             if((postNum)<posts.size()){
                                                 Post currentPost = posts.get(postNum);
                                                 currentCourse.modifyPost(currentPost,postDisc,postTopic,currentUser);
+                                                System.out.println("Post Edited successfully");
                                             }
                                         }
                                         else if(input3 == 3){
-                                            System.out.println("Enter the Number next to the post you want to edit");
+                                            System.out.println("Enter the Number next to the post you want to delete ");
                                             int postNum = scan.nextInt()-1;
                                             scan.nextLine();
                                             if((postNum)<posts.size()){
                                                 Post currentPost = posts.get(postNum);
-                                                //currentCourse.modifyPost(currentPost,)
+                                                currentPost.removePost();
+                                                System.out.println("Post deleted successfully");
                                             }
+                                        }
+                                        else if(input3 == 4){
+                                            boolean back1 = false;
+                                            do {
+                                                back1 = false;
+                                                System.out.println("Enter the number next to the post you want to view");
+                                                int postNum = scan.nextInt() - 1;
+                                                scan.nextLine();
+                                                if (postNum < posts.size()) {
+                                                    Post currentPost = posts.get(postNum);
+                                                    currentPost.displayPost();
+                                                    System.out.println(explanation);
+                                                    System.out.println("[1]Reply to this post");
+                                                    System.out.println("[2]Reply to student responses");
+                                                    System.out.println("[3]Back");
+                                                    int input5 = scan.nextInt();
+                                                    scan.nextLine();
+                                                    if(input5 == 1){
+                                                        System.out.println("Enter your text below");
+                                                        String input6 = scan.nextLine();
+                                                        currentPost.addComment(new Comment(currentUser,currentPost,input6));
+                                                        System.out.println("Comment added");
+                                                    }
+                                                    else if(input5 == 2){
+                                                        ArrayList<Comment> comments = currentPost.getComments();
+                                                        System.out.println("Enter the number next to the response" +
+                                                                " you want to reply");
+                                                        int replyNum = scan.nextInt()-1;
+                                                        scan.nextLine();
+                                                        if(replyNum<comments.size()){
+                                                            System.out.println("Enter your text below");
+                                                            String text = scan.nextLine();
+                                                            Comment currentComment = comments.get(replyNum);
+
+                                                            currentComment.addReply(new Comment(currentUser,currentPost,text));
+                                                        }
+
+                                                    }
+                                                    else if(input5 == 3){
+                                                        back1 = true;
+                                                    }
+                                                }
+                                            }while(back1);
                                         }
                                     }
                                 } else if (input == 3) {
@@ -224,9 +270,77 @@ public class Main {
                             if (input3 == 1) {
                                 //program.readFile();
                                 //System.out.println("HERE");
+                                //display courses etc
+                                System.out.println(explanation);
                                 for (int i = 0; i < courses.size(); i++) {
-                                    System.out.println(explanation);
+                                    //System.out.printf("[%d]%s\n", i + 1, courses.get(i).getName());
+                                    System.out.println("[" + i+1+ "] " + courses.get(i).getName());
+                                }
 
+                                int courseNum = scan.nextInt() - 1;
+                                scan.nextLine();
+                                if(courseNum<courses.size()){
+                                    Course currentCourse = courses.get(courseNum);
+                                    System.out.println("Existing posts are below: ");
+                                    currentCourse.displayCourse();//displays posts list
+                                    ArrayList<Post> posts = currentCourse.getPosts();
+                                    System.out.println(explanation);
+                                    //System.out.println("[1]Display post");
+                                    System.out.println("[1]View post");
+                                    int input9 = scan.nextInt();
+                                    scan.nextLine();
+                                    if(input9 == 1) {
+                                        System.out.println("Enter the post topic");
+                                        String postTopic = scan.nextLine();
+                                        System.out.println(("Enter the post description"));
+                                        String postDisc = scan.nextLine();
+                                        currentCourse.addPost(new Post(currentUser,currentCourse,postDisc,postTopic));
+                                        System.out.println("Post added successfully");
+                                    }
+
+                                    else if(input9 == 1){
+                                        boolean back1 = false;
+                                        do {
+                                            back1 = false;
+                                            System.out.println("Enter the number next to the post you want to view");
+                                            int postNum = scan.nextInt() - 1;
+                                            scan.nextLine();
+                                            if (postNum < posts.size()) {
+                                                Post currentPost = posts.get(postNum);
+                                                currentPost.displayPost();
+                                                System.out.println(explanation);
+                                                System.out.println("[1]Reply to this post");
+                                                System.out.println("[2]Reply to other student responses");
+                                                System.out.println("[3]Back");
+                                                int input5 = scan.nextInt();
+                                                scan.nextLine();
+                                                if(input5 == 1){
+                                                    System.out.println("Enter your text below");
+                                                    String input6 = scan.nextLine();
+                                                    currentPost.addComment(new Comment(currentUser,currentPost,input6));
+                                                    System.out.println("Comment added");
+                                                }
+                                                else if(input5 == 2){
+                                                    ArrayList<Comment> comments = currentPost.getComments();
+                                                    System.out.println("Enter the number next to the response" +
+                                                            " you want to reply");
+                                                    int replyNum = scan.nextInt()-1;
+                                                    scan.nextLine();
+                                                    if(replyNum<comments.size()){
+                                                        System.out.println("Enter your text below");
+                                                        String text = scan.nextLine();
+                                                        Comment currentComment = comments.get(replyNum);
+
+                                                        currentComment.addReply(new Comment(currentUser,currentPost,text));
+                                                    }
+
+                                                }
+                                                else if(input5 == 3){
+                                                    back1 = true;
+                                                }
+                                            }
+                                        }while(back1);
+                                    }
                                 }
 
 
@@ -251,3 +365,4 @@ public class Main {
         }
     }
 }
+

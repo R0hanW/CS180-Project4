@@ -1,5 +1,5 @@
-Course:test,test
-Post:test,weewaa,weewaa,14/11 01:46
+Course:testing,test
+Post:arjav,test,test,14/11 04:56
 
 END OF POST
 END OF COURSE
