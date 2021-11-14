@@ -147,8 +147,56 @@ public class Main {
                                     courseAdded = true;
                                 } else if (input == 2) {
                                     //display courses etc
+                                    System.out.println(explanation);
                                     for (int i = 0; i < courses.size(); i++) {
-                                        System.out.printf("[%d]%s\n", i+1, courses.get(i).getName());
+                                        System.out.printf("[%d]%s\n", i + 1, courses.get(i).getName());
+                                    }
+
+                                    int courseNum = scan.nextInt() - 1;
+                                    scan.nextLine();
+                                    if(courseNum<courses.size()){
+                                        Course currentCourse = courses.get(courseNum);
+                                        System.out.println("Existing posts are below: ");
+                                        currentCourse.displayCourse();//displays posts list
+                                        ArrayList<Post> posts = currentCourse.getPosts();
+                                        System.out.println(explanation);
+                                        //System.out.println("[1]Display post");
+                                        System.out.println("[1]Create post");
+                                        System.out.println("[2]Edit post");
+                                        System.out.println("[3]Delete post");
+                                        System.out.println("[4]View Post");
+                                        int input3 = scan.nextInt();
+                                        scan.nextLine();
+                                        if(input3 == 1) {
+                                            System.out.println("Enter the post topic");
+                                            String postTopic = scan.nextLine();
+                                            System.out.println(("Enter the post description"));
+                                            String postDisc = scan.nextLine();
+                                            currentCourse.addPost(new Post(currentUser,currentCourse,postDisc,postTopic));
+                                            System.out.println("Post added successfully");
+                                        }
+                                        else if(input3 == 2){
+                                            System.out.println("Enter the Number next to the post you want to edit");
+                                            int postNum = scan.nextInt()-1;
+                                            scan.nextLine();
+                                            System.out.println("Enter the new post topic");
+                                            String postTopic = scan.nextLine();
+                                            System.out.println(("Enter the new post description"));
+                                            String postDisc = scan.nextLine();
+                                            if((postNum)<posts.size()){
+                                                Post currentPost = posts.get(postNum);
+                                                currentCourse.modifyPost(currentPost,postDisc,postTopic,currentUser);
+                                            }
+                                        }
+                                        else if(input3 == 3){
+                                            System.out.println("Enter the Number next to the post you want to edit");
+                                            int postNum = scan.nextInt()-1;
+                                            scan.nextLine();
+                                            if((postNum)<posts.size()){
+                                                Post currentPost = posts.get(postNum);
+                                                //currentCourse.modifyPost(currentPost,)
+                                            }
+                                        }
                                     }
                                 } else if (input == 3) {
                                     back = true;
@@ -166,13 +214,12 @@ public class Main {
                             System.out.println(input3);
                             if (input3 == 1) {
                                 //program.readFile();
-                                System.out.println("HERE");
+                                //System.out.println("HERE");
                                 for (int i = 0; i < courses.size(); i++) {
-                                    if (courses.get(i).getOwner() == currentUser) {
-                                        System.out.println("Here1");
-                                        System.out.println("[" + i + 1 + "]" + courses.get(i).getName());
-                                    }
+                                    System.out.println(explanation);
+
                                 }
+
 
                                 //display courses and within there display discussion post
                             } else if (input3 == 2) {
