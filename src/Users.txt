@@ -1,4 +1,2 @@
-<<<<<<< HEAD
-=======
+User{name="arjav",username="arjav",password="arjav",isTeacher="true"}
 User{name="test",username="test",password="test",isTeacher="true"}
->>>>>>> fd5fa55ada176b8dcae450d3ec5c9069de8e67be

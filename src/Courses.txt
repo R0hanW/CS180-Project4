@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-Course:test2,arjav
-END OF COURSE
+Course:maths,arjav
+Post:arjav,maths2,maths,14/11 01:30
 
-Course:test,arjav
-=======
-Course:test,test
->>>>>>> fd5fa55ada176b8dcae450d3ec5c9069de8e67be
+END OF POST
 END OF COURSE
 
