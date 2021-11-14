@@ -149,6 +149,22 @@ public class ProgramManager {
         	e.printStackTrace();
         }
     }
+    public String readUserFileImport(String filename) throws FileNotFoundException {
+    	String text = "";
+    	File f = new File(filename);
+    	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+    		String line = bfr.readLine();
+    		while (line != null) {
+    			text += line;
+    			text = bfr.readLine();
+    		}
+    	} catch (FileNotFoundException e) {
+    		throw e;
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	return text;
+    }
     public void addCourse(Course course){
         courses.add(course);
     }
