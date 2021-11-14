@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Post {
     private User owner;
@@ -103,9 +104,24 @@ public class Post {
         for(Comment comment: comments) comment.displayComment(false, true);
     }
 
-    public boolean equals(Object o){
-        if(!(o instanceof Post)) return false;
-        Post obj = (Post) o;
-        return obj.getOwner().equals(this.owner) && obj.getContent().equals(this.content) && obj.getTopic().equals(this.topic) && obj.getCourse().equals(this.course);
-    } 
+//    public boolean equals(Object o){
+//        if(!(o instanceof Post)) return false;
+//        Post obj = (Post) o;
+//        return obj.getOwner().equals(this.owner) && obj.getContent().equals(this.content) && obj.getTopic().equals(this.topic) && obj.getCourse().equals(this.course);
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(owner, post.owner) &&
+                Objects.equals(content, post.content) &&
+                Objects.equals(topic, post.topic) &&
+                Objects.equals(course, post.course) &&
+                Objects.equals(comments, post.comments) &&
+                Objects.equals(timestamp, post.timestamp);
+    }
+
+
 }
