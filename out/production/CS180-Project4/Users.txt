@@ -1,0 +1,1 @@
+User{name="John Doe",username="JDoe25",password="password123",isTeacher="false"}

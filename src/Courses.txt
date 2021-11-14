@@ -1,12 +1,4 @@
 Course:test2,r0hanw
-<<<<<<< HEAD
 Post:arjav,testing if create post works,testing,13/11 22:56
 END OF POST
 END OF COURSE
-=======
-END OF COURSE
-
-Course:test,r0hanw
-END OF COURSE
-
->>>>>>> parent of efdb718 (Merge branch 'main' of https://github.com/R0hanW/CS180-Project4 into main)
