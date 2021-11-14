@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Course {
     String name;
@@ -83,9 +84,18 @@ public class Course {
             });
     }
 
-    public boolean equals(Object o){
-        if(!(o instanceof Course)) return false;
-        Course obj = (Course) o;
-        return obj.getName().equals(this.name) && obj.getOwner().equals(this.owner) && obj.getPosts().equals(this.posts);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(name, course.name) &&
+                Objects.equals(owner, course.owner) &&
+                Objects.equals(posts, course.posts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, owner, posts);
     }
 }

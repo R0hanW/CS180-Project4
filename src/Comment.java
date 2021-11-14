@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.io.*;
-import java.time.format.DateTimeFormatter;    
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Comment {
     private User owner;
@@ -123,4 +124,20 @@ public class Comment {
     public String toString(boolean reply){
         return String.format("%s,%s,%s,%s");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return votes == comment.votes &&
+                Double.compare(comment.grade, grade) == 0 &&
+                Objects.equals(owner, comment.owner) &&
+                Objects.equals(post, comment.post) &&
+                Objects.equals(content, comment.content) &&
+                Objects.equals(timestamp, comment.timestamp) &&
+                Objects.equals(replies, comment.replies);
+    }
+
+
 }
