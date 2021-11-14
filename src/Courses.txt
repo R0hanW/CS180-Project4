@@ -1,13 +1,4 @@
 Course:test2,r0hanw
 Post:arjav,testing if create post works,testing,13/11 22:56
-Comments:
-
 END OF POST
 END OF COURSE
-
-Course:test,r0hanw
-END OF COURSE
-
-Course:test3,arjav
-END OF COURSE
-

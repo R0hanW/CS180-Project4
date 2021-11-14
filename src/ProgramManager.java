@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -68,8 +69,9 @@ public class ProgramManager {
                 course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
             }
             else if(message.contains("Post")) {
-                message = message.replaceAll(".*:", "");
+                message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
+                System.out.println(Arrays.toString(messageArr));
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
             }
             else if(message.contains("Comment")){
