@@ -70,7 +70,7 @@ public class ProgramManager {
                 course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
             }
             else if(message.contains("Post")) {
-                message = message.replaceAll(".*:", "");
+                message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
             }
@@ -85,7 +85,7 @@ public class ProgramManager {
                 messageArr = message.split(";");
                 for(String reply: messageArr){
                     replyArr = reply.split(",");
-                    replyComment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
+                    replyComment = new Comment(findUser(replyArr[0]), post, replyArr[2], replyArr[3]);
                     comment.addReply(replyComment);
                 }
             }
