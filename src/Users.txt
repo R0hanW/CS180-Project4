@@ -1,2 +1,0 @@
-User{name="arjav",username="arjav",password="arjav",isTeacher="true"}
-User{name="test",username="test",password="test",isTeacher="true"}

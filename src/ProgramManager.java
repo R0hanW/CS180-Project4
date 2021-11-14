@@ -177,12 +177,7 @@ public class ProgramManager {
     }
     public boolean removeUser(User user){ // works
         user.removeComments();
-		for (int i = 0; i <users.size(); i++){
-			if(users.get(i).equals(user)){
-				users.remove(i);
-				return true;
-			}
-		}
+		users.remove(user);
 		return false; //if user asked to remove doesnt exist
     }
     public void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher){ // works
