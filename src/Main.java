@@ -10,7 +10,13 @@ public class Main {
         User currentUser = null;
         //all the menus go here (asking to login/modify/log out etc.)
         Scanner scan = new Scanner(System.in);
-        ProgramManager program = new ProgramManager();
+        ProgramManager program;
+        try{
+            program = new ProgramManager();
+        } catch(Exception e) {
+            System.out.println("Error reading user and course files. Please restart the program!");
+            return;
+        }
 
         System.out.println("Welcome to Discussion Posts");
 
@@ -61,8 +67,11 @@ public class Main {
             if (signUpResponse == 1 || input == 2) {
                 System.out.println("What is your name");
                 String newName = scan.nextLine();
-                System.out.println("Enter the name you would like to keep for your username");
-                String newUsername = scan.nextLine();
+                String newUsername = "";
+                do {
+                    System.out.println("Enter the name you would like to keep for your username");
+                    newUsername = scan.nextLine(); 
+                } while(program.findUser(newUsername) != null);
                 System.out.println("Enter what would you like to be for your password");
                 String newPassword = scan.nextLine();
                 System.out.println("Are you a teacher?");
@@ -187,6 +196,11 @@ public class Main {
             } while (back);
             break;
         } while (false);
-        program.writeFile();
+        try {
+            program.writeFile();
+        } catch (Exception e) {
+            System.out.println("Error writing to files. Data may not be saved! Please try again.");
+            return;
+        }
     }
 }

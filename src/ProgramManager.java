@@ -23,32 +23,24 @@ public class ProgramManager {
         return courses;
     }
 
-    public ProgramManager(){
+    public ProgramManager() throws Exception{
         readUserFile();
         readFile();
     }
 
-    public void writeFile(){// works
+    public void writeFile() throws Exception{// works
         //write from arraylist to txt files
         //updates the txt files
     	//if writing to the user storage file
         File f = new File("src/Users.txt");
-        try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
-            for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
-                pw.println(users.get(i).toString());
-            }
-        } catch (IOException e) {	//exception handling
-            e.printStackTrace();
+        PrintWriter pw = new PrintWriter(new FileWriter(f, false));
+        for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
+            pw.println(users.get(i).toString());
         }
         //writes to Courses.txt
-        PrintWriter pw;
-        try {
-            pw = new PrintWriter(new FileWriter(new File("src/Courses.txt"), false));
-            for(Course course: courses) pw.println(course.toString());
-            pw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        pw = new PrintWriter(new FileWriter(new File("src/Courses.txt"), false));
+        for(Course course: courses) pw.println(course.toString());
+        pw.close();
     	// } else {	//if writing to post storage file
     	// 	File f = new File("Posts.txt");
     	// 	try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
@@ -60,50 +52,44 @@ public class ProgramManager {
         //     }
     	// }
     }
-    public void readFile(){
+    public void readFile() throws Exception{
          //reads from Courses.txt (won't work unless users has already been read)
-         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/Courses.txt"));
-            String message;
-            Course course = null;
-            Post post = null;
-            Comment comment = null;
-            String[] messageArr;
-            while((message = reader.readLine()) != null){
-                if(message.contains("Course")) {
-                    //finds everything after colon in message
-                    message = message.replaceAll(".*:", "");
-                    //.split(",") returns an array that splits the message by comma
-                    course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
-                }
-                else if(message.contains("Post")) {
-                    message = message.replaceAll(".*:", "");
-                    messageArr = message.split(",");
-                    post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
-                }
-                else if(message.contains("Comment")){
-                    message = message.replaceAll(".*:", "");
-                    messageArr = message.split(",");
-                    comment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
-                    post.addComment(comment);
-                }
-                else if(message.equals("END OF POST")){
-                    course.addPost(post);
-                }
-                else if(message.equals("END OF COURSE")){
-                    courses.add(course);
-                }
-                else{
-                    //should never reach this else statement, for debugging purposes
-                    System.out.println("AAAAAAAAAH");
-                }
+        BufferedReader reader = new BufferedReader(new FileReader("src/Courses.txt"));
+        String message;
+        Course course = null;
+        Post post = null;
+        Comment comment = null;
+        String[] messageArr;
+        while((message = reader.readLine()) != null){
+            if(message.contains("Course")) {
+                //finds everything after colon in message
+                message = message.replaceAll(".*:", "");
+                //.split(",") returns an array that splits the message by comma
+                course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
             }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch(IOException e){
-            e.printStackTrace();
+            else if(message.contains("Post")) {
+                message = message.replaceAll(".*:", "");
+                messageArr = message.split(",");
+                post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
+            }
+            else if(message.contains("Comment")){
+                message = message.replaceAll(".*:", "");
+                messageArr = message.split(",");
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
+                post.addComment(comment);
+            }
+            else if(message.equals("END OF POST")){
+                course.addPost(post);
+            }
+            else if(message.equals("END OF COURSE")){
+                courses.add(course);
+            }
+            else{
+                //should never reach this else statement, for debugging purposes
+                System.out.println("AAAAAAAAAH");
+            }
         }
+        reader.close();
     }
     public void readUserFile(){ // works
         //parse through the lines in the file to the Array list
