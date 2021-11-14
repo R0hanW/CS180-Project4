@@ -78,7 +78,7 @@ public class Course {
             .forEach(comment -> 
             { 
                 System.out.printf("(Post: %s)   ");
-                comment.displayComment();
+                comment.displayComment(false);
             });
     }
 
