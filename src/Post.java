@@ -57,6 +57,7 @@ public class Post {
     
     public void addComment(Comment comment) {
         comments.add(comment);
+        comment.setPost(this);
     }
 
     public void addComment(User author, String content){
@@ -89,11 +90,15 @@ public class Post {
     }
     
     public void displayPost(){
-        System.out.println(topic + "\n");
+        System.out.println(topic + "    " + timestamp + "\n" );
         System.out.println(content);
         for (Comment c : comments){
-            System.out.println(c);
+            c.displayComment(true);
         }
+    }
+
+    public void displayUserDashboard(User user){
+        for(Comment comment: comments) comment.displayComment(false, true);
     }
 
     public boolean equals(Object o){

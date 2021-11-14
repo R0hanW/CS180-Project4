@@ -46,6 +46,10 @@ public class Comment {
         return this.post;
     }
 
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     public ArrayList<Comment> getComments() {
     	return replies;
     }
@@ -65,13 +69,13 @@ public class Comment {
     public int getVotes() {
     	return votes;
     }
-    
-    public void setGrade(double grade) {
-    	this.grade = grade;
-    }
-    
+
     public double getGrade() {
-    	return grade;
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
     }
 
     public ArrayList<Comment> getReplies() {
@@ -90,11 +94,21 @@ public class Comment {
         post.removeComment(this);
     }
 
-    public void displayComment(){
+    public void displayComment(boolean displayReplies){
         System.out.println(owner.getName() + "\t" + timestamp);
         System.out.println(content);
-        for(Comment r : replies){
-            System.out.println(r);
+        if(displayReplies) {
+            for(Comment r : replies) System.out.println(r.toString());
+        }
+        System.out.println();
+    }
+
+    public void displayComment(boolean displayReplies, boolean displayGrade){
+        if(displayGrade) System.out.println(owner.getName() + "\t" + timestamp + "Grade" + grade);
+        else System.out.println(owner.getName() + "\t" + timestamp);
+        System.out.println(content);
+        if(displayReplies) {
+            for(Comment r : replies) System.out.println(r.toString());
         }
         System.out.println();
     }

@@ -52,5 +52,4 @@ public class User {
     	return String.format("User{name=\"%s\",username=\"%s\",password=\"%s\",isTeacher=\"%b\"}", 
     			name, username, password, isTeacher);
     }
-
 }
