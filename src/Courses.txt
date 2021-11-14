@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 Course:test2,arjav
 END OF COURSE
 
 Course:test,arjav
+=======
+Course:test,test
+>>>>>>> fd5fa55ada176b8dcae450d3ec5c9069de8e67be
 END OF COURSE
 
