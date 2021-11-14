@@ -61,7 +61,7 @@ public class Course {
     }
 
     public void displayCourse(){
-        System.out.println(name + "\n");
+        //System.out.println(name + "\n");
         for (Post p : posts) {
             System.out.println(p.getTopic());
         }
