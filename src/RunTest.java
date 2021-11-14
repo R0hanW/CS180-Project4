@@ -53,67 +53,91 @@ public class RunTest {
             testOut = new ByteArrayOutputStream();
             System.setOut(new PrintStream(testOut));
         }
-
+        
         @Test(timeout = 1000)
-        public void testMain() {
-            
-            String input = "1\nJDoe25\npassword123\n4\n";
-            
-            receiveInput(input);
+        public void testRun1() {
+            // Set the input        
+            // Separate each input with a newline (\n). 
+            String input = "1\nJDoe25\npassword123\n4\n"; 
 
-            try {
-                Main.main(new String[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                fail("Unexpected exception!");
-            }
-            String out = getOutput();
-
-            String expectedFull = "Welcome to Discussion Posts\n"
+            // Pair the input with the expected result
+            String expected = "Welcome to Discussion Posts\n"
             		+ "Type the number next to the option you would like to choose\n"
             		+ "[1]Log In\n"
             		+ "[2]Sign Up\n"
             		+ "[3]Exit\n"
-            		+ "1\n"
             		+ "Enter the Username\n"
-            		+ "JDoe25\n"
             		+ "Enter the Password\n"
-            		+ "password123\n"
             		+ "Logged In Successfully!\n"
             		+ "Type the number next to the option you would like to choose\n"
             		+ "[1]Edit my Account\n"
             		+ "[2]Delete my Account\n"
             		+ "[3]Proceed to Courses\n"
-            		+ "[4]Log out\n"
-            		+ "4\n"
-            		+ "";
-            assertEquals("Ensure your PlayGame.java output contains the correct winning information!", expectedFull, out);
-            
-            String gameLog = "";
-            try { 
-                FileReader fr = new FileReader("GameLog.txt");
-                BufferedReader br = new BufferedReader(fr);
-                String line = br.readLine();
-                while (line != null) {
-                    gameLog += line;
-                    gameLog += "\n";
-                    line = br.readLine();
-                }
-                fr.close();
-                br.close();
-            } catch (Exception ex) {
-                ex.printStackTrace(); 
-                Assert.fail("Unexpected Exception!"); 
-            }
-            
-            String expectedGameLog = "Battleship Game Log:\nWinning Player: Player 2\nHits: 0 - 17\n" +
-                "Number of Turns To Win: 17\nPlayer 1 Board Pattern: Bottom Heavy\nPlayer 2 Board Pattern: Bottom Heavy\n"; 
-            
-            assertEquals("Ensure your GameLog.txt file output is correct", 
-                         expectedGameLog, gameLog);
+            		+ "[4]Log out\n";
+
+            // Runs the program with the input values
+            // Replace TestProgram with the name of the class with the main method
+            receiveInput(input);
+            Main.main(new String[0]);
+
+            // Retrieves the output from the program
+            String stuOut = getOutput();
+
+            // Trims the output and verifies it is correct. 
+            stuOut = stuOut.replace("\r\n", "\n");
+            assertEquals("Error message if output is incorrect, customize as needed",
+                            expected.trim(), stuOut.trim());
 
         }
+        
+        
+        @Test(timeout = 1000)
+        public void testRun2() {
+            // Set the input        
+            // Separate each input with a newline (\n). 
+            String input = "2\nAidan Chen\nchen4002\npassword123\n1\n"
+            		+ "1\nchen4002\npassword123\n4\n"; 
 
+            // Pair the input with the expected result
+            String expected = "Welcome to Discussion Posts\n"
+            		+ "Type the number next to the option you would like to choose\n"
+            		+ "[1]Log In\n"
+            		+ "[2]Sign Up\n"
+            		+ "[3]Exit\n"
+            		+ "What is your name\n"
+            		+ "Enter the name you would like to keep for your username\n"
+            		+ "Enter what would you like to be for your password\n"
+            		+ "Are you a teacher?\n"
+            		+ "Type the number next to the option you would like to choose\n"
+            		+ "[1]Yes\n"
+            		+ "[2]No\n"
+            		+ "Type the number next to the option you would like to choose\n"
+            		+ "[1]Log In\n"
+            		+ "[2]Sign Up\n"
+            		+ "[3]Exit\n"
+            		+ "Enter the Username\n"
+            		+ "Enter the Password\n"
+            		+ "Logged In Successfully!\n"
+            		+ "Type the number next to the option you would like to choose\n"
+            		+ "[1]Edit my Account\n"
+            		+ "[2]Delete my Account\n"
+            		+ "[3]Proceed to Courses\n"
+            		+ "[4]Log out\n";
+
+            // Runs the program with the input values
+            // Replace TestProgram with the name of the class with the main method
+            receiveInput(input);
+            Main.main(new String[0]);
+
+            // Retrieves the output from the program
+            String stuOut = getOutput();
+
+            // Trims the output and verifies it is correct. 
+            stuOut = stuOut.replace("\r\n", "\n");
+            assertEquals("Error message if output is incorrect, customize as needed",
+                            expected.trim(), stuOut.trim());
+
+        }
         /**
          * UTILITY METHODS BELOW
          */
