@@ -114,8 +114,13 @@ public class Comment {
     }
 
     public String toString(){
-       String out = String.format("%s,%s,%s,%s\nReplies:");
-       for(Comment reply: replies) out += String.format("%s;", reply.toString());
+       String out = String.format("%s,%s,%s,%s\n");
+       if(replies.size() >= 1) out += "Replies:";
+       for(Comment reply: replies) out += String.format("%s;", reply.toString(true));
        return out;
+    }
+
+    public String toString(boolean reply){
+        return String.format("%s,%s,%s,%s");
     }
 }

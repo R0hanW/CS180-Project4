@@ -61,10 +61,12 @@ public class ProgramManager {
         Post post = null;
         Comment comment = null;
         String[] messageArr;
+        String[] replyArr;
+        Comment replyComment;
         while((message = reader.readLine()) != null){
             if(message.contains("Course")) {
                 //finds everything after colon in message
-                message = message.replaceAll(".*:", "");
+                message = message.substring(message.indexOf(":")+1);
                 //.split(",") returns an array that splits the message by comma
                 course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
             }
@@ -75,10 +77,19 @@ public class ProgramManager {
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
             }
             else if(message.contains("Comment")){
-                message = message.replaceAll(".*:", "");
+                message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
                 comment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
                 post.addComment(comment);
+            }
+            else if(message.contains("Replies")){
+                message = message.substring(message.indexOf(":")+1);
+                messageArr = message.split(";");
+                for(String reply: messageArr){
+                    replyArr = reply.split(",");
+                    replyComment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
+                    comment.addReply(replyComment);
+                }
             }
             else if(message.equals("END OF POST")){
                 course.addPost(post);
