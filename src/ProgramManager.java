@@ -37,6 +37,7 @@ public class ProgramManager {
         for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
             pw.println(users.get(i).toString());
         }
+        pw.flush();
         //writes to Courses.txt
         pw = new PrintWriter(new FileWriter(new File("src/Courses.txt"), false));
         for(Course course: courses) pw.println(course.toString());
