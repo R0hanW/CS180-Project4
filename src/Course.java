@@ -56,14 +56,14 @@ public class Course {
     public String toString(){
         String out = String.format("Course:%s,%s\n", name, owner.getUsername());
         for(Post post: posts) out += String.format("%s\nEND OF POST\n", post.toString());
-        out += "END OF COURSE";
+        out += "END OF COURSE\n";
         return out;
     }
 
     public void displayCourse(){
         System.out.println(name + "\n");
-        for (int i = 0; i < posts.size(); i++) {
-            System.out.println("["+ i+1 + "]" + posts.get(i).getTopic());
+        for (Post p : posts) {
+            System.out.println(p.getTopic());
         }
     }
 

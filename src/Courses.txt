@@ -1,4 +1,6 @@
 Course:test2,r0hanw
-Post:arjav,testing if create post works,testing,13/11 22:56
-END OF POST
 END OF COURSE
+
+Course:test,r0hanw
+END OF COURSE
+
