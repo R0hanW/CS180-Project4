@@ -90,7 +90,7 @@ public class Post {
     }
     
     public void displayPost(){
-        System.out.println(topic + "\n");
+        System.out.println(topic + "    " + timestamp + "\n" );
         System.out.println(content);
         for (Comment c : comments){
             c.displayComment(true);
