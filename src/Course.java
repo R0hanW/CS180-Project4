@@ -66,7 +66,6 @@ public class Course {
         for (int i = 0; i < posts.size(); i++) {
             System.out.println("["+ (i+1) + "]" + posts.get(i).getTopic());
         }
-
     }
 
     public void displayDashboard(boolean sortByVotes){
