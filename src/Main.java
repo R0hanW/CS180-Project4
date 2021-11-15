@@ -76,6 +76,11 @@ public class Main {
                         }
                         if(signUpResponse == 2){
                             System.out.println("Have a great day!");
+                            try {
+								program.writeFile();
+							} catch (Exception e) {
+								System.out.print("Error writing to file");
+							}
                             return;
                         }
                     }
@@ -279,7 +284,7 @@ public class Main {
                                                             runAgain = false;
 
                                                             try {
-                                                                program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
+                                                                program.readUserFileImport(filePath, true, currentCourse, new Post(), currentUser);
                                                             } catch (FileNotFoundException e) {
                                                                 System.out.println("File not found, try again");
                                                                 runAgain = true;
