@@ -82,6 +82,12 @@ public class Post {
         course.removePost(this);
     }
 
+    public boolean removePost(User user){
+        if(!user.isTeacher()) return false;
+        course.removePost(this);
+        return true;
+    }
+
     public String toString(){
         String out = String.format("Post:%s,%s,%s,%s\n", owner.getUsername(), content, topic, timestamp);
         for(Comment comment: comments) out += String.format("Comment:%s\n", comment.toString());
