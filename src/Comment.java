@@ -109,7 +109,7 @@ public class Comment {
         if(displayGrade) System.out.println(owner.getName() + "\t" + timestamp + "Grade" + grade);
         else System.out.println(owner.getName() + "\t" + timestamp);
         System.out.println(content);
-        System.out.printf("Likes: %d\n", likes);
+        System.out.printf("Likes: %d\n", votes);
         if(displayReplies) {
             for(Comment r : replies) System.out.println(r.toString());
         }
