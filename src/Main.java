@@ -328,8 +328,8 @@ public class Main {
                                                             System.out.println(explanation);
                                                             System.out.println("[1]Reply to this post");
                                                             System.out.println("[2]Reply to student responses");
-                                                            System.out.println("[3]View Dashboard");
-                                                            System.out.println("[4]Respond to Poll");
+                                                            System.out.println("[3]Grade student responses");
+                                                            System.out.println("[4]View Dashboard");
                                                             System.out.println("[5]Back");
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
@@ -369,7 +369,21 @@ public class Main {
                                                                     Comment currentComment = comments.get(replyNum);
                                                                     currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                                 }
-                                                            } else if (input5 == 3) {
+                                                            } else if(input5 == 3){
+                                                                ArrayList<Comment> comments = currentPost.getComments();
+                                                                System.out.println("Choose comment number to grade");
+                                                                int replyNum = scan.nextInt() - 1;
+                                                                if(replyNum < comments.size()){
+                                                                    System.out.println("What grade would you like to give them? (0.0-100.0)");
+                                                                    double grade = scan.nextInt();
+                                                                    while(grade < 0 && grade > 100){
+                                                                        System.out.println("Invalid grade!");
+                                                                        grade = scan.nextInt();
+                                                                    }
+                                                                    comments.get(replyNum).setGrade(grade);
+                                                                    System.out.printf("Comment %d has been given a grade of %d\n", replyNum, grade);
+                                                                }
+                                                            } else if (input5 == 4) {
                                                                 System.out.println(explanation);
                                                                 System.out.println("[1]Sort by votes");
                                                                 System.out.println("[2]Sort alphabetically");
@@ -380,17 +394,6 @@ public class Main {
                                                                 } else if (sort == 2) {
                                                                     currentPost.displayCommentDashboard(false);
                                                                 }
-                                                            } else if(input5 == 4) {
-                                                                if(currentPost.getPollOptions().size() == 0){
-                                                                    System.out.println("Poll does not exist for this post!");
-                                                                }
-                                                                currentPost.displayPoll();
-                                                                System.out.println("What option would you like to vote for?");
-                                                                int input6 = scan.nextInt();
-                                                                while(input6 <= currentPost.getPollOptions().size()){
-                                                                    System.out.println("Invalid option number! Please try again!");
-                                                                }
-                                                                currentPost.addPollVote(input6, currentUser);
                                                             } else if (input5 == 5) {
                                                                 back1 = true;
                                                             }
@@ -436,6 +439,7 @@ public class Main {
                                             scan.nextLine();
                                             if (input9 == 1) {
                                                 boolean back1 = false;
+                                                boolean back2 = false;
                                                 do {
                                                     back1 = false;
                                                     System.out.println("Enter the number next to the post you want to view");
@@ -447,8 +451,10 @@ public class Main {
                                                         System.out.println(explanation);
                                                         System.out.println("[1]Reply to this post");
                                                         System.out.println("[2]Reply to other student responses");
-                                                        System.out.println(("[3]Upvote responses"));
-                                                        System.out.println("[4]Back");
+                                                        System.out.println("[3]Upvote responses");
+                                                        System.out.println("[4]Respond to poll for this post");
+                                                        System.out.println("[5]View grades for this post");
+                                                        System.out.println("[6]Back");
                                                         int input5 = scan.nextInt();
                                                         scan.nextLine();
                                                         if (input5 == 1) {
@@ -466,15 +472,33 @@ public class Main {
                                                                 System.out.println("Enter your text below");
                                                                 String text = scan.nextLine();
                                                                 Comment currentComment = comments.get(replyNum);
-
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
-                                                            }
-
+                                                            } 
                                                         }else if(input5 == 3){
-                                                            //display comments for upvoting.
-                                                        }
-
-                                                         else if (input5 == 4) {
+                                                            ArrayList<Comment> comments = currentPost.getComments();
+                                                            System.out.println("Enter the number next to the response you want to upvote.");
+                                                            int replyNum = scan.nextInt() - 1;
+                                                            scan.nextLine();
+                                                            if(replyNum < comments.size()){
+                                                                comments.get(replyNum).addUserUpvote(currentUser);
+                                                            }
+                                                        } else if(input5 == 4){
+                                                            currentPost.displayGradeDashboard(currentUser);
+                                                            System.out.println("Press any character to go back:");
+                                                            scan.nextLine();
+                                                            back2 = true;
+                                                        } else if (input5 == 5){
+                                                            if(currentPost.getPollOptions().size() == 0){
+                                                                System.out.println("Poll does not exist for this post!");
+                                                            }
+                                                            currentPost.displayPoll();
+                                                            System.out.println("What option would you like to vote for?");
+                                                            int input6 = scan.nextInt();
+                                                            while(input6 <= currentPost.getPollOptions().size()){
+                                                                System.out.println("Invalid option number! Please try again!");
+                                                            }
+                                                            currentPost.addPollVote(input6, currentUser);
+                                                        } else if (input5 == 6) {
                                                             back1 = true;
                                                         }
                                                     }

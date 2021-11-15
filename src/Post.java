@@ -63,6 +63,7 @@ public class Post {
     
     public void addComment(Comment comment) {
         comments.add(comment);
+        comment.getOwner().addComment(comment);
         comment.setPost(this);
     }
 
@@ -70,7 +71,6 @@ public class Post {
         Comment comment = new Comment(author, this, content);
         comments.add(comment);
         author.addComment(comment);
-
     }
 
     public void removeComment(Comment comment){
@@ -131,7 +131,7 @@ public class Post {
     }
     
     public void displayPost(){
-        int counter = 0;
+        int counter = 1;
         System.out.println(topic + "    " + timestamp + "\n");
         System.out.println(content);
         if(pollOptions.size() > 0) this.displayPoll();
