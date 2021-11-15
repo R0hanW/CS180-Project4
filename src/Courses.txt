@@ -17,6 +17,12 @@ Comment:test,"One more test comment pls",11/15 04:41,0,0.0
 
 
 END OF POST
+Post:test,"Test description","Test Title",11/15 15:28
+
+END OF POST
+Post:test,"Test Description","New Post",11/15 15:29
+
+END OF POST
 END OF COURSE
 Course:oopsies,test
 END OF COURSE

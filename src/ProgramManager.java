@@ -160,12 +160,11 @@ public class ProgramManager {
             throws FileNotFoundException {
         File f = new File(filename);
         if (isPost) {
-            String[] text;
             try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
                 String line = bfr.readLine();
                 while (line != null) {
-                    if (line.contains("||")) {
-                        text = line.split("||");
+                    if (line.contains("|")) {
+                        String[] text = line.split("\\|");
                         course.posts.add(new Post(user, course, text[1], text[0]));
                     } else {
                         course.posts.add(new Post(user, course, line, "New Post"));
@@ -192,6 +191,7 @@ public class ProgramManager {
                 e.printStackTrace();
             }
         }
+        System.out.println("Successfully created.");
     }
     public void addCourse(Course course){
         courses.add(course);

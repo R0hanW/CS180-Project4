@@ -279,8 +279,11 @@ public class Main {
                                                     if (input10 == 1) {
                                                         boolean runAgain = false;
                                                         do {
-                                                            System.out.println("Type the file path name");
+                                                            System.out.println("Type the file path name or \"exit\"");
                                                             String filePath = scan.nextLine();
+                                                            if (filePath.equals("exit")) {
+                                                            	break;
+                                                            }
                                                             runAgain = false;
 
                                                             try {
