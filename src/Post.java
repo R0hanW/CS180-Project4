@@ -100,6 +100,11 @@ public class Post {
         pollResults.add(0);
     }
 
+    public void addPollOption(String pollOption, boolean addPollResult){
+        pollOptions.add(pollOption);
+        if(addPollResult) pollResults.add(0);
+    }
+
     public void addPollResult(int result){
         pollResults.add(result);
     }

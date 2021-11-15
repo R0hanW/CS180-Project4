@@ -73,7 +73,7 @@ public class ProgramManager {
             }
             else if(message.contains("pollOption")){
                 message = message.substring(message.indexOf(":")+1);
-                post.addPollOption(message);
+                post.addPollOption(message, false);
             }
             else if(message.contains("pollResult")){
                 message = message.substring(message.indexOf(":")+1);

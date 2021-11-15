@@ -64,15 +64,19 @@ public class Main {
                             try {
                                 signUpResponse = scan.nextInt();
                                 scan.nextLine();
-                                if (signUpResponse != 1 || signUpResponse !=2){
+                                if (signUpResponse != 1 && signUpResponse !=2){
                                     System.out.println("Enter a valid option");
-                                    continue;
+                                    
                                 }
-                                break;
+                                else break;
                             } catch (InputMismatchException i){
                                 scan.nextLine();
                                 System.out.println("Enter a valid number");
                             }
+                        }
+                        if(signUpResponse == 2){
+                            System.out.println("Have a great day!");
+                            return;
                         }
                     }
                 }
