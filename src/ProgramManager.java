@@ -96,10 +96,6 @@ public class ProgramManager {
             else if(message.equals("END OF COURSE")){
                 courses.add(course);
             }
-            else{
-                //should never reach this else statement, for debugging purposes
-                System.out.println("AAAAAAAAAH");
-            }
         }
         reader.close();
     }
@@ -147,21 +143,40 @@ public class ProgramManager {
             e.printStackTrace();
         }
     }
-    public String readUserFileImport(String filename) throws FileNotFoundException {
-        String text = "";
-        File f = new File(filename);
-        try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-            String line = bfr.readLine();
-            while (line != null) {
-                text += line;
-                text = bfr.readLine();
-            }
-        } catch (FileNotFoundException e) {
-            throw e;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return text;
+    public void readUserFileImport(String filename, boolean isPost) throws FileNotFoundException {
+
+    	File f = new File(filename);
+    	if (isPost) {
+        	String[] text;
+        	int split;
+        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+        		String line = bfr.readLine();
+        		while (line != null) {
+        			if (line.contains("||")) {
+        				text = line.split("||");
+
+        			}
+        			line = bfr.readLine();
+        		}
+        	} catch (FileNotFoundException e) {
+        		throw e;
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        	}
+    	} else {
+        	String text = "";
+        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+        		String line = bfr.readLine();
+        		while (line != null) {
+        			text += line;
+        			line = bfr.readLine();
+        		}
+        	} catch (FileNotFoundException e) {
+        		throw e;
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        	}
+    	}
     }
     public void addCourse(Course course){
         courses.add(course);

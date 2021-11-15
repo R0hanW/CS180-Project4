@@ -305,7 +305,7 @@ public class Main {
                                         System.out.println(explanation);
                                         for (int i = 0; i < courses.size(); i++) {
                                             //System.out.printf("[%d]%s\n", i + 1, courses.get(i).getName());
-                                            System.out.println("[" + i + 1 + "] " + courses.get(i).getName());
+                                            System.out.println("[" + (i + 1) + "] " + courses.get(i).getName());
                                         }
 
                                         int courseNum = scan.nextInt() - 1;

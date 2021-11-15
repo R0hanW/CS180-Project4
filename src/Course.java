@@ -57,7 +57,7 @@ public class Course {
     public String toString(){
         String out = String.format("Course:%s,%s\n", name, owner.getUsername());
         for(Post post: posts) out += String.format("%s\nEND OF POST\n", post.toString());
-        out += "END OF COURSE\n";
+        out += "END OF COURSE";
         return out;
     }
 

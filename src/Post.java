@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -100,15 +102,23 @@ public class Post {
         }
     }
 
-    public void displayUserDashboard(User user){
+    public void displayGradeDashboard(User user){
         for(Comment comment: comments) comment.displayComment(false, true);
     }
 
-//    public boolean equals(Object o){
-//        if(!(o instanceof Post)) return false;
-//        Post obj = (Post) o;
-//        return obj.getOwner().equals(this.owner) && obj.getContent().equals(this.content) && obj.getTopic().equals(this.topic) && obj.getCourse().equals(this.course);
-//    }
+    public void displayCommentDashboard(boolean sortByVotes){
+        ArrayList<Comment> sortedComments = comments;
+        // if(sortedComments.size() <= 1) return sortedComments;
+        if(sortByVotes) sortedComments.sort(Comparator.comparing(Comment::getVotes));
+        else Collections.sort(sortedComments, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+        System.out.printf("Dashboard for %s\n", topic);
+        sortedComments.stream()
+            .forEach(comment -> 
+            { 
+                System.out.printf("(Post: %s)   ");
+                comment.displayComment(false);
+            });
+    }
 
     @Override
     public boolean equals(Object o) {

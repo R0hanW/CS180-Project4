@@ -1,9 +1,12 @@
-Course:testing,test
+Course:testing,chen4002
 Post:arjav,test,test,14/11 04:56
 
 END OF POST
-Post:arjav,hi,hi,14/11 20:09
+Post:chen4002,this is a test,Testing,14/11 15:18
 
 END OF POST
 END OF COURSE
-
+Course:Math,testing
+END OF COURSE
+Course:Test2,testing
+END OF COURSE
