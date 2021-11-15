@@ -194,7 +194,7 @@ public class Main {
                                                 System.out.println(explanation);
                                                 //System.out.println("[1]Display post");
                                                 System.out.println("[1]Create post");
-                                                if (!postsExist) {
+                                                if (postsExist) {
                                                     System.out.println("[2]Edit post");
                                                     System.out.println("[3]Delete post");
                                                     System.out.println("[4]View Post");
