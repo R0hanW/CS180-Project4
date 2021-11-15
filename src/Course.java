@@ -73,21 +73,6 @@ public class Course {
         return true;
     }
 
-    public void displayDashboard(boolean sortByVotes){
-        ArrayList<Comment> commentList = new ArrayList<Comment>();
-        posts.stream().forEach(post -> commentList.addAll(post.getComments()));
-        // if(commentList.size() <= 1) return commentList;
-        if(sortByVotes) commentList.sort(Comparator.comparing(Comment::getVotes));
-        else Collections.sort(commentList, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-        System.out.printf("Dashboard for %s\n", name);
-        commentList.stream()
-            .forEach(comment -> 
-            { 
-                System.out.printf("(Post: %s)   ");
-                comment.displayComment(false);
-            });
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

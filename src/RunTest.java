@@ -1,6 +1,8 @@
 import org.junit.Test;
 import org.junit.After;
+
 import java.lang.reflect.Field;
+
 import org.junit.Assert;
 import org.junit.Before;
 
@@ -9,6 +11,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import java.io.*;
+
 import static org.hamcrest.CoreMatchers.containsString;
 
 import static org.junit.Assert.*;
@@ -55,64 +58,90 @@ public class RunTest {
         }
 
         @Test(timeout = 1000)
-        public void testMain() {
-            
-            String input = "1\nJDoe25\npassword123\n4\n";
-            
-            receiveInput(input);
+        public void testLogin() {
 
+            //String input = "1\nJDoe25\npassword123\n4\n";
+           /* String input = "3"+System.lineSeparator();
+            receiveInput(input);
+*/
             try {
+                String input = "1" + System.lineSeparator() + "JDoe25" + System.lineSeparator() + "password123" + System.lineSeparator() + "4" + System.lineSeparator();
+                receiveInput(input);
                 Main.main(new String[0]);
+                String out = getOutput();
+                String expectedFull = "Welcome to Discussion Posts" +
+                        System.lineSeparator() + System.lineSeparator() +
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Log In" + System.lineSeparator() +
+                        "[2]Sign Up" + System.lineSeparator() +
+                        "[3]Exit" + System.lineSeparator() + "Enter the Username" + System.lineSeparator() +
+                        "Enter the Password" +
+                        System.lineSeparator() +
+                        "Logged In Successfully!" + System.lineSeparator()+ System.lineSeparator() +
+
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Edit my Account" + System.lineSeparator() +
+                        "[2]Delete my Account" + System.lineSeparator() +
+                        "[3]Proceed to Courses" + System.lineSeparator() +
+                        "[4]Log out"
+                        + System.lineSeparator() +
+
+                        "Logged out Successfully!";
+                expectedFull = expectedFull.replaceAll("\r\n", "\n");
+                out = out.replaceAll("\r\n", "\n");
+                assertEquals("Ensure your Main matches output!", expectedFull.trim(), out.trim());
+
+
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Unexpected exception!");
             }
-            String out = getOutput();
-
-            String expectedFull = "Welcome to Discussion Posts\n"
-            		+ "Type the number next to the option you would like to choose\n"
-            		+ "[1]Log In\n"
-            		+ "[2]Sign Up\n"
-            		+ "[3]Exit\n"
-            		+ "1\n"
-            		+ "Enter the Username\n"
-            		+ "JDoe25\n"
-            		+ "Enter the Password\n"
-            		+ "password123\n"
-            		+ "Logged In Successfully!\n"
-            		+ "Type the number next to the option you would like to choose\n"
-            		+ "[1]Edit my Account\n"
-            		+ "[2]Delete my Account\n"
-            		+ "[3]Proceed to Courses\n"
-            		+ "[4]Log out\n"
-            		+ "4\n"
-            		+ "";
-            assertEquals("Ensure your PlayGame.java output contains the correct winning information!", expectedFull, out);
-            
-            String gameLog = "";
-            try { 
-                FileReader fr = new FileReader("GameLog.txt");
-                BufferedReader br = new BufferedReader(fr);
-                String line = br.readLine();
-                while (line != null) {
-                    gameLog += line;
-                    gameLog += "\n";
-                    line = br.readLine();
-                }
-                fr.close();
-                br.close();
-            } catch (Exception ex) {
-                ex.printStackTrace(); 
-                Assert.fail("Unexpected Exception!"); 
-            }
-            
-            String expectedGameLog = "Battleship Game Log:\nWinning Player: Player 2\nHits: 0 - 17\n" +
-                "Number of Turns To Win: 17\nPlayer 1 Board Pattern: Bottom Heavy\nPlayer 2 Board Pattern: Bottom Heavy\n"; 
-            
-            assertEquals("Ensure your GameLog.txt file output is correct", 
-                         expectedGameLog, gameLog);
-
         }
+        /*
+        @Test(timeout = 1000)
+        public void testIncorrectLogin() {
+            try {
+                String input = "1" + System.lineSeparator() + "PPurdue123" + System.lineSeparator() +
+                        "pass123" + System.lineSeparator() + "1" + System.lineSeparator()+"Purdue Pete"
+                        + System.lineSeparator() + "PPurdue123" + System.lineSeparator() +"pass123"
+                        + System.lineSeparator() + "1"+ System.lineSeparator() + "3";
+                receiveInput(input);
+                Main.main(new String[0]);
+                String out = getOutput();
+                String expectedFull = "Welcome to Discussion Posts" +
+                        System.lineSeparator() + System.lineSeparator() +
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Log In" + System.lineSeparator() +
+                        "[2]Sign Up" + System.lineSeparator() +
+                        "[3]Exit" + System.lineSeparator() + "Enter the Username" + System.lineSeparator() +
+                        "Enter the Password" +
+                        System.lineSeparator() +
+                        "Username doesn't exist, would you like to sign up?" + System.lineSeparator()+ System.lineSeparator() +
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Yes" + System.lineSeparator() +
+                        "[2]No" + System.lineSeparator() +
+                        "What is your name" + System.lineSeparator()+
+                        System.lineSeparator() +"Enter the name you would like to keep for your username" +
+                        System.lineSeparator() + "Enter what would you like to be for your password" + System.lineSeparator() +
+                        "Are you a teacher?" + System.lineSeparator() +System.lineSeparator() +
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Yes" + System.lineSeparator() +
+                        "[2]No" + System.lineSeparator() +
+                        "Successfully Signed Up!" + System.lineSeparator() + System.lineSeparator() +
+                        "Type the number next to the option you would like to choose" + System.lineSeparator() +
+                        "[1]Log In" + System.lineSeparator() +
+                        "[2]Sign Up" + System.lineSeparator() +
+                        "[3]Exit" + System.lineSeparator() ;
+                expectedFull = expectedFull.replaceAll("\r\n", "\n");
+                out = out.replaceAll("\r\n", "\n");
+                assertEquals("Ensure your Main matches output!", expectedFull.trim(), out.trim());
+
+
+            } catch (Exception e) {
+              //  e.printStackTrace();
+                fail("Unexpected exception!");
+            }
+        }*/
 
         /**
          * UTILITY METHODS BELOW

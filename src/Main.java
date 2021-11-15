@@ -2,8 +2,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
-
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String explanation = "Type the number next to the option you would like to choose";
         String yesNo = "[1]Yes\n[2]No";
         int signUpResponse = 2;
@@ -52,8 +51,8 @@ public class Main {
                             }
                         }
                         if (!exit) {
-                            System.out.println("Logged In Successfully!");
                             currentUser = user;
+                            System.out.printf("Welcome, %s!\n", currentUser.getName());
                             login = true;
                             break;
                         }
@@ -61,8 +60,20 @@ public class Main {
                         System.out.println("Username doesn't exist, would you like to sign up?");
                         System.out.println(explanation);
                         System.out.println(yesNo);
-                        signUpResponse = scan.nextInt();
-                        scan.nextLine();
+                        while(true){
+                            try {
+                                signUpResponse = scan.nextInt();
+                                scan.nextLine();
+                                if (signUpResponse != 1 || signUpResponse !=2){
+                                    System.out.println("Enter a valid option");
+                                    continue;
+                                }
+                                break;
+                            } catch (InputMismatchException i){
+                                scan.nextLine();
+                                System.out.println("Enter a valid number");
+                            }
+                        }
                     }
                 }
 
@@ -74,23 +85,39 @@ public class Main {
                     do {
                         System.out.println("Enter the name you would like to keep for your username");
                         newUsername = scan.nextLine();
-                        if (currentUser.getUsername() != newUsername && program.findUser(newUsername) != null) {
+                        if (program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
+                        } else if(newUsername.contains(",")){
+                            System.out.println("Username cannot contain commas!");
                         }
-                    } while (program.findUser(newUsername) != null);
+                    } while (program.findUser(newUsername) != null || newUsername.contains(","));
                     System.out.println("Enter what would you like to be for your password");
                     String newPassword = scan.nextLine();
-                    System.out.println("Are you a teacher?");
-                    System.out.println(explanation);
-                    System.out.println(yesNo);
                     boolean isTeacher = false;
-                    int ans = scan.nextInt();
-                    scan.nextLine();
-                    if (ans == 1) {
-                        isTeacher = true;
-                    } else if (ans == 2) {
-                        isTeacher = false;
+                    while(true) {
+                        try {
+                            System.out.println("Are you a teacher?");
+                            System.out.println(explanation);
+                            System.out.println(yesNo);
+
+                            int ans = scan.nextInt();
+                            scan.nextLine();
+                            if (ans == 1) {
+                                isTeacher = true;
+                                break;
+                            } else if (ans == 2) {
+                                isTeacher = false;
+                                break;
+                            } else {
+                                System.out.println("Enter a valid option");
+                            }
+
+                        } catch (InputMismatchException i){
+                            System.out.println("Enter a valid number");
+                            scan.nextLine();
+                        }
                     }
+                    System.out.println("Successfully Signed Up!");
                     User newUser = new User(newName, newUsername, newPassword, isTeacher);
                     program.addUser(newUser);
                 } else if (input == 3) {
@@ -125,27 +152,46 @@ public class Main {
                             if (input2 == 1) {
                                 System.out.println("What is your name");
                                 String newName = scan.nextLine();
-                                //boolean taken = true;
+                                boolean taken = true;
                                 String newUsername = "";
                                 do {
                                     System.out.println("Enter the name you would like to keep for your username");
                                     newUsername = scan.nextLine();
                                     if (program.findUser(newUsername) != null) {
-                                        System.out.println("That username is taken");
+                                        if (!program.findUser(newUsername).equals(currentUser)) {
+                                            System.out.println("That username is taken");
+                                        } else {
+                                            taken = false;
+                                        }
+                                    } else {
+                                        taken = false;
                                     }
-                                } while (program.findUser(newUsername) != null);
+                                } while (taken);
                                 System.out.println("Enter what would you like to be for your password");
                                 String newPassword = scan.nextLine();
-                                System.out.println("Are you a teacher?");
-                                System.out.println(explanation);
-                                System.out.println(yesNo);
                                 boolean isTeacher = false;
-                                int ans = scan.nextInt();
-                                scan.nextLine();
-                                if (ans == 1) {
-                                    isTeacher = true;
-                                } else if (ans == 2) {
-                                    isTeacher = false;
+                                while(true) {
+                                    try {
+                                        System.out.println("Are you a teacher?");
+                                        System.out.println(explanation);
+                                        System.out.println(yesNo);
+
+                                        int ans = scan.nextInt();
+                                        scan.nextLine();
+                                        if (ans == 1) {
+                                            isTeacher = true;
+                                            break;
+                                        } else if (ans == 2) {
+                                            isTeacher = false;
+                                            break;
+                                        } else {
+                                            System.out.println("Enter a valid option");
+                                        }
+
+                                    } catch (InputMismatchException i) {
+                                        System.out.println("Enter a valid number");
+                                        scan.nextLine();
+                                    }
                                 }
                                 program.modifyUser(currentUser, newName, newUsername, newPassword, isTeacher);
                                 System.out.println("Successfully modified!");
@@ -160,12 +206,25 @@ public class Main {
                                     boolean courseAdded = false;
                                     do {
                                         courseAdded = false;
-                                        System.out.println(explanation);
-                                        System.out.println("[1]Create courses");
-                                        System.out.println(("[2]Access Existing courses"));
-                                        System.out.println("[3]back");
-                                        int input = scan.nextInt();
-                                        scan.nextLine();
+                                        int input = 0;
+                                        while(true) {
+                                            try {
+                                                System.out.println(explanation);
+                                                System.out.println("[1]Create courses");
+                                                System.out.println(("[2]Access Existing courses"));
+                                                System.out.println("[3]back");
+                                                input = scan.nextInt();
+                                                scan.nextLine();
+                                                if (input < 1 || input > 3){
+                                                    System.out.println("Enter a valid option");
+                                                    continue;
+                                                }
+                                                break;
+                                            } catch (InputMismatchException i){
+                                                scan.nextLine();
+                                                System.out.println("Enter a valid number");
+                                            }
+                                        }
                                         if (input == 1) {
                                             //course creation here
                                             System.out.println("Enter the course name");
@@ -297,8 +356,8 @@ public class Main {
                                                             System.out.println(explanation);
                                                             System.out.println("[1]Reply to this post");
                                                             System.out.println("[2]Reply to student responses");
-                                                            System.out.println("[3]View Dashboard");
-                                                            System.out.println("[4]Respond to Poll");
+                                                            System.out.println("[3]Grade student responses");
+                                                            System.out.println("[4]View Dashboard");
                                                             System.out.println("[5]Back");
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
@@ -338,7 +397,21 @@ public class Main {
                                                                     Comment currentComment = comments.get(replyNum);
                                                                     currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                                 }
-                                                            } else if (input5 == 3) {
+                                                            } else if(input5 == 3){
+                                                                ArrayList<Comment> comments = currentPost.getComments();
+                                                                System.out.println("Choose comment number to grade");
+                                                                int replyNum = scan.nextInt() - 1;
+                                                                if(replyNum < comments.size()){
+                                                                    System.out.println("What grade would you like to give them? (0.0-100.0)");
+                                                                    double grade = scan.nextDouble();
+                                                                    while(grade < 0 && grade > 100){
+                                                                        System.out.println("Invalid grade!");
+                                                                        grade = scan.nextDouble();
+                                                                    }
+                                                                    comments.get(replyNum).setGrade(grade);
+                                                                    System.out.printf("Comment %d has been given a grade of %.2f\n", replyNum, grade);
+                                                                }
+                                                            } else if (input5 == 4) {
                                                                 System.out.println(explanation);
                                                                 System.out.println("[1]Sort by votes");
                                                                 System.out.println("[2]Sort alphabetically");
@@ -349,17 +422,6 @@ public class Main {
                                                                 } else if (sort == 2) {
                                                                     currentPost.displayCommentDashboard(false);
                                                                 }
-                                                            } else if(input5 == 4) {
-                                                                if(currentPost.getPollOptions().size() == 0){
-                                                                    System.out.println("Poll does not exist for this post!");
-                                                                }
-                                                                currentPost.displayPoll();
-                                                                System.out.println("What option would you like to vote for?");
-                                                                int input6 = scan.nextInt();
-                                                                while(input6 <= currentPost.getPollOptions().size()){
-                                                                    System.out.println("Invalid option number! Please try again!");
-                                                                }
-                                                                currentPost.addPollVote(input6, currentUser);
                                                             } else if (input5 == 5) {
                                                                 back1 = true;
                                                             }
@@ -376,10 +438,24 @@ public class Main {
                                 //Student menu for courses
                                 else {
                                     System.out.println(explanation);
-                                    System.out.println(("[1]Access Existing courses"));
-                                    System.out.println("[2]back");
-                                    int input3 = scan.nextInt();
-                                    scan.nextLine();
+                                    int input3 =0;
+                                    while(true) {
+                                        try {
+                                            System.out.println(explanation);
+                                            System.out.println(("[1]Access Existing courses"));
+                                            System.out.println("[2]back");
+                                            input3 = scan.nextInt();
+                                            scan.nextLine();
+                                            if (input3 != 1 || input3 != 2){
+                                                System.out.println("Enter a valid option");
+                                                continue;
+                                            }
+                                            break;
+                                        } catch(InputMismatchException i){
+                                            scan.nextLine();
+                                            System.out.println("Enter a valid number");
+                                        }
+                                    }
                                     System.out.println(input3);
                                     if (input3 == 1) {
                                         //program.readFile();
@@ -405,6 +481,7 @@ public class Main {
                                             scan.nextLine();
                                             if (input9 == 1) {
                                                 boolean back1 = false;
+                                                boolean back2 = false;
                                                 do {
                                                     back1 = false;
                                                     System.out.println("Enter the number next to the post you want to view");
@@ -413,13 +490,26 @@ public class Main {
                                                     if (postNum < posts.size()) {
                                                         Post currentPost = posts.get(postNum);
                                                         currentPost.displayPost();
-                                                        System.out.println(explanation);
-                                                        System.out.println("[1]Reply to this post");
-                                                        System.out.println("[2]Reply to other student responses");
-                                                        System.out.println(("[3]Upvote responses"));
-                                                        System.out.println("[4]Back");
-                                                        int input5 = scan.nextInt();
-                                                        scan.nextLine();
+                                                        int input5 = 0;
+                                                        while(true) {
+                                                            try {
+                                                                System.out.println(explanation);
+                                                                System.out.println("[1]Reply to this post");
+                                                                System.out.println("[2]Reply to other student responses");
+                                                                System.out.println(("[3]Upvote responses"));
+                                                                System.out.println("[4]Back");
+                                                                input5 = scan.nextInt();
+                                                                scan.nextLine();
+                                                                if (input5 < 1|| input5>4){
+                                                                    System.out.println("Enter a valid option");
+                                                                    continue;
+                                                                }
+                                                                break;
+                                                            } catch (InputMismatchException i) {
+                                                                scan.nextLine();
+                                                                System.out.println("Enter a valid number");
+                                                            }
+                                                        }
                                                         if (input5 == 1) {
                                                             System.out.println("Enter your text below");
                                                             String input6 = scan.nextLine();
@@ -435,16 +525,36 @@ public class Main {
                                                                 System.out.println("Enter your text below");
                                                                 String text = scan.nextLine();
                                                                 Comment currentComment = comments.get(replyNum);
-
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                             }
-
                                                         }else if(input5 == 3){
-                                                            //display comments for upvoting.
-                                                            //comments.
-                                                        }
+                                                            ArrayList<Comment> comments = currentPost.getComments();
+                                                            System.out.println("Enter the number next to the response you want to upvote.");
+                                                            int replyNum = scan.nextInt() - 1;
+                                                            scan.nextLine();
+                                                            if(replyNum < comments.size()){
+                                                                comments.get(replyNum).addVote(currentUser);
+                                                            }
+                                                        } else if(input5 == 4){
+                                                            if(currentPost.getPollOptions().size() == 0){
+                                                                System.out.println("Poll does not exist for this post!");
+                                                                break;
+                                                            }
+                                                            currentPost.displayPoll();
+                                                            System.out.println("What option would you like to vote for?");
+                                                            int input6 = scan.nextInt();
+                                                            while(input6 <= currentPost.getPollOptions().size()){
+                                                                System.out.println("Invalid option number! Please try again!");
+                                                                input6 = scan.nextInt();
+                                                            }
+                                                            currentPost.addPollVote(input6, currentUser);
 
-                                                         else if (input5 == 4) {
+                                                        } else if (input5 == 5){
+                                                            currentPost.displayGradeDashboard(currentUser);
+                                                            System.out.println("Press any character to go back:");
+                                                            scan.nextLine();
+                                                            back2 = true;
+                                                        } else if (input5 == 6) {
                                                             back1 = true;
                                                         }
                                                     }

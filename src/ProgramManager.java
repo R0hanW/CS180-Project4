@@ -6,9 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Arrays;
 public class ProgramManager {
     private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
@@ -61,8 +59,6 @@ public class ProgramManager {
         Post post = null;
         Comment comment = null;
         String[] messageArr;
-        String[] replyArr;
-        Comment replyComment;
         while((message = reader.readLine()) != null){
             if(message.contains("Course")) {
                 //finds everything after colon in message
@@ -72,23 +68,36 @@ public class ProgramManager {
             }
             else if(message.contains("Post")) {
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(",");
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
+            }
+            else if(message.contains("pollOption")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addPollOption(message);
+            }
+            else if(message.contains("pollResult")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addPollResult(Integer.parseInt(message));
+            }
+            else if(message.contains("userPollVote")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addUserVoter(findUser(message));
             }
             else if(message.contains("Comment")){
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(",");
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
                 post.addComment(comment);
             }
-            else if(message.contains("Replies")){
+            else if(message.contains("Reply")){
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(";");
-                for(String reply: messageArr){
-                    replyArr = reply.split(",");
-                    replyComment = new Comment(findUser(replyArr[0]), post, replyArr[2], replyArr[3]);
-                    comment.addReply(replyComment);
-                }
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                System.out.println(Arrays.toString(messageArr));
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
+            } else if(message.contains("Upvote")){
+                message = message.substring(message.indexOf(":")+1);
+                comment.addUserUpvote(findUser(message));
+                
             }
             else if(message.equals("END OF POST")){
                 course.addPost(post);
@@ -143,42 +152,42 @@ public class ProgramManager {
             e.printStackTrace();
         }
     }
-    public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user) 
-    		throws FileNotFoundException {
-    	File f = new File(filename);
-    	if (isPost) {
-        	String[] text;
-        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-        		String line = bfr.readLine();
-        		while (line != null) {
-        			if (line.contains("||")) {
-        				text = line.split("||");
-        				course.posts.add(new Post(user, course, text[1], text[0]));
-        			} else {
-        				course.posts.add(new Post(user, course, line, "New Post"));
-        			}
-        			line = bfr.readLine();
-        		}
-        	} catch (FileNotFoundException e) {
-        		throw e;
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-    	} else {
-        	String text = "";
-        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-        		String line = bfr.readLine();
-        		while (line != null) {
-        			text += line;
-        			post.getComments().add(new Comment(user, post, text));
-        			line = bfr.readLine();
-        		}
-        	} catch (FileNotFoundException e) {
-        		throw e;
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-    	}
+    public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user)
+            throws FileNotFoundException {
+        File f = new File(filename);
+        if (isPost) {
+            String[] text;
+            try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+                String line = bfr.readLine();
+                while (line != null) {
+                    if (line.contains("||")) {
+                        text = line.split("||");
+                        course.posts.add(new Post(user, course, text[1], text[0]));
+                    } else {
+                        course.posts.add(new Post(user, course, line, "New Post"));
+                    }
+                    line = bfr.readLine();
+                }
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String text = "";
+            try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+                String line = bfr.readLine();
+                while (line != null) {
+                    text += line;
+                    post.getComments().add(new Comment(user, post, text));
+                    line = bfr.readLine();
+                }
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void addCourse(Course course){
         courses.add(course);

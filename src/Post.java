@@ -20,7 +20,7 @@ public class Post {
         this.content = content;
         this.topic = topic;
         //get current timestamp
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
         timestamp = java.time.LocalDateTime.now().format(formatter);
     }
 
@@ -63,6 +63,7 @@ public class Post {
     
     public void addComment(Comment comment) {
         comments.add(comment);
+        comment.getOwner().addComment(comment);
         comment.setPost(this);
     }
 
@@ -70,7 +71,6 @@ public class Post {
         Comment comment = new Comment(author, this, content);
         comments.add(comment);
         author.addComment(comment);
-
     }
 
     public void removeComment(Comment comment){
@@ -100,6 +100,14 @@ public class Post {
         pollResults.add(0);
     }
 
+    public void addPollResult(int result){
+        pollResults.add(result);
+    }
+
+    public void addUserVoter(User user){
+        userPollVotes.add(user);
+    }
+
     public void addPollVote(int option, User user){
         if(userPollVotes.contains(user)) {
             System.out.println("You have already voted on this poll! You cannot vote twice!");
@@ -110,7 +118,10 @@ public class Post {
     }
 
     public String toString(){
-        String out = String.format("Post:%s,%s,%s,%s\n", owner.getUsername(), content, topic, timestamp);
+        String out = String.format("Post:%s,\"%s\",\"%s\",%s\n", owner.getUsername(), content, topic, timestamp);
+        for(String option: pollOptions) out += String.format("pollOption:%s\n", option);
+        for(int result: pollResults) out += String.format("pollResult:%s\n", result);
+        for(User user: userPollVotes) out += String.format("userPollVote:%s\n", user.getUsername());
         for(Comment comment: comments) out += String.format("Comment:%s\n", comment.toString());
         return out;
     }
@@ -120,7 +131,7 @@ public class Post {
     }
     
     public void displayPost(){
-        int counter = 0;
+        int counter = 1;
         System.out.println(topic + "    " + timestamp + "\n");
         System.out.println(content);
         if(pollOptions.size() > 0) this.displayPoll();
@@ -131,26 +142,26 @@ public class Post {
     }
 
     public void displayGradeDashboard(User user){
-        for(Comment comment: comments) comment.displayComment(false, true);
+        for(Comment comment: comments) 
+            if(comment.getOwner().equals(user)) comment.displayComment(false, true);
     }
 
     public void displayCommentDashboard(boolean sortByVotes){
         ArrayList<Comment> sortedComments = comments;
         // if(sortedComments.size() <= 1) return sortedComments;
-        if(sortByVotes) sortedComments.sort(Comparator.comparing(Comment::getVotes));
+        if(sortByVotes){
+            sortedComments.sort(Comparator.comparing(Comment::getVotes));
+            Collections.reverse(sortedComments);
+        }
         else Collections.sort(sortedComments, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
         System.out.printf("Dashboard for %s\n", topic);
         sortedComments.stream()
-            .forEach(comment -> 
-            { 
-                System.out.printf("(Post: %s)   ");
-                comment.displayComment(false);
-            });
+            .forEach(comment -> comment.displayComment(false));
     }
 
     public void displayPoll(){
         for(int i = 0; i < pollOptions.size(); i++){
-            System.out.printf("[%d]%s: %d votes", i+1, pollOptions.get(i), pollResults.get(i));
+            System.out.printf("[%d]Option: %s: %d votes\n", i+1, pollOptions.get(i), pollResults.get(i));
         }
     }
 
