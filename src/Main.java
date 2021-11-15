@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
@@ -11,9 +12,9 @@ public class Main {
         //all the menus go here (asking to login/modify/log out etc.)
         Scanner scan = new Scanner(System.in);
         ProgramManager program;
-        try{
+        try {
             program = new ProgramManager();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error reading user and course files. Please restart the program!");
             return;
@@ -73,7 +74,7 @@ public class Main {
                     do {
                         System.out.println("Enter the name you would like to keep for your username");
                         newUsername = scan.nextLine();
-                        if (program.findUser(newUsername) != null){
+                        if (program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
                         }
                     } while (program.findUser(newUsername) != null);
@@ -97,7 +98,7 @@ public class Main {
                 } else {
                     System.out.println("Enter a valid option");
                 }
-            } catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Enter a valid number");
                 scan.nextLine();
             }
@@ -129,10 +130,10 @@ public class Main {
                                 do {
                                     System.out.println("Enter the name you would like to keep for your username");
                                     newUsername = scan.nextLine();
-                                    if (program.findUser(newUsername) != null){
+                                    if (program.findUser(newUsername) != null) {
                                         System.out.println("That username is taken");
                                     }
-                                } while(program.findUser(newUsername) != null);
+                                } while (program.findUser(newUsername) != null);
                                 System.out.println("Enter what would you like to be for your password");
                                 String newPassword = scan.nextLine();
                                 System.out.println("Are you a teacher?");
@@ -198,12 +199,27 @@ public class Main {
                                                 int input3 = scan.nextInt();
                                                 scan.nextLine();
                                                 if (input3 == 1) {
-                                                    System.out.println("Enter the post topic");
-                                                    String postTopic = scan.nextLine();
-                                                    System.out.println(("Enter the post description"));
-                                                    String postDisc = scan.nextLine();
-                                                    currentCourse.addPost(new Post(currentUser, currentCourse, postDisc, postTopic));
-                                                    System.out.println("Post added successfully");
+
+                                                    System.out.println(explanation);
+                                                    System.out.println("[1]Create a post by importing a file");
+                                                    System.out.println("[2]Create a post through terminal");
+                                                    int input10 = scan.nextInt();
+                                                    scan.nextLine();
+                                                    if(input10 == 1){
+                                                        System.out.println("Type the file path name");
+                                                        String filePath = scan.nextLine();
+                                                        String postParts = program.readUserFileImport(filePath);
+
+                                                    }
+                                                    else if(input10 == 2){
+                                                        System.out.println("Enter the post topic");
+                                                        String postTopic = scan.nextLine();
+                                                        System.out.println(("Enter the post description"));
+                                                        String postDisc = scan.nextLine();
+                                                        currentCourse.addPost(new Post(currentUser, currentCourse, postDisc, postTopic));
+                                                        System.out.println("Post added successfully");
+                                                    }
+
                                                 } else if (input3 == 2) {
                                                     System.out.println("Enter the Number next to the post you want to edit");
                                                     int postNum = scan.nextInt() - 1;
@@ -305,13 +321,6 @@ public class Main {
                                             int input9 = scan.nextInt();
                                             scan.nextLine();
                                             if (input9 == 1) {
-                                                System.out.println("Enter the post topic");
-                                                String postTopic = scan.nextLine();
-                                                System.out.println(("Enter the post description"));
-                                                String postDisc = scan.nextLine();
-                                                currentCourse.addPost(new Post(currentUser, currentCourse, postDisc, postTopic));
-                                                System.out.println("Post added successfully");
-                                            } else if (input9 == 1) {
                                                 boolean back1 = false;
                                                 do {
                                                     back1 = false;
@@ -324,7 +333,8 @@ public class Main {
                                                         System.out.println(explanation);
                                                         System.out.println("[1]Reply to this post");
                                                         System.out.println("[2]Reply to other student responses");
-                                                        System.out.println("[3]Back");
+                                                        System.out.println("[3]View Dashboard for this post");
+                                                        System.out.println("[4]Back");
                                                         int input5 = scan.nextInt();
                                                         scan.nextLine();
                                                         if (input5 == 1) {
@@ -346,7 +356,10 @@ public class Main {
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                             }
 
-                                                        } else if (input5 == 3) {
+                                                        }else if(input5 == 3){
+                                                            System.out.println();
+
+                                                        } else if (input5 == 4) {
                                                             back1 = true;
                                                         }
                                                     }
@@ -355,7 +368,6 @@ public class Main {
                                         }
 
 
-                                        //display courses and within there display discussion post
                                     } else if (input3 == 2) {
                                         back = true;
                                     }
@@ -367,7 +379,7 @@ public class Main {
                             } else {
                                 System.out.println("Enter a valid option");
                             }
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException | FileNotFoundException e) {
                             System.out.println("Enter a valid number");
                             scan.nextLine();
                         }
