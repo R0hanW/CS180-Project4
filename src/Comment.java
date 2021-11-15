@@ -139,7 +139,7 @@ public class Comment {
 
     public String toString(boolean displayReplies){
         if(displayReplies == false) 
-            return String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+            return String.format("%s,\"%s\",    %s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
         String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
         for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
         for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
