@@ -200,7 +200,7 @@ public class Main {
                                                 System.out.println(explanation);
                                                 //System.out.println("[1]Display post");
                                                 System.out.println("[1]Create post");
-                                                if (!postsExist) {
+                                                if (postsExist) {
                                                     System.out.println("[2]Edit post");
                                                     System.out.println("[3]Delete post");
                                                     System.out.println("[4]View Post");
@@ -228,13 +228,28 @@ public class Main {
                                                                 runAgain = true;
                                                             }
                                                         } while (runAgain);
-
                                                     } else if (input10 == 2) {
                                                         System.out.println("Enter the post topic");
                                                         String postTopic = scan.nextLine();
                                                         System.out.println(("Enter the post description"));
                                                         String postDisc = scan.nextLine();
-                                                        currentCourse.addPost(new Post(currentUser, currentCourse, postDisc, postTopic));
+                                                        Post pollPost = new Post(currentUser, currentCourse, postDisc, postTopic);
+                                                        currentCourse.addPost(pollPost);
+                                                        System.out.println("Would you like to add a poll?\n[1]Yes\n[2]No");
+                                                        input = scan.nextInt();
+                                                        while(input != 1 && input != 2){
+                                                            System.out.println("Invalid input!Please enter either one or two.");
+                                                            input = scan.nextInt();
+                                                        }
+                                                        if(input == 1){
+                                                            System.out.println("How many options would you like to add for the poll?");
+                                                            input = scan.nextInt();
+                                                            for(int i = 0; i < input; i++){
+                                                                System.out.println("Enter option for poll:");
+                                                                String input1000 = scan.nextLine();
+                                                                pollPost.addPollOption(input1000);
+                                                            }
+                                                        }
                                                         System.out.println("Post added successfully");
                                                     }
 
@@ -249,6 +264,21 @@ public class Main {
                                                     if ((postNum) < posts.size()) {
                                                         Post currentPost = posts.get(postNum);
                                                         currentCourse.modifyPost(currentPost, postDisc, postTopic, currentUser);
+                                                        System.out.println("Would you like to add a poll?\n[1]Yes\n[2]No");
+                                                        input = scan.nextInt();
+                                                        while(input != 1 && input != 2){
+                                                            System.out.println("Invalid input!Please enter either one or two.");
+                                                            input = scan.nextInt();
+                                                        }
+                                                        if(input == 1){
+                                                            System.out.println("How many options would you like to add for the poll?");
+                                                            input = scan.nextInt();
+                                                            for(int i = 0; i < input; i++){
+                                                                System.out.println("Enter option for poll:");
+                                                                String input1000 = scan.nextLine();
+                                                                currentPost.addPollOption(input1000);
+                                                            }
+                                                        }
                                                         System.out.println("Post Edited successfully");
                                                     }
                                                 } else if (postsExist && input3 == 3) {
@@ -273,7 +303,9 @@ public class Main {
                                                             System.out.println(explanation);
                                                             System.out.println("[1]Reply to this post");
                                                             System.out.println("[2]Reply to student responses");
-                                                            System.out.println("[3]Back");
+                                                            System.out.println("[3]View Dashboard");
+                                                            System.out.println("[4]Respond to Poll");
+                                                            System.out.println("[5]Back");
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
                                                             if (input5 == 1) {
@@ -310,11 +342,31 @@ public class Main {
                                                                     System.out.println("Enter your text below");
                                                                     String text = scan.nextLine();
                                                                     Comment currentComment = comments.get(replyNum);
-
                                                                     currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                                 }
-
                                                             } else if (input5 == 3) {
+                                                                System.out.println(explanation);
+                                                                System.out.println("[1]Sort by votes");
+                                                                System.out.println("[2]Sort alphabetically");
+                                                                int sort = scan.nextInt();
+                                                                scan.nextLine();
+                                                                if (sort == 1) {
+                                                                    currentPost.displayCommentDashboard(true);
+                                                                } else if (sort == 2) {
+                                                                    currentPost.displayCommentDashboard(false);
+                                                                }
+                                                            } else if(input5 == 4) {
+                                                                if(currentPost.getPollOptions().size() == 0){
+                                                                    System.out.println("Poll does not exist for this post!");
+                                                                }
+                                                                currentPost.displayPoll();
+                                                                System.out.println("What option would you like to vote for?");
+                                                                int input6 = scan.nextInt();
+                                                                while(input6 <= currentPost.getPollOptions().size()){
+                                                                    System.out.println("Invalid option number! Please try again!");
+                                                                }
+                                                                currentPost.addPollVote(input6, currentUser);
+                                                            } else if (input5 == 5) {
                                                                 back1 = true;
                                                             }
                                                         }
@@ -370,7 +422,7 @@ public class Main {
                                                         System.out.println(explanation);
                                                         System.out.println("[1]Reply to this post");
                                                         System.out.println("[2]Reply to other student responses");
-                                                        System.out.println("[3]View Dashboard for this post");
+                                                        System.out.println(("[3]Upvote responses"));
                                                         System.out.println("[4]Back");
                                                         int input5 = scan.nextInt();
                                                         scan.nextLine();
@@ -393,19 +445,11 @@ public class Main {
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                             }
 
-                                                        } else if (input5 == 3) {
-                                                            System.out.println(explanation);
-                                                            System.out.println("[1]Sort by votes");
-                                                            System.out.println("[2]Sort alphabetically");
-                                                            int sort = scan.nextInt();
-                                                            scan.nextLine();
-                                                            if (sort == 1) {
-                                                                currentPost.displayCommentDashboard(true);
-                                                            } else if (sort == 2) {
-                                                                currentPost.displayCommentDashboard(false);
-                                                            }
+                                                        }else if(input5 == 3){
+                                                            //display comments for upvoting.
+                                                        }
 
-                                                        } else if (input5 == 4) {
+                                                         else if (input5 == 4) {
                                                             back1 = true;
                                                         }
                                                     }
