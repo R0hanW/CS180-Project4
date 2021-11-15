@@ -117,7 +117,7 @@ public class RunTest {
         @Test(timeout = 10000)
         public void testSignUp() {
             try {
-                FileOutputStream fos = new FileOutputStream("src/Users.txt", false);
+                FileOutputStream fos = new FileOutputStream("Users.txt", false);
                 PrintWriter pw = new PrintWriter(fos);
                 pw.println("");
 
