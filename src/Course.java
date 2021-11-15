@@ -61,11 +61,16 @@ public class Course {
         return out;
     }
 
-    public void displayCourse(){
+    public boolean displayCourse(){
         //System.out.println(name + "\n");
+        if(posts.size()==0){
+            System.out.println("There are no posts currently in this course");
+            return false;
+        }
         for (int i = 0; i < posts.size(); i++) {
             System.out.println("["+ (i+1) + "]" + posts.get(i).getTopic());
         }
+        return true;
     }
 
     public void displayDashboard(boolean sortByVotes){
