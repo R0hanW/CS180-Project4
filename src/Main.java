@@ -280,6 +280,7 @@ public class Main {
                                                         boolean runAgain = false;
                                                         do {
                                                             System.out.println("Type the file path name or \"exit\"");
+                                                            System.out.println("Post title and description should be separated with a \"|\" on one line");
                                                             String filePath = scan.nextLine();
                                                             if (filePath.equals("exit")) {
                                                             	break;
