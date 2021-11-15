@@ -271,6 +271,25 @@ public class Main {
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
                                                             if (input5 == 1) {
+                                                                System.out.println(explanation);
+                                                                System.out.println("[1]Comment using file");
+                                                                System.out.println("[2]Comment using terminal");
+                                                                int commentMethod = scan.nextInt();
+                                                                scan.nextLine();
+                                                                if(commentMethod==1){
+                                                                    boolean runAgain = false;
+                                                                    do {
+                                                                        runAgain = false;
+                                                                        System.out.println("Enter the file name");
+                                                                        String filePath = scan.nextLine();
+                                                                        try {
+                                                                            program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
+                                                                        } catch (FileNotFoundException e) {
+                                                                            System.out.println("File not found, try again");
+                                                                            runAgain = true;
+                                                                        }
+                                                                    }while(runAgain);
+                                                                }
                                                                 System.out.println("Enter your text below");
                                                                 String input6 = scan.nextLine();
                                                                 currentPost.addComment(new Comment(currentUser, currentPost, input6));
