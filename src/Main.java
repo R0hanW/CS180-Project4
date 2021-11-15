@@ -208,7 +208,7 @@ public class Main {
                                                     if(input10 == 1){
                                                         System.out.println("Type the file path name");
                                                         String filePath = scan.nextLine();
-                                                       // String postParts = program.readUserFileImport(filePath);
+                                                        program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
 
                                                     }
                                                     else if(input10 == 2){
@@ -398,4 +398,3 @@ public class Main {
         }
     }
 }
-
