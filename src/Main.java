@@ -74,7 +74,7 @@ public class Main {
                     do {
                         System.out.println("Enter the name you would like to keep for your username");
                         newUsername = scan.nextLine();
-                        if (currentUser.getUsername() != newUsername && program.findUser(newUsername) != null) {
+                        if (program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
                         }
                     } while (program.findUser(newUsername) != null);
@@ -125,15 +125,21 @@ public class Main {
                             if (input2 == 1) {
                                 System.out.println("What is your name");
                                 String newName = scan.nextLine();
-                                //boolean taken = true;
+                                boolean taken = true;
                                 String newUsername = "";
                                 do {
                                     System.out.println("Enter the name you would like to keep for your username");
                                     newUsername = scan.nextLine();
                                     if (program.findUser(newUsername) != null) {
-                                        System.out.println("That username is taken");
+                                        if (!program.findUser(newUsername).equals(currentUser)) {
+                                            System.out.println("That username is taken");
+                                        } else {
+                                            taken = false;
+                                        }
+                                    } else {
+                                        taken = false;
                                     }
-                                } while (program.findUser(newUsername) != null);
+                                } while (taken);
                                 System.out.println("Enter what would you like to be for your password");
                                 String newPassword = scan.nextLine();
                                 System.out.println("Are you a teacher?");

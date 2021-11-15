@@ -143,42 +143,42 @@ public class ProgramManager {
             e.printStackTrace();
         }
     }
-    public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user) 
-    		throws FileNotFoundException {
-    	File f = new File(filename);
-    	if (isPost) {
-        	String[] text;
-        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-        		String line = bfr.readLine();
-        		while (line != null) {
-        			if (line.contains("||")) {
-        				text = line.split("||");
-        				course.posts.add(new Post(user, course, text[1], text[0]));
-        			} else {
-        				course.posts.add(new Post(user, course, line, "New Post"));
-        			}
-        			line = bfr.readLine();
-        		}
-        	} catch (FileNotFoundException e) {
-        		throw e;
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-    	} else {
-        	String text = "";
-        	try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-        		String line = bfr.readLine();
-        		while (line != null) {
-        			text += line;
-        			post.getComments().add(new Comment(user, post, text));
-        			line = bfr.readLine();
-        		}
-        	} catch (FileNotFoundException e) {
-        		throw e;
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-    	}
+    public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user)
+            throws FileNotFoundException {
+        File f = new File(filename);
+        if (isPost) {
+            String[] text;
+            try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+                String line = bfr.readLine();
+                while (line != null) {
+                    if (line.contains("||")) {
+                        text = line.split("||");
+                        course.posts.add(new Post(user, course, text[1], text[0]));
+                    } else {
+                        course.posts.add(new Post(user, course, line, "New Post"));
+                    }
+                    line = bfr.readLine();
+                }
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String text = "";
+            try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
+                String line = bfr.readLine();
+                while (line != null) {
+                    text += line;
+                    post.getComments().add(new Comment(user, post, text));
+                    line = bfr.readLine();
+                }
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void addCourse(Course course){
         courses.add(course);
