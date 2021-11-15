@@ -11,6 +11,7 @@ public class Comment {
     private int votes;
     private double grade;
     private ArrayList<Comment> replies = new ArrayList<Comment>();
+    private ArrayList<User> userUpvotes = new ArrayList<User>();
     
     public Comment(User owner, Post post, String content){
         this.owner = owner;
@@ -63,12 +64,24 @@ public class Comment {
         this.content = content;
     }
     
-    public void addVote() {
-    	votes++;
+    public void addVote(User user) {
+        if(userUpvotes.contains(user)) {
+            System.out.println("Cannot upvote comment twice!");
+            return;
+        }
+        votes++;
+        System.out.println("Comment upvoted.");
     }
     
     public int getVotes() {
     	return votes;
+    }
+
+    public void addUserUpvote(User user){
+        userUpvotes.add(user);
+    }
+    public ArrayList<User> getUserUpvotes(){
+        return userUpvotes;
     }
 
     public double getGrade() {
@@ -117,9 +130,12 @@ public class Comment {
     }
 
     public String toString(){
-       String out = String.format("%s,%s,%s,%s\n");
+       String out = String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
        if(replies.size() >= 1) out += "Replies:";
        for(Comment reply: replies) out += String.format("%s;", reply.toString(true));
+       if(userUpvotes.size() >= 1) out += "\nUpvotes:";
+       for(User user: userUpvotes) out += String.format("%s,", user.getUsername());
+       System.out.println("\n");
        return out;
     }
 

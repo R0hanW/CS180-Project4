@@ -6,9 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 public class ProgramManager {
     private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
@@ -78,7 +75,7 @@ public class ProgramManager {
             else if(message.contains("Comment")){
                 message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[2], messageArr[3]);
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
                 post.addComment(comment);
             }
             else if(message.contains("Replies")){
@@ -88,6 +85,12 @@ public class ProgramManager {
                     replyArr = reply.split(",");
                     replyComment = new Comment(findUser(replyArr[0]), post, replyArr[2], replyArr[3]);
                     comment.addReply(replyComment);
+                }
+            } else if(message.contains("Upvotes")){
+                message = message.substring(message.indexOf(":")+1);
+                messageArr = message.split(",");
+                for(String user:messageArr){
+                    comment.addUserUpvote(findUser(user));
                 }
             }
             else if(message.equals("END OF POST")){
