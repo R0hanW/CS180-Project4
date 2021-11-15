@@ -1,3 +1,12 @@
+/**
+ * Main.java
+ * 
+ * Handles terminal input and output. All menu options and user interaction is handled by Main.
+ * 
+ * @author Arjav Seshachalam Purdue CS180
+ * 
+ * @version 11/15/21
+ */
 import java.io.FileNotFoundException;
 import java.util.*;
 

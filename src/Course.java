@@ -1,3 +1,13 @@
+/**
+ * Course.java
+ * 
+ * Represents a course in the discussion forum. Has a list of posts inside of the the course and includes a name
+ * and owner. A user can add, modify, or remove posts from here. 
+ * 
+ * @author Rohan Wadwha Purdue CS180
+ * 
+ * @version 11/15/21
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

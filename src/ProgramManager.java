@@ -1,3 +1,13 @@
+/**
+ * ProgramManager.java
+ * 
+ * Handles processing of the program. Includes the list of users and courses in the program, which are
+ * initialized on program start up by reading from storage files. Handles adding courses and users
+ * 
+ * @author Aidan Chen, Thanmaya Pattanashetty, Rohan Wadwha Purdue CS180
+ * 
+ * @version 11/15/21
+ */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,14 +40,14 @@ public class ProgramManager {
         //write from arraylist to txt files
         //updates the txt files
         //if writing to the user storage file
-        File f = new File("src/Users.txt");
+        File f = new File("Users.txt");
         PrintWriter pw = new PrintWriter(new FileWriter(f, false));
         for (int i = 0; i < users.size(); i++) {	//loop to print a user to each line in file
             pw.println(users.get(i).toString());
         }
         pw.flush();
         //writes to Courses.txt
-        pw = new PrintWriter(new FileWriter(new File("src/Courses.txt"), false));
+        pw = new PrintWriter(new FileWriter(new File("Courses.txt"), false));
         for(Course course: courses) pw.println(course.toString());
         pw.close();
         // } else {	//if writing to post storage file
@@ -53,7 +63,7 @@ public class ProgramManager {
     }
     public void readFile() throws Exception{
         //reads from Courses.txt (won't work unless users has already been read)
-        BufferedReader reader = new BufferedReader(new FileReader("src/Courses.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
         String message;
         Course course = null;
         Post post = null;
@@ -115,7 +125,7 @@ public class ProgramManager {
     public void readUserFile(){ // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
-        File f = new File("src/Users.txt");
+        File f = new File("Users.txt");
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
             String line = bfr.readLine();
             if (line == null) {

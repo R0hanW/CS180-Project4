@@ -1,3 +1,13 @@
+/**
+ * Post.java
+ * 
+ * Represents a post in our discussion forum. Has its own comments and keeps track of an owner, its content,
+ * a topic, the course it belongs to, and a timestamp. Also includes polling that students can vote on.
+ * 
+ * @author Rohan Wadwha Purdue CS180
+ * 
+ * @version 11/1/21
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,3 +1,13 @@
+/**
+ * Comment.java
+ * 
+ * Represents a comment in our discussion forum. Keeps track of an owner, the post it belongs to, its text 
+ * content, a timestamp, a grade, its upvotes, and its own list of comments.
+ * 
+ * @author Rohan Wadwha Purdue CS180
+ * 
+ * @version 11/15/21
+ */
 import java.util.ArrayList;
 import java.io.*;
 import java.time.format.DateTimeFormatter;

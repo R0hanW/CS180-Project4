@@ -1,3 +1,13 @@
+/**
+ * User.java
+ * Represents a user in the discussion forum. Keeps track of a name, username, password, and user type. The user
+ * type can be either a student or a teacher, and determines the user's permissions within the program.
+ * 
+ * 
+ * @author Allen Chang Purdue CS180
+ * 
+ * @version 11/15/21
+ */
 import java.util.ArrayList;
 import java.util.Objects;
 
