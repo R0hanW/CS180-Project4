@@ -208,15 +208,34 @@ public class Main {
                                                     if(input10 == 1){
                                                         System.out.println("Type the file path name");
                                                         String filePath = scan.nextLine();
-                                                        program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
-
+                                                        try {
+                                                            program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
+                                                        } catch (FileNotFoundException e) {
+                                                            System.out.println("Could not find file!");
+                                                        }
                                                     }
                                                     else if(input10 == 2){
                                                         System.out.println("Enter the post topic");
                                                         String postTopic = scan.nextLine();
                                                         System.out.println(("Enter the post description"));
                                                         String postDisc = scan.nextLine();
-                                                        currentCourse.addPost(new Post(currentUser, currentCourse, postDisc, postTopic));
+                                                        Post pollPost = new Post(currentUser, currentCourse, postDisc, postTopic);
+                                                        currentCourse.addPost(pollPost);
+                                                        System.out.println("Would you like to add a poll?\n[1]Yes\n[2]No");
+                                                        input = scan.nextInt();
+                                                        while(input != 1 && input != 2){
+                                                            System.out.println("Invalid input!Please enter either one or two.");
+                                                            input = scan.nextInt();
+                                                        }
+                                                        if(input == 1){
+                                                            System.out.println("How many options would you like to add for the poll?");
+                                                            input = scan.nextInt();
+                                                            for(int i = 0; i < input; i++){
+                                                                System.out.println("Enter option for poll:");
+                                                                String input1000 = scan.nextLine();
+                                                                pollPost.addPollOption(input1000);
+                                                            }
+                                                        }
                                                         System.out.println("Post added successfully");
                                                     }
 
@@ -231,7 +250,25 @@ public class Main {
                                                     if ((postNum) < posts.size()) {
                                                         Post currentPost = posts.get(postNum);
                                                         currentCourse.modifyPost(currentPost, postDisc, postTopic, currentUser);
+                                                        System.out.println("Would you like to add a poll?\n[1]Yes\n[2]No");
+                                                        input = scan.nextInt();
+                                                        while(input != 1 && input != 2){
+                                                            System.out.println("Invalid input!Please enter either one or two.");
+                                                            input = scan.nextInt();
+                                                        }
+                                                        if(input == 1){
+                                                            System.out.println("How many options would you like to add for the poll?");
+                                                            input = scan.nextInt();
+                                                            for(int i = 0; i < input; i++){
+                                                                System.out.println("Enter option for poll:");
+                                                                String input1000 = scan.nextLine();
+                                                                currentPost.addPollOption(input1000);
+                                                            }
+                                                        }
                                                         System.out.println("Post Edited successfully");
+                                                    }
+                                                    else {
+                                                        System.out.println("Invalid post number!");
                                                     }
                                                 } else if (input3 == 3) {
                                                     System.out.println("Enter the Number next to the post you want to delete ");
@@ -255,7 +292,8 @@ public class Main {
                                                             System.out.println(explanation);
                                                             System.out.println("[1]Reply to this post");
                                                             System.out.println("[2]Reply to student responses");
-                                                            System.out.println("[3]Back");
+                                                            System.out.println("[3]Respond to Poll");
+                                                            System.out.println("[4]Back");
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
                                                             if (input5 == 1) {
@@ -277,7 +315,18 @@ public class Main {
                                                                     currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                                 }
 
-                                                            } else if (input5 == 3) {
+                                                            } else if(input5 == 3) {
+                                                                if(currentPost.getPollOptions().size() == 0){
+                                                                    System.out.println("Poll does not exist for this post!");
+                                                                }
+                                                                currentPost.displayPoll();
+                                                                System.out.println("What option would you like to vote for?");
+                                                                int input6 = scan.nextInt();
+                                                                while(input6 <= currentPost.getPollOptions().size()){
+                                                                    System.out.println("Invalid option number! Please try again!");
+                                                                }
+                                                                currentPost.addPollVote(input6, currentUser);
+                                                            } else if (input5 == 4) {
                                                                 back1 = true;
                                                             }
                                                         }
