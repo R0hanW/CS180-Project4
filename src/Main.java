@@ -280,6 +280,7 @@ public class Main {
                                                         boolean runAgain = false;
                                                         do {
                                                             System.out.println("Type the file path name or \"exit\"");
+                                                            System.out.println("Post title and description should be separated with a \"|\" on one line");
                                                             String filePath = scan.nextLine();
                                                             if (filePath.equals("exit")) {
                                                             	break;
@@ -466,7 +467,6 @@ public class Main {
                                 }
                                 //Student menu for courses
                                 else {
-                                    System.out.println(explanation);
                                     int input3 =0;
                                     while(true) {
                                         try {
@@ -545,25 +545,35 @@ public class Main {
                                                             currentPost.addComment(new Comment(currentUser, currentPost, input6));
                                                             System.out.println("Comment added");
                                                         } else if (input5 == 2) {
-                                                            ArrayList<Comment> comments = currentPost.getComments();
-                                                            System.out.println("Enter the number next to the response" +
-                                                                    " you want to reply");
-                                                            int replyNum = scan.nextInt() - 1;
-                                                            scan.nextLine();
-                                                            if (replyNum < comments.size()) {
-                                                                System.out.println("Enter your text below");
-                                                                String text = scan.nextLine();
-                                                                Comment currentComment = comments.get(replyNum);
-                                                                currentComment.addReply(new Comment(currentUser, currentPost, text));
-                                                            }
+                                                        	if (currentPost.hasComments()) {
+                                                        		ArrayList<Comment> comments = currentPost.getComments();
+                                                                System.out.println("Enter the number next to the response" +
+                                                                        " you want to reply");
+                                                                int replyNum = scan.nextInt() - 1;
+                                                                scan.nextLine();
+                                                                if (replyNum < comments.size()) {
+                                                                    System.out.println("Enter your text below");
+                                                                    String text = scan.nextLine();
+                                                                    Comment currentComment = comments.get(replyNum);
+                                                                    currentComment.addReply(new Comment(currentUser, currentPost, text));
+                                                                }
+                                                        	} else {
+                                                        		System.out.println("No comments to respond to.");
+                                                        	}
+                                                            
                                                         }else if(input5 == 3){
-                                                            ArrayList<Comment> comments = currentPost.getComments();
-                                                            System.out.println("Enter the number next to the response you want to upvote.");
-                                                            int replyNum = scan.nextInt() - 1;
-                                                            scan.nextLine();
-                                                            if(replyNum < comments.size()){
-                                                                comments.get(replyNum).addVote(currentUser);
-                                                            }
+                                                        	if (currentPost.hasComments()) {
+                                                        		 ArrayList<Comment> comments = currentPost.getComments();
+                                                                 System.out.println("Enter the number next to the response you want to upvote.");
+                                                                 int replyNum = scan.nextInt() - 1;
+                                                                 scan.nextLine();
+                                                                 if(replyNum < comments.size()){
+                                                                     comments.get(replyNum).addVote(currentUser);
+                                                                 }
+                                                        	} else {
+                                                        		System.out.print("No responses to upvote.");
+                                                        	}
+                                                           
                                                         } else if(input5 == 4){
                                                             if(currentPost.getPollOptions().size() == 0){
                                                                 System.out.println("Poll does not exist for this post!");
@@ -590,6 +600,8 @@ public class Main {
                                                     	System.out.println("Not a valid post");
                                                     }
                                                 } while (back1);
+                                            } else {
+                                            	System.out.println("Invalid Option");
                                             }
                                         }
 
