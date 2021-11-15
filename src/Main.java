@@ -208,7 +208,7 @@ public class Main {
                                                     if(input10 == 1){
                                                         System.out.println("Type the file path name");
                                                         String filePath = scan.nextLine();
-                                                        String postParts = program.readUserFileImport(filePath);
+                                                       // String postParts = program.readUserFileImport(filePath);
 
                                                     }
                                                     else if(input10 == 2){
@@ -357,7 +357,7 @@ public class Main {
                                                             }
 
                                                         }else if(input5 == 3){
-                                                            System.out.println();
+                                                            System.out.println("Sort by votes: ");
 
                                                         } else if (input5 == 4) {
                                                             back1 = true;
@@ -379,7 +379,7 @@ public class Main {
                             } else {
                                 System.out.println("Enter a valid option");
                             }
-                        } catch (InputMismatchException | FileNotFoundException e) {
+                        } catch (InputMismatchException e) {
                             System.out.println("Enter a valid number");
                             scan.nextLine();
                         }
