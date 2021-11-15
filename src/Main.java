@@ -74,7 +74,7 @@ public class Main {
                     do {
                         System.out.println("Enter the name you would like to keep for your username");
                         newUsername = scan.nextLine();
-                        if (program.findUser(newUsername) != null) {
+                        if (currentUser.getUsername() != newUsername && program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
                         }
                     } while (program.findUser(newUsername) != null);
@@ -188,14 +188,17 @@ public class Main {
                                             if (courseNum < courses.size()) {
                                                 Course currentCourse = courses.get(courseNum);
                                                 System.out.println("Existing posts are below: ");
-                                                currentCourse.displayCourse();//displays posts list
+                                                boolean postsExist = currentCourse.displayCourse();//displays posts list
+
                                                 ArrayList<Post> posts = currentCourse.getPosts();
                                                 System.out.println(explanation);
                                                 //System.out.println("[1]Display post");
                                                 System.out.println("[1]Create post");
-                                                System.out.println("[2]Edit post");
-                                                System.out.println("[3]Delete post");
-                                                System.out.println("[4]View Post");
+                                                if (postsExist) {
+                                                    System.out.println("[2]Edit post");
+                                                    System.out.println("[3]Delete post");
+                                                    System.out.println("[4]View Post");
+                                                }
                                                 int input3 = scan.nextInt();
                                                 scan.nextLine();
                                                 if (input3 == 1) {
@@ -205,16 +208,21 @@ public class Main {
                                                     System.out.println("[2]Create a post through terminal");
                                                     int input10 = scan.nextInt();
                                                     scan.nextLine();
-                                                    if(input10 == 1){
-                                                        System.out.println("Type the file path name");
-                                                        String filePath = scan.nextLine();
-                                                        try {
-                                                            program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
-                                                        } catch (FileNotFoundException e) {
-                                                            System.out.println("Could not find file!");
-                                                        }
-                                                    }
-                                                    else if(input10 == 2){
+                                                    if (input10 == 1) {
+                                                        boolean runAgain = false;
+                                                        do {
+                                                            System.out.println("Type the file path name");
+                                                            String filePath = scan.nextLine();
+                                                            runAgain = false;
+
+                                                            try {
+                                                                program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
+                                                            } catch (FileNotFoundException e) {
+                                                                System.out.println("File not found, try again");
+                                                                runAgain = true;
+                                                            }
+                                                        } while (runAgain);
+                                                    } else if (input10 == 2) {
                                                         System.out.println("Enter the post topic");
                                                         String postTopic = scan.nextLine();
                                                         System.out.println(("Enter the post description"));
@@ -239,7 +247,7 @@ public class Main {
                                                         System.out.println("Post added successfully");
                                                     }
 
-                                                } else if (input3 == 2) {
+                                                } else if (postsExist && input3 == 2) {
                                                     System.out.println("Enter the Number next to the post you want to edit");
                                                     int postNum = scan.nextInt() - 1;
                                                     scan.nextLine();
@@ -267,10 +275,7 @@ public class Main {
                                                         }
                                                         System.out.println("Post Edited successfully");
                                                     }
-                                                    else {
-                                                        System.out.println("Invalid post number!");
-                                                    }
-                                                } else if (input3 == 3) {
+                                                } else if (postsExist && input3 == 3) {
                                                     System.out.println("Enter the Number next to the post you want to delete ");
                                                     int postNum = scan.nextInt() - 1;
                                                     scan.nextLine();
@@ -279,7 +284,7 @@ public class Main {
                                                         currentPost.removePost();
                                                         System.out.println("Post deleted successfully");
                                                     }
-                                                } else if (input3 == 4) {
+                                                } else if (postsExist && input3 == 4) {
                                                     boolean back1 = false;
                                                     do {
                                                         back1 = false;
@@ -297,6 +302,25 @@ public class Main {
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
                                                             if (input5 == 1) {
+                                                                System.out.println(explanation);
+                                                                System.out.println("[1]Comment using file");
+                                                                System.out.println("[2]Comment using terminal");
+                                                                int commentMethod = scan.nextInt();
+                                                                scan.nextLine();
+                                                                if(commentMethod==1){
+                                                                    boolean runAgain = false;
+                                                                    do {
+                                                                        runAgain = false;
+                                                                        System.out.println("Enter the file name");
+                                                                        String filePath = scan.nextLine();
+                                                                        try {
+                                                                            program.readUserFileImport(filePath, true, currentCourse, posts.get(1), currentUser);
+                                                                        } catch (FileNotFoundException e) {
+                                                                            System.out.println("File not found, try again");
+                                                                            runAgain = true;
+                                                                        }
+                                                                    }while(runAgain);
+                                                                }
                                                                 System.out.println("Enter your text below");
                                                                 String input6 = scan.nextLine();
                                                                 currentPost.addComment(new Comment(currentUser, currentPost, input6));
@@ -405,8 +429,17 @@ public class Main {
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                             }
 
-                                                        }else if(input5 == 3){
-                                                            System.out.println("Sort by votes: ");
+                                                        } else if (input5 == 3) {
+                                                            System.out.println(explanation);
+                                                            System.out.println("[1]Sort by votes");
+                                                            System.out.println("[2]Sort alphabetically");
+                                                            int sort = scan.nextInt();
+                                                            scan.nextLine();
+                                                            if (sort == 1) {
+                                                                currentPost.displayCommentDashboard(true);
+                                                            } else if (sort == 2) {
+                                                                currentPost.displayCommentDashboard(false);
+                                                            }
 
                                                         } else if (input5 == 4) {
                                                             back1 = true;
