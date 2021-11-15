@@ -96,14 +96,16 @@ public class ProgramManager {
                 message = message.substring(message.indexOf(":") + 1);
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
+                        Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
                 post.addComment(comment);
             } else if (message.contains("Reply")) {
                 message = message.substring(message.indexOf(":") + 1);
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 System.out.println(Arrays.toString(messageArr));
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
+                        Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
             } else if (message.contains("Upvote")) {
                 message = message.substring(message.indexOf(":") + 1);
                 comment.addUserUpvote(findUser(message));
@@ -227,7 +229,8 @@ public class ProgramManager {
         oldUser.setName(name);
         oldUser.setUsername(username);
         oldUser.setPassword(password);
-        oldUser.setIsTeacher(isTeacher);// an object from the array has to be passed (or another reference object in the array)
+        oldUser.setIsTeacher(isTeacher);// an object from the array has to be passed
+        // (or another reference object in the array)
     }
 
     public User findUser(String username) { // works
