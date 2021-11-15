@@ -1,2 +1,4 @@
 User{name="thanmaya",username="abcd",password="asdf",isTeacher="false"}
 User{name="nihar",username="nihara",password="abcde",isTeacher="false"}
+User{name="chen",username="chen4002",password="password",isTeacher="true"}
+User{name="test",username="test2",password="test3",isTeacher="true"}
