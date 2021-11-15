@@ -166,7 +166,7 @@ public class Post {
 
     public void displayPoll(){
         for(int i = 0; i < pollOptions.size(); i++){
-            System.out.printf("[%d]Option: %s: %d votes\n", i+1, pollOptions.get(i), pollResults.get(i));
+            System.out.printf("[%d]Option: %s: %d votes\n", i + 1, pollOptions.get(i), pollResults.get(i));
         }
     }
     

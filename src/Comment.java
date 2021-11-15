@@ -10,7 +10,7 @@ public class Comment {
     private String timestamp;
     private int votes;
     private double grade;
-    private ArrayList<Comment> replies = new ArrayList<Comment>();
+    private ArrayList<Comment> replies = new ArrayList<Comment>(0);
     private ArrayList<User> userUpvotes = new ArrayList<User>();
     
     public Comment(User owner, Post post, String content){
@@ -144,6 +144,10 @@ public class Comment {
         for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
         for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
         return out;
+    }
+    
+    public boolean hasComments() {
+    	return (replies.size() > 0);
     }
 
     @Override
