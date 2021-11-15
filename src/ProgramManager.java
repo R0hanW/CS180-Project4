@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 public class ProgramManager {
     private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
@@ -67,7 +68,7 @@ public class ProgramManager {
             }
             else if(message.contains("Post")) {
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(",");
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
             }
             else if(message.contains("pollOption")){
@@ -84,13 +85,14 @@ public class ProgramManager {
             }
             else if(message.contains("Comment")){
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(",");
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
                 post.addComment(comment);
             }
             else if(message.contains("Reply")){
                 message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(",");
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                System.out.println(Arrays.toString(messageArr));
                 comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
             } else if(message.contains("Upvote")){
                 message = message.substring(message.indexOf(":")+1);

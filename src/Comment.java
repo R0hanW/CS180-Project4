@@ -18,7 +18,7 @@ public class Comment {
         this.post = post;
         this.content = content;
         //get current timestamp
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
         timestamp = java.time.LocalDateTime.now().format(formatter);
         if(replies == null) post.addComment(this);
     }
@@ -70,6 +70,7 @@ public class Comment {
             return;
         }
         votes++;
+        userUpvotes.add(user);
         System.out.println("Comment upvoted.");
     }
     
@@ -113,24 +114,24 @@ public class Comment {
         System.out.println(content);
         System.out.printf("Likes: %d\n", votes);
         if(displayReplies) {
-            for(Comment r : replies) System.out.println(r.toString());
+            for(Comment r : replies) r.displayComment(false);
         }
         System.out.println();
     }
 
     public void displayComment(boolean displayReplies, boolean displayGrade){
-        if(displayGrade) System.out.println(owner.getName() + "\t" + timestamp + "Grade" + grade);
+        if(displayGrade) System.out.println(owner.getName() + "\t" + timestamp + " Grade" + grade);
         else System.out.println(owner.getName() + "\t" + timestamp);
         System.out.println(content);
         System.out.printf("Likes: %d\n", votes);
         if(displayReplies) {
-            for(Comment r : replies) System.out.println(r.toString());
+            for(Comment r : replies) r.displayComment(false, false);
         }
         System.out.println();
     }
 
     public String toString(){
-       String out = String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+       String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
        for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
        for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
        return out;
@@ -138,8 +139,8 @@ public class Comment {
 
     public String toString(boolean displayReplies){
         if(displayReplies == false) 
-            return String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
-        String out = String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+            return String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+        String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
         for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
         for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
         return out;

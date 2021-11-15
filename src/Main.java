@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String explanation = "Type the number next to the option you would like to choose";
         String yesNo = "[1]Yes\n[2]No";
         int signUpResponse = 2;
@@ -51,8 +51,8 @@ public class Main {
                             }
                         }
                         if (!exit) {
-                            System.out.println("Logged In Successfully!");
                             currentUser = user;
+                            System.out.printf("Welcome, %s!\n", currentUser.getName());
                             login = true;
                             break;
                         }
@@ -75,8 +75,10 @@ public class Main {
                         newUsername = scan.nextLine();
                         if (program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
+                        } else if(newUsername.contains(",")){
+                            System.out.println("Username cannot contain commas!");
                         }
-                    } while (program.findUser(newUsername) != null);
+                    } while (program.findUser(newUsername) != null || newUsername.contains(","));
                     System.out.println("Enter what would you like to be for your password");
                     String newPassword = scan.nextLine();
                     boolean isTeacher = false;
@@ -375,13 +377,13 @@ public class Main {
                                                                 int replyNum = scan.nextInt() - 1;
                                                                 if(replyNum < comments.size()){
                                                                     System.out.println("What grade would you like to give them? (0.0-100.0)");
-                                                                    double grade = scan.nextInt();
+                                                                    double grade = scan.nextDouble();
                                                                     while(grade < 0 && grade > 100){
                                                                         System.out.println("Invalid grade!");
-                                                                        grade = scan.nextInt();
+                                                                        grade = scan.nextDouble();
                                                                     }
                                                                     comments.get(replyNum).setGrade(grade);
-                                                                    System.out.printf("Comment %d has been given a grade of %d\n", replyNum, grade);
+                                                                    System.out.printf("Comment %d has been given a grade of %.2f\n", replyNum, grade);
                                                                 }
                                                             } else if (input5 == 4) {
                                                                 System.out.println(explanation);
@@ -480,24 +482,27 @@ public class Main {
                                                             int replyNum = scan.nextInt() - 1;
                                                             scan.nextLine();
                                                             if(replyNum < comments.size()){
-                                                                comments.get(replyNum).addUserUpvote(currentUser);
+                                                                comments.get(replyNum).addVote(currentUser);
                                                             }
                                                         } else if(input5 == 4){
-                                                            currentPost.displayGradeDashboard(currentUser);
-                                                            System.out.println("Press any character to go back:");
-                                                            scan.nextLine();
-                                                            back2 = true;
-                                                        } else if (input5 == 5){
                                                             if(currentPost.getPollOptions().size() == 0){
                                                                 System.out.println("Poll does not exist for this post!");
+                                                                break;
                                                             }
                                                             currentPost.displayPoll();
                                                             System.out.println("What option would you like to vote for?");
                                                             int input6 = scan.nextInt();
                                                             while(input6 <= currentPost.getPollOptions().size()){
                                                                 System.out.println("Invalid option number! Please try again!");
+                                                                input6 = scan.nextInt();
                                                             }
                                                             currentPost.addPollVote(input6, currentUser);
+                                                            
+                                                        } else if (input5 == 5){
+                                                            currentPost.displayGradeDashboard(currentUser);
+                                                            System.out.println("Press any character to go back:");
+                                                            scan.nextLine();
+                                                            back2 = true;
                                                         } else if (input5 == 6) {
                                                             back1 = true;
                                                         }
