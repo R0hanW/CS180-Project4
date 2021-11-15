@@ -59,7 +59,6 @@ Aidan Cheng - Submitted Report on Brightspace
 - Testing Done:
     - Most testing was done by running Main either manually or through test cases and initializing new objects for Comment
     - Example of bugs found/fixed:
-        - **Bug:** 
 
 ## User
 -
