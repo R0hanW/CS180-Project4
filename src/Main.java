@@ -309,6 +309,7 @@ public class Main {
                                                         if(input == 1){
                                                             System.out.println("How many options would you like to add for the poll?");
                                                             input = scan.nextInt();
+                                                            scan.nextLine();
                                                             for(int i = 0; i < input; i++){
                                                                 System.out.println("Enter option for poll:");
                                                                 String input1000 = scan.nextLine();
