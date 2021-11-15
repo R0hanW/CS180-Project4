@@ -267,7 +267,8 @@ public class Main {
                                                             System.out.println(explanation);
                                                             System.out.println("[1]Reply to this post");
                                                             System.out.println("[2]Reply to student responses");
-                                                            System.out.println("[3]Back");
+                                                            System.out.println("[3]View Dashboard");
+                                                            System.out.println("[4]Back");
                                                             int input5 = scan.nextInt();
                                                             scan.nextLine();
                                                             if (input5 == 1) {
@@ -304,11 +305,22 @@ public class Main {
                                                                     System.out.println("Enter your text below");
                                                                     String text = scan.nextLine();
                                                                     Comment currentComment = comments.get(replyNum);
-
                                                                     currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                                 }
 
                                                             } else if (input5 == 3) {
+                                                                System.out.println(explanation);
+                                                                System.out.println("[1]Sort by votes");
+                                                                System.out.println("[2]Sort alphabetically");
+                                                                int sort = scan.nextInt();
+                                                                scan.nextLine();
+                                                                if (sort == 1) {
+                                                                    currentPost.displayCommentDashboard(true);
+                                                                } else if (sort == 2) {
+                                                                    currentPost.displayCommentDashboard(false);
+                                                                }
+
+                                                            }else if(input5 == 4){
                                                                 back1 = true;
                                                             }
                                                         }
@@ -364,7 +376,7 @@ public class Main {
                                                         System.out.println(explanation);
                                                         System.out.println("[1]Reply to this post");
                                                         System.out.println("[2]Reply to other student responses");
-                                                        System.out.println("[3]View Dashboard for this post");
+                                                        System.out.println(("[3]Upvote responses"));
                                                         System.out.println("[4]Back");
                                                         int input5 = scan.nextInt();
                                                         scan.nextLine();
@@ -387,19 +399,11 @@ public class Main {
                                                                 currentComment.addReply(new Comment(currentUser, currentPost, text));
                                                             }
 
-                                                        } else if (input5 == 3) {
-                                                            System.out.println(explanation);
-                                                            System.out.println("[1]Sort by votes");
-                                                            System.out.println("[2]Sort alphabetically");
-                                                            int sort = scan.nextInt();
-                                                            scan.nextLine();
-                                                            if (sort == 1) {
-                                                                currentPost.displayCommentDashboard(true);
-                                                            } else if (sort == 2) {
-                                                                currentPost.displayCommentDashboard(false);
-                                                            }
+                                                        }else if(input5 == 3){
+                                                            //display comments for upvoting.
+                                                        }
 
-                                                        } else if (input5 == 4) {
+                                                         else if (input5 == 4) {
                                                             back1 = true;
                                                         }
                                                     }
