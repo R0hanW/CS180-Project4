@@ -1,13 +1,13 @@
 /**
  * Comment.java
- * 
- * Represents a comment in our discussion forum. Keeps track of an owner, the post it belongs to, its text 
+ * <p>
+ * Represents a comment in our discussion forum. Keeps track of an owner, the post it belongs to, its text
  * content, a timestamp, a grade, its upvotes, and its own list of comments.
- * 
+ *
  * @author Rohan Wadwha Purdue CS180
- * 
  * @version 11/15/21
  */
+
 import java.util.ArrayList;
 import java.io.*;
 import java.time.format.DateTimeFormatter;
@@ -22,33 +22,33 @@ public class Comment {
     private double grade;
     private ArrayList<Comment> replies = new ArrayList<Comment>(0);
     private ArrayList<User> userUpvotes = new ArrayList<User>();
-    
-    public Comment(User owner, Post post, String content){
+
+    public Comment(User owner, Post post, String content) {
         this.owner = owner;
         this.post = post;
         this.content = content;
         //get current timestamp
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
         timestamp = java.time.LocalDateTime.now().format(formatter);
-        if(replies == null) post.addComment(this);
+        if (replies == null) post.addComment(this);
     }
-    
-    public Comment(User owner, Post post, String content, String timestamp){
+
+    public Comment(User owner, Post post, String content, String timestamp) {
         this.owner = owner;
         this.post = post;
         this.content = content;
         this.timestamp = timestamp;
         this.votes = 0;
     }
-    
-    public Comment(User owner, Post post, String content, String timestamp, int votes, double grade){
+
+    public Comment(User owner, Post post, String content, String timestamp, int votes, double grade) {
         this.owner = owner;
         this.post = post;
         this.content = content;
         this.timestamp = timestamp;
         this.votes = votes;
         this.grade = grade;
-    }    
+    }
 
     public User getOwner() {
         return this.owner;
@@ -63,9 +63,9 @@ public class Comment {
     }
 
     public ArrayList<Comment> getComments() {
-    	return replies;
+        return replies;
     }
-    
+
     public String getContent() {
         return this.content;
     }
@@ -73,9 +73,9 @@ public class Comment {
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public void addVote(User user) {
-        if(userUpvotes.contains(user)) {
+        if (userUpvotes.contains(user)) {
             System.out.println("Cannot upvote comment twice!");
             return;
         }
@@ -83,15 +83,16 @@ public class Comment {
         userUpvotes.add(user);
         System.out.println("Comment upvoted.");
     }
-    
+
     public int getVotes() {
-    	return votes;
+        return votes;
     }
 
-    public void addUserUpvote(User user){
+    public void addUserUpvote(User user) {
         userUpvotes.add(user);
     }
-    public ArrayList<User> getUserUpvotes(){
+
+    public ArrayList<User> getUserUpvotes() {
         return userUpvotes;
     }
 
@@ -107,57 +108,57 @@ public class Comment {
         return this.replies;
     }
 
-    public void addReply(Comment reply){
+    public void addReply(Comment reply) {
         replies.add(reply);
     }
 
-    public void removeReply(Comment reply){
+    public void removeReply(Comment reply) {
         replies.remove(reply);
     }
 
-    public void removeComment(){
+    public void removeComment() {
         post.removeComment(this);
     }
 
-    public void displayComment(boolean displayReplies){
+    public void displayComment(boolean displayReplies) {
         System.out.println(owner.getName() + "\t" + timestamp);
         System.out.println(content);
         System.out.printf("Likes: %d\n", votes);
-        if(displayReplies) {
-            for(Comment r : replies) r.displayComment(false);
+        if (displayReplies) {
+            for (Comment r : replies) r.displayComment(false);
         }
         System.out.println();
     }
 
-    public void displayComment(boolean displayReplies, boolean displayGrade){
-        if(displayGrade) System.out.println(owner.getName() + "\t" + timestamp + " Grade" + grade);
+    public void displayComment(boolean displayReplies, boolean displayGrade) {
+        if (displayGrade) System.out.println(owner.getName() + "\t" + timestamp + " Grade" + grade);
         else System.out.println(owner.getName() + "\t" + timestamp);
         System.out.println(content);
         System.out.printf("Likes: %d\n", votes);
-        if(displayReplies) {
-            for(Comment r : replies) r.displayComment(false, false);
+        if (displayReplies) {
+            for (Comment r : replies) r.displayComment(false, false);
         }
         System.out.println();
     }
 
-    public String toString(){
-       String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
-       for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
-       for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
-       return out;
-    }
-
-    public String toString(boolean displayReplies){
-        if(displayReplies == false) 
-            return String.format("%s,\"%s\",    %s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+    public String toString() {
         String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
-        for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
-        for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
+        for (Comment reply : replies) out += String.format("Reply:%s\n", reply.toString(false));
+        for (User user : userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
         return out;
     }
-    
+
+    public String toString(boolean displayReplies) {
+        if (displayReplies == false)
+            return String.format("%s,\"%s\",    %s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+        String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+        for (Comment reply : replies) out += String.format("Reply:%s\n", reply.toString(false));
+        for (User user : userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
+        return out;
+    }
+
     public boolean hasComments() {
-    	return (replies.size() > 0);
+        return (replies.size() > 0);
     }
 
     @Override

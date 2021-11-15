@@ -1,12 +1,13 @@
 /**
  * RunTest.java
- * 
+ * <p>
  * Test cases for the program
- * 
+ *
  * @author Thanmaya Pattanashetty Purdue CS180
- * 
  * @version 11/15/21
- */import org.junit.Test;
+ */
+
+import org.junit.Test;
 import org.junit.After;
 
 import java.lang.reflect.Field;
