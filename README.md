@@ -1,6 +1,6 @@
 # README
 Rohan Wadhwa - Submitted Vocareum Workspace
-Aidan Cheng - Submitted Report on Brightspace
+Aidan Chen - Submitted Report on Brightspace
 
 # Instructions
 1. Compile all java files
