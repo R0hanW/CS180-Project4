@@ -28,8 +28,8 @@ Aidan Cheng - Submitted Report on Brightspace
 - Testing Done:
     - Most testing was done by running Main either manually or through test cases and initializing new objects for Course
     - Examples of bugs found/fixed:
-        -**Bug:** Remove post not removing any posts even when existing post is passed in as parameter
-        -**Fix:** Fixed equals method for post
+        - **Bug:** Remove post not removing any posts even when existing post is passed in as parameter
+        - **Fix:** Fixed equals method for post
     - Interaction with other classes: Contains all the posts for a course, so relies on Post and Comment to function properly. Provides methods to analyze each course easily in main, such as displayCourse()
 
 ## Post  
@@ -40,12 +40,12 @@ Aidan Cheng - Submitted Report on Brightspace
     - Methods to display polling, posts, etc. 
     - Three ArrayLists that store options, results, and users who have voted for each poll
 - Testing Done:
-    - Most testinf was done by running Main either manually or through test cases and initializing new objects for Post
+    - Most testing was done by running Main either manually or through test cases and initializing new objects for Post
     - Examples of bugs found/fixed:
-        -**Bug:** Timestamp for data was formatted in dd/MM (16/11) when it was supposed to be formatted in MM/dd (11/16)
-        -**Fix:** Had a DateTimeFormatter object responsible for formatting the timestamp, changed it from dd/MM to MM/dd
-        -**Bug:** Poll would add extra empty options every time Courses.java was read.
-        -**Fix:** Extra pollResult() value of 0 was being added every time addPollOption() was called, add extra boolean parameter so that this was functionality was only done when intended
+        - **Bug:** Timestamp for data was formatted in dd/MM (16/11) when it was supposed to be formatted in MM/dd (11/16)
+        - **Fix:** Had a DateTimeFormatter object responsible for formatting the timestamp, changed it from dd/MM to MM/dd
+        - **Bug:** Poll would add extra empty options every time Courses.java was read.
+        - **Fix:** Extra pollResult() value of 0 was being added every time addPollOption() was called, add extra boolean parameter so that this was functionality was only done when intended
     - Interaction with other classes: Courses uses Post class to store an arrayList of all the discussion posts, Post uses Comment class to store an ArrayList of comments.
 
 ## Comment  
