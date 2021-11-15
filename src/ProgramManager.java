@@ -58,8 +58,6 @@ public class ProgramManager {
         Post post = null;
         Comment comment = null;
         String[] messageArr;
-        String[] replyArr;
-        Comment replyComment;
         while((message = reader.readLine()) != null){
             if(message.contains("Course")) {
                 //finds everything after colon in message
@@ -72,26 +70,32 @@ public class ProgramManager {
                 messageArr = message.split(",");
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
             }
+            else if(message.contains("pollOption")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addPollOption(message);
+            }
+            else if(message.contains("pollResult")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addPollResult(Integer.parseInt(message));
+            }
+            else if(message.contains("userPollVote")){
+                message = message.substring(message.indexOf(":")+1);
+                post.addUserVoter(findUser(message));
+            }
             else if(message.contains("Comment")){
                 message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
                 comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
                 post.addComment(comment);
             }
-            else if(message.contains("Replies")){
-                message = message.substring(message.indexOf(":")+1);
-                messageArr = message.split(";");
-                for(String reply: messageArr){
-                    replyArr = reply.split(",");
-                    replyComment = new Comment(findUser(replyArr[0]), post, replyArr[2], replyArr[3]);
-                    comment.addReply(replyComment);
-                }
-            } else if(message.contains("Upvotes")){
+            else if(message.contains("Reply")){
                 message = message.substring(message.indexOf(":")+1);
                 messageArr = message.split(",");
-                for(String user:messageArr){
-                    comment.addUserUpvote(findUser(user));
-                }
+                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2], Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
+            } else if(message.contains("Upvote")){
+                message = message.substring(message.indexOf(":")+1);
+                comment.addUserUpvote(findUser(message));
+                
             }
             else if(message.equals("END OF POST")){
                 course.addPost(post);

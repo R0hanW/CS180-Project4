@@ -100,6 +100,14 @@ public class Post {
         pollResults.add(0);
     }
 
+    public void addPollResult(int result){
+        pollResults.add(result);
+    }
+
+    public void addUserVoter(User user){
+        userPollVotes.add(user);
+    }
+
     public void addPollVote(int option, User user){
         if(userPollVotes.contains(user)) {
             System.out.println("You have already voted on this poll! You cannot vote twice!");
@@ -111,6 +119,9 @@ public class Post {
 
     public String toString(){
         String out = String.format("Post:%s,%s,%s,%s\n", owner.getUsername(), content, topic, timestamp);
+        for(String option: pollOptions) out += String.format("pollOption:%s\n", option);
+        for(int result: pollResults) out += String.format("pollResult:%s\n", result);
+        for(User user: userPollVotes) out += String.format("userPollVote:%s\n", user.getUsername());
         for(Comment comment: comments) out += String.format("Comment:%s\n", comment.toString());
         return out;
     }

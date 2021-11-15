@@ -131,16 +131,18 @@ public class Comment {
 
     public String toString(){
        String out = String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
-       if(replies.size() >= 1) out += "Replies:";
-       for(Comment reply: replies) out += String.format("%s;", reply.toString(true));
-       if(userUpvotes.size() >= 1) out += "\nUpvotes:";
-       for(User user: userUpvotes) out += String.format("%s,", user.getUsername());
-       System.out.println("\n");
+       for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
+       for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
        return out;
     }
 
-    public String toString(boolean reply){
-        return String.format("%s,%s,%s,%s");
+    public String toString(boolean displayReplies){
+        if(displayReplies == false) 
+            return String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+        String out = String.format("%s,%s,%s,%s,%s\n", owner.getUsername(), content, timestamp, Integer.toString(votes), Double.toString(grade));
+        for(Comment reply: replies) out += String.format("Reply:%s\n", reply.toString(false));
+        for(User user: userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
+        return out;
     }
 
     @Override
