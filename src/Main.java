@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) {
         String explanation = "Type the number next to the option you would like to choose";
         String yesNo = "[1]Yes\n[2]No";
@@ -74,22 +73,35 @@ public class Main {
                     do {
                         System.out.println("Enter the name you would like to keep for your username");
                         newUsername = scan.nextLine();
-                        if (currentUser.getUsername() != newUsername && program.findUser(newUsername) != null) {
+                        if (program.findUser(newUsername) != null) {
                             System.out.println("That username is taken");
                         }
                     } while (program.findUser(newUsername) != null);
                     System.out.println("Enter what would you like to be for your password");
                     String newPassword = scan.nextLine();
-                    System.out.println("Are you a teacher?");
-                    System.out.println(explanation);
-                    System.out.println(yesNo);
                     boolean isTeacher = false;
-                    int ans = scan.nextInt();
-                    scan.nextLine();
-                    if (ans == 1) {
-                        isTeacher = true;
-                    } else if (ans == 2) {
-                        isTeacher = false;
+                    while(true) {
+                        try {
+                            System.out.println("Are you a teacher?");
+                            System.out.println(explanation);
+                            System.out.println(yesNo);
+
+                            int ans = scan.nextInt();
+                            scan.nextLine();
+                            if (ans == 1) {
+                                isTeacher = true;
+                                break;
+                            } else if (ans == 2) {
+                                isTeacher = false;
+                                break;
+                            } else {
+                                System.out.println("Enter a valid option");
+                            }
+
+                        } catch (InputMismatchException i){
+                            System.out.println("Enter a valid number");
+                            scan.nextLine();
+                        }
                     }
                     User newUser = new User(newName, newUsername, newPassword, isTeacher);
                     program.addUser(newUser);
@@ -125,27 +137,46 @@ public class Main {
                             if (input2 == 1) {
                                 System.out.println("What is your name");
                                 String newName = scan.nextLine();
-                                //boolean taken = true;
+                                boolean taken = true;
                                 String newUsername = "";
                                 do {
                                     System.out.println("Enter the name you would like to keep for your username");
                                     newUsername = scan.nextLine();
                                     if (program.findUser(newUsername) != null) {
-                                        System.out.println("That username is taken");
+                                        if (!program.findUser(newUsername).equals(currentUser)) {
+                                            System.out.println("That username is taken");
+                                        } else {
+                                            taken = false;
+                                        }
+                                    } else {
+                                        taken = false;
                                     }
-                                } while (program.findUser(newUsername) != null);
+                                } while (taken);
                                 System.out.println("Enter what would you like to be for your password");
                                 String newPassword = scan.nextLine();
-                                System.out.println("Are you a teacher?");
-                                System.out.println(explanation);
-                                System.out.println(yesNo);
                                 boolean isTeacher = false;
-                                int ans = scan.nextInt();
-                                scan.nextLine();
-                                if (ans == 1) {
-                                    isTeacher = true;
-                                } else if (ans == 2) {
-                                    isTeacher = false;
+                                while(true) {
+                                    try {
+                                        System.out.println("Are you a teacher?");
+                                        System.out.println(explanation);
+                                        System.out.println(yesNo);
+
+                                        int ans = scan.nextInt();
+                                        scan.nextLine();
+                                        if (ans == 1) {
+                                            isTeacher = true;
+                                            break;
+                                        } else if (ans == 2) {
+                                            isTeacher = false;
+                                            break;
+                                        } else {
+                                            System.out.println("Enter a valid option");
+                                        }
+
+                                    } catch (InputMismatchException i) {
+                                        System.out.println("Enter a valid number");
+                                        scan.nextLine();
+                                    }
                                 }
                                 program.modifyUser(currentUser, newName, newUsername, newPassword, isTeacher);
                                 System.out.println("Successfully modified!");
