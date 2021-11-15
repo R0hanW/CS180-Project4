@@ -100,7 +100,7 @@ public class Post {
     
     public void displayPost(){
         int counter = 0;
-        System.out.println(topic + "    " + timestamp + "\n" );
+        System.out.println(topic + "    " + timestamp + "\n");
         System.out.println(content);
         for (Comment c : comments){
             System.out.printf("[%d]", counter++);

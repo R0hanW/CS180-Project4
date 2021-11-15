@@ -96,7 +96,7 @@ public class Comment {
     }
 
     public void displayComment(boolean displayReplies){
-        System.out.println(owner.getName() + "\t" + timestamp);
+        System.out.println(owner.getName() + "\t" + timestamp + votes);
         System.out.println(content);
         if(displayReplies) {
             for(Comment r : replies) System.out.println(r.toString());
