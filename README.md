@@ -39,6 +39,7 @@ Aidan Cheng - Submitted Report on Brightspace
     - Methods to change comments for each post, such as removeComment() and addComment()
     - Methods to display polling, posts, etc. 
     - Three ArrayLists that store options, results, and users who have voted for each poll
+    - toString() to write each comment to Courses.txt
 - Testing Done:
     - Most testing was done by running Main either manually or through test cases and initializing new objects for Post
     - Examples of bugs found/fixed:
@@ -49,7 +50,15 @@ Aidan Cheng - Submitted Report on Brightspace
     - Interaction with other classes: Courses uses Post class to store an arrayList of all the discussion posts, Post uses Comment class to store an ArrayList of comments.
 
 ## Comment  
--
+- Stores all the necessary data for each comment contains methods to process this data, including:
+    - Author + content + timestamp + likes + grade of each comment
+    - ArrayList of replies to each comment
+    - Methods to upvote and grade each comment
+    - Methods to display each comment
+    - toString() to write each comment to Courses.txt
+- Testing Done:
+    - Most testing was done by running Main either manually or through test cases and initializing new objects for Comment
+    - Example of bugs found/fixed:
 
 ## User
 -

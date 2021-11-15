@@ -535,7 +535,9 @@ public class Main {
                                                                 System.out.println("[1]Reply to this post");
                                                                 System.out.println("[2]Reply to other student responses");
                                                                 System.out.println(("[3]Upvote responses"));
-                                                                System.out.println("[4]Back");
+                                                                System.out.println("[4]Vote in poll");
+                                                                System.out.println("[5]View grades");
+                                                                System.out.println("[6]Back");
                                                                 input5 = scan.nextInt();
                                                                 scan.nextLine();
                                                                 if (input5 < 1|| input5>4){
