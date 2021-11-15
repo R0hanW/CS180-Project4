@@ -25,6 +25,9 @@ Post:test,"Test Description","New Post",11/15 15:29
 END OF POST
 END OF COURSE
 Course:oopsies,test
+Post:test,"Description","Topic 1",11/15 15:38
+
+END OF POST
 END OF COURSE
 Course:1,test
 END OF COURSE

@@ -9,7 +9,7 @@ public class Post {
     private String content;
     private String topic;
     private Course course;
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private ArrayList<Comment> comments = new ArrayList<Comment>(0);
     private ArrayList<Integer> pollResults = new ArrayList<Integer>();
     private ArrayList<String> pollOptions = new ArrayList<String>();
     private ArrayList<User> userPollVotes = new ArrayList<User>();
@@ -169,7 +169,11 @@ public class Post {
             System.out.printf("[%d]Option: %s: %d votes\n", i+1, pollOptions.get(i), pollResults.get(i));
         }
     }
-
+    
+    public boolean hasComments() {
+    	return (comments.size() > 0);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
