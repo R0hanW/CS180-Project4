@@ -50,7 +50,7 @@ Aidan Cheng - Submitted Report on Brightspace
     - Interaction with other classes: Courses uses Post class to store an arrayList of all the discussion posts, Post uses Comment class to store an ArrayList of comments.
 
 ## Comment  
-- Stores all the necessary data for each comment contains methods to process this data, including:
+- Stores all the necessary data for each comment and contains methods to process this data, including:
     - Author + content + timestamp + likes + grade of each comment
     - ArrayList of replies to each comment
     - Methods to upvote and grade each comment
@@ -59,12 +59,33 @@ Aidan Cheng - Submitted Report on Brightspace
 - Testing Done:
     - Most testing was done by running Main either manually or through test cases and initializing new objects for Comment
     - Example of bugs found/fixed:
+        - **Bug:** User could upvote comment infinite times.
+        - **Fix:** Created arraylist of users who had liked comments in comment, added user as a parameter for addVote() and checked if they had already liked the comment or not.
+- Interaction with other classes: Post used Comment class to store the replies to a Post.
 
 ## User
--
+- Stores all the necessary data for each user and contains methods to process this data, including:
+    - Name + username + password of each user
+    - Boolean isTeacher, true if user was teacher
+    - Methods to get and set all variables
+    - ArrayList of comments given by user
+- Testing done:
+    - Most testing was done by running Main either manually or through test cases and initializing new objects for User
+    - Examples of bugs found/fixed:
+        - **Bug:** Comment was not being removed when user was being deleted, and comment.getOwner() was returning a nullpointer exception
+        - **Fix:** Created arrayList of comments inside User classes and added comment to arrayList inside of post.addComment()
+- Interaction with other classes: Used by post, main, comments to store author of each object and view of user editing object had permissions to do so. Used by main to login and create new users.
 
 ## Main
--
-
+- Utilizes all other classes (besides runTest) to print all the menus and edit existing objects
+- Testing done:
+    - Wrote test cases for main and ran main and went through every respective menu multiple times
+    - Examples of bugs found/fixed:
+        - **Bug:** When user typed in wrong password, they would get stuck in an infinite loop
+        - **Fix:** Added break statement to escape while loop
+        - **Bug:** Invalid option when choosing a comment number to reply to would result in an arrayOutOfBounds exception
+        - **Fix:** Added if statement to ensure option chosen was in bounds of comment arrayList
+- Interaction with other classes: Uses every other class to display courses, posts, etc. and to edit objects if user wishes to do so. 
 ## RunTest
--
+- Runs JUnit tests to see if main matches expected output
+- Interaction with other classes: Tested all other classes through main
