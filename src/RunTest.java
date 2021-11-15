@@ -60,24 +60,21 @@ public class RunTest {
         @Test(timeout = 1000)
         public void testLogin() {
 
-            //String input = "1\nJDoe25\npassword123\n4\n";
-           /* String input = "3"+System.lineSeparator();
-            receiveInput(input);
-*/
+
             try {
                 String input = "1" + System.lineSeparator() + "JDoe25" + System.lineSeparator() + "password123" + System.lineSeparator() + "4" + System.lineSeparator();
                 receiveInput(input);
                 Main.main(new String[0]);
                 String out = getOutput();
                 String expectedFull = "Welcome to Discussion Posts" +
-                        System.lineSeparator() + System.lineSeparator() +
+                        System.lineSeparator() +
                         "Type the number next to the option you would like to choose" + System.lineSeparator() +
                         "[1]Log In" + System.lineSeparator() +
                         "[2]Sign Up" + System.lineSeparator() +
                         "[3]Exit" + System.lineSeparator() + "Enter the Username" + System.lineSeparator() +
                         "Enter the Password" +
                         System.lineSeparator() +
-                        "Logged In Successfully!" + System.lineSeparator()+ System.lineSeparator() +
+                        "Welcome, John Doe!" + System.lineSeparator() +
 
                         "Type the number next to the option you would like to choose" + System.lineSeparator() +
                         "[1]Edit my Account" + System.lineSeparator() +
