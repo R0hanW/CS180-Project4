@@ -15,7 +15,7 @@ public class MainFrame extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     JLabel courseFrameTitle, courseNameText, courseAuthorText, currentUserText;
     JTextArea courseText;
-    JButton viewCourseButton, createCourseButton;
+    JButton invisButton, viewCourseButton, createCourseButton;
     MouseListener mouseListener;
     ProgramManager manager;
     public MainFrame() {
@@ -58,10 +58,11 @@ public class MainFrame extends JFrame implements ActionListener {
         userMenu.add(logOutItem);
         menuBar.add(userMenu);
 
-        titlePanel = new JPanel(new GridBagLayout());
+        titlePanel = new JPanel(new BorderLayout());
         courseFrameTitle = new JLabel("COURSES");
         createCourseButton = new JButton("Create Course");
-        // createCourseButton.setPreferredSize(new Dimension(10, 5));
+        createCourseButton.setPreferredSize(new Dimension(100, 20));
+        if(!manager.getCurrUser().isTeacher()) createCourseButton.setVisible(false);
         ArrayList<Course> courses = manager.getCourses();
         coursePanel = new JPanel(new GridLayout(courses.size(), 1));
         //create Panel for each course
@@ -110,11 +111,13 @@ public class MainFrame extends JFrame implements ActionListener {
     }
 
     public void addComponentsToContainer(){
-        courseFrameTitle.setAlignmentX(CENTER_ALIGNMENT);
-        titlePanel.add(courseFrameTitle);
-        createCourseButton.setAlignmentX(RIGHT_ALIGNMENT);
+        if(manager.getCurrUser().isTeacher()) 
+            titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20), new Dimension(100, 20)), BorderLayout.WEST);
+        courseFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        titlePanel.add(courseFrameTitle, BorderLayout.CENTER);
+        createCourseButton.setHorizontalAlignment(SwingConstants.RIGHT);
         try {
-            if(ProgramManager.get().getCurrUser().isTeacher()) titlePanel.add(createCourseButton);
+            if(ProgramManager.get().getCurrUser().isTeacher()) titlePanel.add(createCourseButton, BorderLayout.EAST);
         } catch (Exception e) {
             e.printStackTrace();
         }
