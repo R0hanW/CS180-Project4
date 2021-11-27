@@ -1,1 +1,2 @@
-
+User{name="test",username="test",password="test",isTeacher="true"}
+User{name="Sonu",username="sonuOnFriday",password="sonu",isTeacher="true"}

@@ -1,1 +1,14 @@
-
+Course:test,test,true
+END OF COURSE
+Course:CS 180,test,true
+END OF COURSE
+Course:we testing,test,true
+END OF COURSE
+Course:aafdgagd,test,true
+END OF COURSE
+Course:dope,test,true
+END OF COURSE
+Course:ooga booga,test,true
+END OF COURSE
+Course:how much wood can the woodchuck chuck,test,true
+END OF COURSE
