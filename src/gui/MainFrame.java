@@ -39,7 +39,7 @@ public class MainFrame {
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 try {
-                    manager.writeFile();
+                    ProgramManager.get().writeFile();
                 } catch(Exception e1) {
                     e1.printStackTrace();
                 }

@@ -1,3 +1,4 @@
 User{name="test",username="test",password="test",isTeacher="true"}
 User{name="Sonu",username="sonuOnFriday",password="sonu",isTeacher="true"}
 User{name="Real Name",username="student",password="test",isTeacher="false"}
+User{name="Ooga Booga",username="ooga",password="ooga",isTeacher="false"}
