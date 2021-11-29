@@ -98,7 +98,7 @@ public class ProgramManager {
                 course = new Course(message.split(",")[0], findUser(message.split(",")[1]), Boolean.parseBoolean(message.split(",")[2]));
             } else if (message.contains("Post")) {
                 message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);    
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 messageArr[2] = messageArr[2].substring(1, messageArr[2].length() - 1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);

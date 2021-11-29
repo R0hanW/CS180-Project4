@@ -8,32 +8,21 @@ import backend.ProgramManager;
 import java.awt.*;
 import java.awt.event.*;
 
-public class NewCourseFrame extends JFrame implements ActionListener {
+public class NewCoursePanel extends JPanel implements ActionListener {
     JLabel nameLabel, createCoursePermissionsLabel;
     JTextField nameText;
     JButton submitButton;
     JRadioButton coursePermissionsButton;
     JPanel panel, tmpPanel;
     ProgramManager manager;
-    public NewCourseFrame() {
+    public NewCoursePanel() {
         try {
             manager = ProgramManager.get();
         } catch (Exception e) {
             e.printStackTrace();
         }
         initComponents();
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(500, 150);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                try {
-                    manager.writeFile();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                System.exit(0);
-            }
-        });
+        setPreferredSize(new Dimension(500, 150));
     }
 
     private void initComponents() {
@@ -46,16 +35,13 @@ public class NewCourseFrame extends JFrame implements ActionListener {
         addActionListeners();
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
-        setTitle("Discussion Board");
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == submitButton) {
             manager.addCourse(new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-            this.dispose();
+            MainFrame.get().switchPanel("Main");
         }
     }
 

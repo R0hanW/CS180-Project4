@@ -3,8 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import backend.*;
-
-public class LoginFrame extends JFrame implements ActionListener{
+public class LoginPanel extends JPanel implements ActionListener{
     JLabel userLabel, passwordLabel;
     JTextField userText;
     JPasswordField passwordText;
@@ -13,25 +12,14 @@ public class LoginFrame extends JFrame implements ActionListener{
     ProgramManager manager; 
     
     
-    public LoginFrame() {
+    public LoginPanel() {
         initComponents();
-        setSize(300, 150);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setPreferredSize(new Dimension(300, 150));
         try {
             manager = ProgramManager.get();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                try {
-                    manager.writeFile();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                System.exit(0);
-            }
-        });
     }
 
     private void initComponents(){
@@ -46,7 +34,6 @@ public class LoginFrame extends JFrame implements ActionListener{
         addComponentsToContainer();
         addActionListeners();
         add(panel, BorderLayout.CENTER);
-        setTitle("Discussion Board");
     }
 
     
@@ -67,14 +54,10 @@ public class LoginFrame extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Incorrect Password!", "Login", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 manager.setCurrUser(user);
-                this.dispose();
-                MainFrame mainFrame = new MainFrame();
-                mainFrame.setVisible(true);
+                MainFrame.get().switchPanel("Main");
             }
         } else if(e.getSource() == signUpButton) {
-            JFrame signUpFrame = new SignUpFrame();
-            signUpFrame.setVisible(true);
-            this.dispose();
+            MainFrame.get().switchPanel("Sign Up");
         }
     }
 

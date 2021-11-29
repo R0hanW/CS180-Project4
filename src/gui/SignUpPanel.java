@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import backend.*;
 
-public class SignUpFrame extends JFrame implements ActionListener{
+public class SignUpPanel extends JPanel implements ActionListener{
     JLabel nameLabel, userLabel, passwordLabel, confirmPasswordLabel, teacherLabel;
     JTextField nameText, userText;
     JPasswordField passwordText, confirmPasswordText;
@@ -16,25 +16,9 @@ public class SignUpFrame extends JFrame implements ActionListener{
     JPanel panel, tmpPanel;
     ProgramManager manager; 
 
-    public SignUpFrame() {
+    public SignUpPanel() {
         initComponents();
-        setSize(350, 300);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        try {
-            manager = ProgramManager.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                try {
-                    manager.writeFile();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                System.exit(0);
-            }
-        });
+        setPreferredSize(new Dimension(350, 300));
     }
 
     private void initComponents(){
@@ -53,7 +37,6 @@ public class SignUpFrame extends JFrame implements ActionListener{
         addActionListeners();
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
-        setTitle("Discussion Board");
     }   
 
     @Override 
@@ -77,9 +60,7 @@ public class SignUpFrame extends JFrame implements ActionListener{
                     e1.printStackTrace();
                 }
                 manager.addUser(new User(nameText.getText(), userText.getText(), String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
-                JFrame loginFrame = new LoginFrame();
-                loginFrame.setVisible(true); 
-                this.dispose();
+                MainFrame.get().switchPanel("Login");
             }
         }
     }

@@ -1,10 +1,13 @@
-import javax.swing.*;
+import gui.MainFrame;
 
-import gui.*;
-
-public class Main{
+public class Main {
     public static void main(String[] args) {
-        JFrame loginFrame = new LoginFrame();
-        loginFrame.setVisible(true); 
+        javax.swing.SwingUtilities.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                new MainFrame();
+            }
+        });
     }
 }
