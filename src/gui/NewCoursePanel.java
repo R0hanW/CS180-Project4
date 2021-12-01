@@ -40,6 +40,13 @@ public class NewCoursePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == submitButton) {
+            try {
+                manager = ProgramManager.get();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            if(manager.findCourse(nameText.getText()) != null) 
+                JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course", JOptionPane.INFORMATION_MESSAGE);
             manager.addCourse(new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
             MainFrame.get().switchPanel("Main");
         }

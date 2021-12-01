@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Course {
-    String name;
-    User owner;
-    Boolean studentsCanCreatePosts;
+    private String name;
+    private User owner;
+    private Boolean studentsCanCreatePosts;
 
     ArrayList<Post> posts = new ArrayList<Post>();
 
@@ -41,6 +41,14 @@ public class Course {
 
     public User getOwner() {
         return this.owner;
+    }
+
+    public boolean studentsCanCreatePosts() {
+        return studentsCanCreatePosts;
+    }
+
+    public void setStudentsCanCreatePosts(boolean studentsCanCreatePosts) {
+        this.studentsCanCreatePosts = studentsCanCreatePosts;
     }
 
     public ArrayList<Post> getPosts() {

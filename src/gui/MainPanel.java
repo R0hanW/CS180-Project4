@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import backend.*;
 public class MainPanel extends JPanel implements ActionListener {
     JPanel coursePanel, tmpPanel, titlePanel, panel;
     JMenuBar menuBar;
-    JMenu userMenu;
+    JMenu userMenu, backItem, forwardItem;
     JMenuItem profileItem, logOutItem;
     JScrollPane scrollPane;
     JLabel courseFrameTitle, courseNameText, courseAuthorText, currentUserText;
@@ -27,17 +30,19 @@ public class MainPanel extends JPanel implements ActionListener {
         }
         initComponents();
         setPreferredSize(new Dimension(350, 750));
-        mouseListener = new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                MainFrame.get().switchPanel("Course");
-            }
-        };
     }
 
     private void initComponents(){
         //create components for top menu bar
         menuBar = new JMenuBar();
+        backItem = new JMenu();
+        backItem.setIcon(new ImageIcon("icons/back.png"));
+        backItem.setPopupMenuVisible(false);
+        forwardItem = new JMenu();
+        forwardItem.setIcon(new ImageIcon("icons/forward.png"));
+        forwardItem.setPopupMenuVisible(false);
+        menuBar.add(backItem);
+        menuBar.add(forwardItem);
         menuBar.add(Box.createHorizontalGlue());
         userMenu = new JMenu(manager.getCurrUser().getName());
         profileItem = new JMenuItem("Profile");
@@ -61,7 +66,17 @@ public class MainPanel extends JPanel implements ActionListener {
             courseNameText = new JLabel(course.getName());
             courseNameText.setForeground(Color.BLUE.darker());
             courseNameText.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            courseNameText.addMouseListener(mouseListener);
+            courseNameText.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        ProgramManager.get().setCurrCourse(course);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    MainFrame.get().switchPanel("Course");
+                }
+            });
             courseAuthorText = new JLabel("Teacher:" + course.getOwner().getName());
             tmpPanel.add(courseNameText);
             tmpPanel.add(courseAuthorText);
@@ -87,6 +102,20 @@ public class MainPanel extends JPanel implements ActionListener {
     }
 
     private void addActionListeners() {
+        backItem.addMenuListener(new MenuListener() {
+            public void menuSelected(MenuEvent e) {
+                MainFrame.get().switchPanel("Previous");
+            }
+            public void menuDeselected(MenuEvent e) {}
+            public void menuCanceled(MenuEvent e) {}
+        });
+        forwardItem.addMenuListener(new MenuListener() {
+            public void menuSelected(MenuEvent e) {
+                MainFrame.get().switchPanel("Next");
+            }
+            public void menuDeselected(MenuEvent e) {}
+            public void menuCanceled(MenuEvent e) {}
+        });
         profileItem.addActionListener(this);
         logOutItem.addActionListener(this);
         createCourseButton.addActionListener(this);

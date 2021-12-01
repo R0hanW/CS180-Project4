@@ -7,7 +7,7 @@ public class MainFrame {
     private static MainFrame instance = null;
     JPanel panels;
     JFrame frame;
-    JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel;
+    JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel, prevPanel, nextPanel;
     Box box;
     Dimension dimension;
     ProgramManager manager;
@@ -65,11 +65,13 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName) {
+        prevPanel = panel;
         if(panelName.equals("Login")) panel = new LoginPanel();
         else if(panelName.equals("Sign Up")) panel = new SignUpPanel();
         else if(panelName.equals("Main")) panel = new MainPanel();
         else if(panelName.equals("New Course")) panel = new NewCoursePanel();
         else if(panelName.equals("Course")) panel = new CoursePanel();
+        else if(panelName.equals("Previous")) 
         if(panel.getPreferredSize().getHeight() > 500) {
             frame.getContentPane().removeAll();
             frame.getContentPane().add(panel);
@@ -77,6 +79,7 @@ public class MainFrame {
             frame.repaint();
             return;
         }
+        nextPanel = panel;
         panel.setPreferredSize(dimension);
         panel.setMaximumSize(dimension);
         panel.setMinimumSize(dimension);

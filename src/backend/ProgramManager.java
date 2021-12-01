@@ -24,6 +24,8 @@ public class ProgramManager {
     // private ArrayList<Post> posts = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<Course>();
     static User currUser;
+    private Course currCourse;
+    private Post currPost;
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
     //can read more here https://stackoverflow.com/questions/18125106/make-global-instance-of-class-java/18125286
@@ -50,6 +52,23 @@ public class ProgramManager {
     public void setCurrUser(User currUser){
         ProgramManager.currUser = currUser;
     }
+
+    public Course getCurrCourse() {
+        return currCourse;
+    }
+
+    public void setCurrCourse(Course currCourse) {
+        this.currCourse = currCourse;
+    }
+
+    public Post getCurrPost() {
+        return currPost;
+    }
+
+    public void setCurrPost(Post currPost) {
+        this.currPost = currPost;
+    }
+
     public ArrayList<Course> getCourses() {
         return courses;
     }
@@ -253,30 +272,16 @@ public class ProgramManager {
     }
 
     public User findUser(String username) { // works
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username)) {
-                return users.get(i);
-            }
-        }
-        return null;
-        //return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
+        // for (int i = 0; i < users.size(); i++) {
+        //     if (users.get(i).getUsername().equals(username)) {
+        //         return users.get(i);
+        //     }
+        // }
+        // return null;
+        return users.stream().filter(user -> user.getUsername() == username).findFirst().orElse(null);
     }
 
-    // //returns list of comments sorted by votes in descending order
-    // public ArrayList<Comment> sortByVotes(int courseNumber) {
-    //     ArrayList<Comment> commentList = new ArrayList<Comment>();
-    //     Course course = courses.get(courseNumber);
-    //     course.getPosts().stream().forEach(post -> commentList.addAll(post.getComments()));
-    //     if(commentList.size() < 2) return commentList;
-    //     commentList.sort(Comparator.comparing(Comment::getVotes));
-    // 	return commentList;
-    // }
-
-    // public ArrayList<Comment> sortByAuthor(Course course){
-    //     ArrayList<Comment> out = new ArrayList<Comment>(0);
-    //     course.getPosts().stream().forEach(post -> out.addAll(post.getComments()));
-    //     if(out.size() <= 1) return out;
-    //     Collections.sort(out, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-    //     return out;
-    // }
+    public Course findCourse(String courseName) {
+        return courses.stream().filter(course -> course.getName().equals(courseName)).findFirst().orElse(null);
+    }
 }
