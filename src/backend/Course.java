@@ -8,20 +8,27 @@
  * @version 11/15/21
  */
 
+package backend;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Course {
-    String name;
-    User owner;
+    private String name;
+    private User owner;
+    private Boolean studentsCanCreatePosts;
 
     ArrayList<Post> posts = new ArrayList<Post>();
 
     public Course(String name, User owner) {
         this.name = name;
         this.owner = owner;
+        this.studentsCanCreatePosts = false;
+    }
+
+    public Course(String name, User owner, Boolean studentsCanCreatePosts) {
+        this.name = name;
+        this.owner = owner;
+        this.studentsCanCreatePosts = studentsCanCreatePosts;
     }
 
     public String getName() {
@@ -36,6 +43,14 @@ public class Course {
         return this.owner;
     }
 
+    public boolean studentsCanCreatePosts() {
+        return studentsCanCreatePosts;
+    }
+
+    public void setStudentsCanCreatePosts(boolean studentsCanCreatePosts) {
+        this.studentsCanCreatePosts = studentsCanCreatePosts;
+    }
+
     public ArrayList<Post> getPosts() {
         return this.posts;
     }
@@ -45,7 +60,7 @@ public class Course {
     }
 
     public boolean addPost(Post post, User user) {
-        if (!user.isTeacher()) return false;
+        if (!user.isTeacher() || !studentsCanCreatePosts) return false;
         posts.add(post);
         return true;
     }
@@ -73,7 +88,7 @@ public class Course {
         } else {
             author = owner.getUsername();
         }
-        String out = String.format("Course:%s,%s\n", name, author);
+        String out = String.format("Course:%s,%s,%b\n", name, author, studentsCanCreatePosts);
         for (Post post : posts) out += String.format("%s\nEND OF POST\n", post.toString());
         out += "END OF COURSE";
         return out;

@@ -4,10 +4,10 @@
  * Handles processing of the program. Includes the list of users and courses in the program, which are
  * initialized on program start up by reading from storage files. Handles adding courses and users
  *
- * @author Aidan Chen, Thanmaya Pattanashetty, Rohan Wadwha Purdue CS180
+ * @author Aidan Chen, Thanmaya Pattanashetty, Rohan Wadhwa Purdue CS180
  * @version 11/15/21
  */
-
+package backend;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,23 +19,61 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ProgramManager {
+    private static ProgramManager instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     // private ArrayList<Post> posts = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<Course>();
+    static User currUser;
+    private Course currCourse;
+    private Post currPost;
 
+    //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
+    //can read more here https://stackoverflow.com/questions/18125106/make-global-instance-of-class-java/18125286
+    public static synchronized ProgramManager get() throws Exception{
+        if(instance == null) {
+            instance = new ProgramManager();
+        }
+        return instance;
+    }
     public ProgramManager(ArrayList<User> users, ArrayList<Course> courses) {
         this.users = users;
         this.courses = courses;
+    }
+    
+    public ProgramManager() throws Exception {
+        readUserFile();
+        readFile();
+    }
+
+    public User getCurrUser() {
+        return currUser;
+    }
+
+    public void setCurrUser(User currUser){
+        ProgramManager.currUser = currUser;
+    }
+
+    public Course getCurrCourse() {
+        return currCourse;
+    }
+
+    public void setCurrCourse(Course currCourse) {
+        this.currCourse = currCourse;
+    }
+
+    public Post getCurrPost() {
+        return currPost;
+    }
+
+    public void setCurrPost(Post currPost) {
+        this.currPost = currPost;
     }
 
     public ArrayList<Course> getCourses() {
         return courses;
     }
 
-    public ProgramManager() throws Exception {
-        readUserFile();
-        readFile();
-    }
+    
 
     public void writeFile() throws Exception {// works
         //write from arraylist to txt files
@@ -76,10 +114,10 @@ public class ProgramManager {
                 //finds everything after colon in message
                 message = message.substring(message.indexOf(":") + 1);
                 //.split(",") returns an array that splits the message by comma
-                course = new Course(message.split(",")[0], findUser(message.split(",")[1]));
+                course = new Course(message.split(",")[0], findUser(message.split(",")[1]), Boolean.parseBoolean(message.split(",")[2]));
             } else if (message.contains("Post")) {
                 message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);    
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 messageArr[2] = messageArr[2].substring(1, messageArr[2].length() - 1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
@@ -234,30 +272,16 @@ public class ProgramManager {
     }
 
     public User findUser(String username) { // works
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username)) {
-                return users.get(i);
-            }
-        }
-        return null;
-        //return users.stream().filter(user -> user.getUsername() == username).findAny().orElse(null);
+        // for (int i = 0; i < users.size(); i++) {
+        //     if (users.get(i).getUsername().equals(username)) {
+        //         return users.get(i);
+        //     }
+        // }
+        // return null;
+        return users.stream().filter(user -> user.getUsername() == username).findFirst().orElse(null);
     }
 
-    // //returns list of comments sorted by votes in descending order
-    // public ArrayList<Comment> sortByVotes(int courseNumber) {
-    //     ArrayList<Comment> commentList = new ArrayList<Comment>();
-    //     Course course = courses.get(courseNumber);
-    //     course.getPosts().stream().forEach(post -> commentList.addAll(post.getComments()));
-    //     if(commentList.size() < 2) return commentList;
-    //     commentList.sort(Comparator.comparing(Comment::getVotes));
-    // 	return commentList;
-    // }
-
-    // public ArrayList<Comment> sortByAuthor(Course course){
-    //     ArrayList<Comment> out = new ArrayList<Comment>(0);
-    //     course.getPosts().stream().forEach(post -> out.addAll(post.getComments()));
-    //     if(out.size() <= 1) return out;
-    //     Collections.sort(out, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-    //     return out;
-    // }
+    public Course findCourse(String courseName) {
+        return courses.stream().filter(course -> course.getName().equals(courseName)).findFirst().orElse(null);
+    }
 }
