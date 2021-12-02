@@ -1,9 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -12,13 +9,10 @@ import backend.*;
 
 public class MainPanel extends JPanel implements ActionListener {
     JPanel coursePanel, tmpPanel, titlePanel, panel;
-    JMenuBar menuBar;
-    JMenu userMenu, backItem, forwardItem;
-    JMenuItem profileItem, logOutItem;
     JScrollPane scrollPane;
     JLabel courseFrameTitle, courseNameText, courseAuthorText, currentUserText;
     JTextArea courseText;
-    JButton invisButton, viewCourseButton, createCourseButton;
+    JButton viewCourseButton, createCourseButton;
     MouseListener mouseListener;
     ProgramManager manager;
     public MainPanel() {
@@ -34,27 +28,10 @@ public class MainPanel extends JPanel implements ActionListener {
 
     private void initComponents(){
         //create components for top menu bar
-        menuBar = new JMenuBar();
-        backItem = new JMenu();
-        backItem.setIcon(new ImageIcon("icons/back.png"));
-        backItem.setPopupMenuVisible(false);
-        forwardItem = new JMenu();
-        forwardItem.setIcon(new ImageIcon("icons/forward.png"));
-        forwardItem.setPopupMenuVisible(false);
-        menuBar.add(backItem);
-        menuBar.add(forwardItem);
-        menuBar.add(Box.createHorizontalGlue());
-        userMenu = new JMenu(manager.getCurrUser().getName());
-        profileItem = new JMenuItem("Profile");
-        logOutItem = new JMenuItem("Log Out");
-        userMenu.add(profileItem);
-        userMenu.add(logOutItem);
-        menuBar.add(userMenu);
-
         titlePanel = new JPanel(new BorderLayout());
         courseFrameTitle = new JLabel("COURSES");
         createCourseButton = new JButton("Create Course");
-        createCourseButton.setPreferredSize(new Dimension(100, 20));
+        createCourseButton.setPreferredSize(new Dimension(150, 20));
         if(!manager.getCurrUser().isTeacher()) createCourseButton.setVisible(false);
         ArrayList<Course> courses = manager.getCourses();
         coursePanel = new JPanel(new GridLayout(courses.size(), 1));
@@ -84,7 +61,7 @@ public class MainPanel extends JPanel implements ActionListener {
             coursePanel.add(tmpPanel);
         }
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        add(menuBar, BorderLayout.NORTH);
+        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
         addActionListeners();
@@ -92,38 +69,16 @@ public class MainPanel extends JPanel implements ActionListener {
 
     @Override 
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == profileItem) {
-            //TODO
-        } else if(e.getSource() == logOutItem) {
-            MainFrame.get().switchPanel("Login");
-        } else if(e.getSource() == createCourseButton) {
-            MainFrame.get().switchPanel("New Course");
-        }
+        if(e.getSource() == createCourseButton) MainFrame.get().switchPanel("New Course");
     }
 
     private void addActionListeners() {
-        backItem.addMenuListener(new MenuListener() {
-            public void menuSelected(MenuEvent e) {
-                MainFrame.get().switchPanel("Previous");
-            }
-            public void menuDeselected(MenuEvent e) {}
-            public void menuCanceled(MenuEvent e) {}
-        });
-        forwardItem.addMenuListener(new MenuListener() {
-            public void menuSelected(MenuEvent e) {
-                MainFrame.get().switchPanel("Next");
-            }
-            public void menuDeselected(MenuEvent e) {}
-            public void menuCanceled(MenuEvent e) {}
-        });
-        profileItem.addActionListener(this);
-        logOutItem.addActionListener(this);
         createCourseButton.addActionListener(this);
     }
 
     public void addComponentsToContainer(){
         if(manager.getCurrUser().isTeacher()) 
-            titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20), new Dimension(100, 20)), BorderLayout.WEST);
+            titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)), BorderLayout.WEST);
         courseFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(courseFrameTitle, BorderLayout.CENTER);
         createCourseButton.setHorizontalAlignment(SwingConstants.RIGHT);

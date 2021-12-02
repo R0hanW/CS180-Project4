@@ -278,7 +278,7 @@ public class ProgramManager {
         //     }
         // }
         // return null;
-        return users.stream().filter(user -> user.getUsername() == username).findFirst().orElse(null);
+        return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
 
     public Course findCourse(String courseName) {

@@ -75,7 +75,7 @@ public class CoursePanel extends JPanel implements ActionListener{
             postPanel.add(tmpPanel);
         }
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        add(menuBar, BorderLayout.NORTH);
+        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
         addActionListeners();
