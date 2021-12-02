@@ -28,17 +28,25 @@ public class MenuBar extends JMenuBar implements ActionListener{
         backItem.setContentAreaFilled(false);
         backItem.setBorderPainted(false);
         backItem.setFocusable(true);
-        backItem.setMinimumSize(new Dimension(25, 20));
-        backItem.setMaximumSize(new Dimension(25, 20));
-        backItem.setPreferredSize(new Dimension(25, 20));
+        backItem.setMinimumSize(new Dimension(20, 20));
+        backItem.setMaximumSize(new Dimension(20, 20));
+        backItem.setPreferredSize(new Dimension(20, 20));
+        homeItem = new JButton(new ImageIcon("src/gui/icons/home.png"));
+        homeItem.setOpaque(true);
+        homeItem.setContentAreaFilled(false);
+        homeItem.setBorderPainted(false);
+        homeItem.setFocusable(true);
+        homeItem.setMinimumSize(new Dimension(20, 20));
+        homeItem.setMaximumSize(new Dimension(20, 20));
+        homeItem.setPreferredSize(new Dimension(20, 20));
         forwardItem = new JButton(new ImageIcon("src/gui/icons/forward.png"));
         forwardItem.setOpaque(true);
         forwardItem.setContentAreaFilled(false);
         forwardItem.setBorderPainted(false);
         forwardItem.setFocusable(true);
-        forwardItem.setMinimumSize(new Dimension(25, 20));
-        forwardItem.setMaximumSize(new Dimension(25, 20));
-        forwardItem.setPreferredSize(new Dimension(25, 20));
+        forwardItem.setMinimumSize(new Dimension(20, 20));
+        forwardItem.setMaximumSize(new Dimension(20, 20));
+        forwardItem.setPreferredSize(new Dimension(20, 20));
         userMenu = new JMenu(manager.getCurrUser().getName());
         profileItem = new JMenuItem("Profile");
         logOutItem = new JMenuItem("Log Out");
@@ -47,6 +55,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
         
         addActionListeners();
         add(backItem);
+        add(homeItem);
         add(forwardItem);
         add(Box.createHorizontalGlue());
         add(userMenu);
@@ -58,6 +67,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
             MainFrame.get().switchPanel("Previous");
         } else if(e.getSource() == forwardItem) {
             MainFrame.get().switchPanel("Next");
+        } else if(e.getSource() == homeItem) {
+            MainFrame.get().switchPanel("Main");
         } else if(e.getSource() == profileItem) {
             //TODO
         } else if(e.getSource() == logOutItem) {
@@ -72,6 +83,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
 
     private void addActionListeners() {
         backItem.addActionListener(this);
+        homeItem.addActionListener(this);
         forwardItem.addActionListener(this);
         profileItem.addActionListener(this);
         logOutItem.addActionListener(this);

@@ -2,3 +2,5 @@ Course:test,test,true
 END OF COURSE
 Course:test1,test,true
 END OF COURSE
+Course:CS180,test,true
+END OF COURSE
