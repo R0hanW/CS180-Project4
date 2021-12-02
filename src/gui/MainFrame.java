@@ -2,12 +2,17 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import backend.ProgramManager;
 public class MainFrame {
     private static MainFrame instance = null;
     JPanel panels;
     JFrame frame;
-    JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel, prevPanel, nextPanel;
+    JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel;
+    ArrayList<String> prevPanel = new ArrayList<String>(Arrays.asList("Login"));
+    String nextPanel;
     Box box;
     Dimension dimension;
     ProgramManager manager;
@@ -48,7 +53,7 @@ public class MainFrame {
         });
         box = new Box(BoxLayout.Y_AXIS);
         panel = new JPanel();
-        dimension = new Dimension(500, 175);
+        dimension = new Dimension(500, 300);
         panels = new JPanel(new CardLayout());
         addComponentsToPanel();
         frame.add(box);
@@ -65,13 +70,23 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName) {
-        prevPanel = panel;
-        if(panelName.equals("Login")) panel = new LoginPanel();
+        prevPanel.stream().forEach(x -> System.out.print(x + ","));
+        if(panelName.equals("Login")){
+            panel = new LoginPanel();
+        } 
         else if(panelName.equals("Sign Up")) panel = new SignUpPanel();
         else if(panelName.equals("Main")) panel = new MainPanel();
         else if(panelName.equals("New Course")) panel = new NewCoursePanel();
         else if(panelName.equals("Course")) panel = new CoursePanel();
-        else if(panelName.equals("Previous")) 
+        else if(panelName.equals("Previous")) {
+            nextPanel = prevPanel.get(prevPanel.size() -1);
+            switchPanel(prevPanel.get(prevPanel.size()- 2));
+        } 
+        else if(panelName.equals("Next")) {
+            if(nextPanel != null) switchPanel(nextPanel);
+            else return;
+        }
+        if(!panelName.equals("Previous") && !panelName.equals("Next")) prevPanel.add(panelName);
         if(panel.getPreferredSize().getHeight() > 500) {
             frame.getContentPane().removeAll();
             frame.getContentPane().add(panel);
@@ -79,12 +94,11 @@ public class MainFrame {
             frame.repaint();
             return;
         }
-        nextPanel = panel;
         panel.setPreferredSize(dimension);
         panel.setMaximumSize(dimension);
         panel.setMinimumSize(dimension);
         box = new Box(BoxLayout.Y_AXIS);
-        box.add(Box.createVerticalGlue());
+        if(panelName.equals("Login")) box.add(Box.createVerticalGlue());
         box.add(panel);
         box.add(Box.createVerticalGlue());
         frame.getContentPane().removeAll();

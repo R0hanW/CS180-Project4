@@ -33,6 +33,7 @@ public class NewCoursePanel extends JPanel implements ActionListener {
         submitButton = new JButton("Submit");
         panel = new JPanel(new GridLayout(3 , 1));
         addActionListeners();
+        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
     }
@@ -45,8 +46,10 @@ public class NewCoursePanel extends JPanel implements ActionListener {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            if(manager.findCourse(nameText.getText()) != null) 
+            if(manager.findCourse(nameText.getText()) != null) {
                 JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             manager.addCourse(new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
             MainFrame.get().switchPanel("Main");
         }
