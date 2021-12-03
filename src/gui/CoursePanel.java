@@ -31,14 +31,15 @@ public class CoursePanel extends JPanel implements ActionListener{
 
     private void initComponents(){
         titlePanel = new JPanel(new BorderLayout());
-        postFrameTitle = new JLabel("Posts");
+        // titlePanel.setPreferredSize(new Dimension((int) this.getSize().getWidth(), 20));
+        postFrameTitle = new JLabel("POSTS");
         newPostButton = new JButton("Create Post");
         newPostButton.setPreferredSize(new Dimension(100, 20));
         if(!manager.getCurrUser().isTeacher() && !manager.getCurrCourse().studentsCanCreatePosts()) newPostButton.setVisible(false);
         ArrayList<Post> posts = manager.getCurrCourse().getPosts();
         //create Panel for each post
         postPanel = new JPanel(new GridLayout(posts.size(), 1));
-        panel = new JPanel();
+        panel = new JPanel(new BorderLayout());
         scrollPane = new JScrollPane();
         border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black));
         border.setTitleJustification(TitledBorder.CENTER);
@@ -61,7 +62,7 @@ public class CoursePanel extends JPanel implements ActionListener{
     @Override 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == newPostButton) {
-            //TODO
+            MainFrame.get().switchPanel("New Post");
         }
     }
 
@@ -70,20 +71,15 @@ public class CoursePanel extends JPanel implements ActionListener{
     }
 
     public void addComponentsToContainer() {
-        // if(manager.getCurrUser().isTeacher()) 
-        //     titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)), BorderLayout.WEST);
+        if(manager.getCurrUser().isTeacher()) 
+            titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20), new Dimension(100, 20)), BorderLayout.WEST);
         postFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        titlePanel.add(postFrameTitle);
+        titlePanel.add(postFrameTitle, BorderLayout.CENTER);
         newPostButton.setHorizontalAlignment(SwingConstants.RIGHT);
-        try {
-            manager = ProgramManager.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if(manager.getCurrUser().isTeacher() || manager.getCurrCourse().studentsCanCreatePosts()) titlePanel.add(newPostButton);
+        if(manager.getCurrUser().isTeacher() || manager.getCurrCourse().studentsCanCreatePosts()) titlePanel.add(newPostButton, BorderLayout.EAST);
         panel.add(scrollPane);
         panel.add(titlePanel, BorderLayout.NORTH);
-        panel.add(postPanel, BorderLayout.CENTER);
+        // panel.add(postPanel, BorderLayout.CENTER);
     }
 
     public void initMouseListener() {

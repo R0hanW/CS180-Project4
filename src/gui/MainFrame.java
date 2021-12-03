@@ -78,6 +78,7 @@ public class MainFrame {
         else if(panelName.equals("Main")) panel = new MainPanel();
         else if(panelName.equals("New Course")) panel = new NewCoursePanel();
         else if(panelName.equals("Course")) panel = new CoursePanel();
+        else if(panelName.equals("New Post")) panel = new NewPostPanel();
         else if(panelName.equals("Previous")) {
             nextPanel = prevPanel.get(prevPanel.size() -1);
             switchPanel(prevPanel.get(prevPanel.size()- 2));
