@@ -107,6 +107,7 @@ public class ProgramManager {
         String message;
         Course course = null;
         Post post = null;
+        Poll poll = null;
         Comment comment = null;
         String[] messageArr;
         while ((message = reader.readLine()) != null) {
@@ -121,15 +122,14 @@ public class ProgramManager {
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 messageArr[2] = messageArr[2].substring(1, messageArr[2].length() - 1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
-            } else if (message.contains("pollOption")) {
+            } else if(message.contains("Poll")) {
+                poll = new Poll();
+            } else if(message.contains("pollOption")) {
                 message = message.substring(message.indexOf(":") + 1);
-                post.addPollOption(message, false);
+                poll.addPollOption(message, false);
             } else if (message.contains("pollResult")) {
                 message = message.substring(message.indexOf(":") + 1);
-                post.addPollResult(Integer.parseInt(message));
-            } else if (message.contains("userPollVote")) {
-                message = message.substring(message.indexOf(":") + 1);
-                post.addUserVoter(findUser(message));
+                poll.addPollResult(Integer.parseInt(message));
             } else if (message.contains("Comment")) {
                 message = message.substring(message.indexOf(":") + 1);
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
