@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.*;
 
-import backend.Course;
 import backend.Poll;
 import backend.Post;
 import backend.ProgramManager;

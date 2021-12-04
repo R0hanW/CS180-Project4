@@ -31,7 +31,6 @@ public class CoursePanel extends JPanel implements ActionListener{
 
     private void initComponents(){
         titlePanel = new JPanel(new BorderLayout());
-        // titlePanel.setPreferredSize(new Dimension((int) this.getSize().getWidth(), 20));
         postFrameTitle = new JLabel("POSTS");
         newPostButton = new JButton("Create Post");
         newPostButton.setPreferredSize(new Dimension(120, 20));
@@ -46,16 +45,14 @@ public class CoursePanel extends JPanel implements ActionListener{
             border.setTitle(String.format("%s (%s)", post.getTopic(), post.getTimestamp()));
             tmpPanel = new JPanel(new BorderLayout());
             tmpPanel.setBorder(border);
+            tmpPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             if(post.getContent().length() > 250) contentText = new JTextArea(post.getContent().substring(0, 250));
             else contentText = new JTextArea(post.getContent());
             contentText.setLineWrap(true);
             contentText.setWrapStyleWord(true);
             contentText.setOpaque(false);
             contentText.setEditable(false);
-            // contentText.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
-            // contentText.setSize(480, 200);
             contentTextPane = new JScrollPane(contentText);
-            // contentTextPane.setBorder()
             tmpPanel.add(contentTextPane, BorderLayout.CENTER);
             tmpPanel.addMouseListener(mouseListener);
             postPanel.add(tmpPanel);
