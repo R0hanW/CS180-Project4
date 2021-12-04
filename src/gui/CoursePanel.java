@@ -10,8 +10,8 @@ import backend.Post;
 import backend.ProgramManager;
 public class CoursePanel extends JPanel implements ActionListener{
     JPanel postPanel, tmpPanel, tmpTitlePanel, tmpContentPanel, titlePanel, panel;
-    JScrollPane scrollPane;
     JTextArea contentText;
+    JScrollPane contentTextPane;
     JLabel courseTitle, postNameText,postFrameTitle, timeStampText;
     JButton newPostButton;
     TitledBorder border;
@@ -34,26 +34,32 @@ public class CoursePanel extends JPanel implements ActionListener{
         // titlePanel.setPreferredSize(new Dimension((int) this.getSize().getWidth(), 20));
         postFrameTitle = new JLabel("POSTS");
         newPostButton = new JButton("Create Post");
-        newPostButton.setPreferredSize(new Dimension(100, 20));
+        newPostButton.setPreferredSize(new Dimension(120, 20));
         if(!manager.getCurrUser().isTeacher() && !manager.getCurrCourse().studentsCanCreatePosts()) newPostButton.setVisible(false);
         ArrayList<Post> posts = manager.getCurrCourse().getPosts();
         //create Panel for each post
         postPanel = new JPanel(new GridLayout(posts.size(), 1));
         panel = new JPanel(new BorderLayout());
-        scrollPane = new JScrollPane();
         border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black));
-        border.setTitleJustification(TitledBorder.CENTER);
+        border.setTitleJustification(TitledBorder.DEFAULT_POSITION);
         for(Post post: posts) {
             border.setTitle(String.format("%s (%s)", post.getTopic(), post.getTimestamp()));
-            tmpPanel = new JPanel();
+            tmpPanel = new JPanel(new BorderLayout());
             tmpPanel.setBorder(border);
-            contentText = new JTextArea(post.getContent().substring(0, 250));
-            tmpPanel.add(contentText);
+            if(post.getContent().length() > 250) contentText = new JTextArea(post.getContent().substring(0, 250));
+            else contentText = new JTextArea(post.getContent());
+            contentText.setLineWrap(true);
+            contentText.setWrapStyleWord(true);
+            contentText.setOpaque(false);
+            contentText.setEditable(false);
+            // contentText.setAlignmentX(JTextArea.LEFT_ALIGNMENT);
+            // contentText.setSize(480, 200);
+            contentTextPane = new JScrollPane(contentText);
+            // contentTextPane.setBorder()
+            tmpPanel.add(contentTextPane, BorderLayout.CENTER);
             tmpPanel.addMouseListener(mouseListener);
             postPanel.add(tmpPanel);
         }
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
         addActionListeners();
@@ -77,9 +83,8 @@ public class CoursePanel extends JPanel implements ActionListener{
         titlePanel.add(postFrameTitle, BorderLayout.CENTER);
         newPostButton.setHorizontalAlignment(SwingConstants.RIGHT);
         if(manager.getCurrUser().isTeacher() || manager.getCurrCourse().studentsCanCreatePosts()) titlePanel.add(newPostButton, BorderLayout.EAST);
-        panel.add(scrollPane);
         panel.add(titlePanel, BorderLayout.NORTH);
-        // panel.add(postPanel, BorderLayout.CENTER);
+        panel.add(postPanel, BorderLayout.CENTER);
     }
 
     public void initMouseListener() {

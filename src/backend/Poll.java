@@ -49,6 +49,7 @@ public class Poll {
         String out = "Poll\n";
         for (String option : pollOptions) out += String.format("pollOption:%s\n", option);
         for (int result : pollResults) out += String.format("pollResult:%s\n", result);
+        out += "END OF POLL\n";
         return out;
     }
 }   

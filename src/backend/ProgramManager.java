@@ -148,6 +148,8 @@ public class ProgramManager {
                 message = message.substring(message.indexOf(":") + 1);
                 comment.addUserUpvote(findUser(message));
 
+            } else if(message.equals("END OF POLL")) {
+                post.addPoll(poll);
             } else if (message.equals("END OF POST")) {
                 course.addPost(post);
             } else if (message.equals("END OF COURSE")) {

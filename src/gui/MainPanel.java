@@ -9,7 +9,6 @@ import backend.*;
 
 public class MainPanel extends JPanel implements ActionListener {
     JPanel coursePanel, tmpPanel, titlePanel, panel;
-    JScrollPane scrollPane;
     JLabel courseFrameTitle, courseNameText, courseAuthorText, currentUserText;
     JTextArea courseText;
     JButton viewCourseButton, createCourseButton;
@@ -37,7 +36,6 @@ public class MainPanel extends JPanel implements ActionListener {
         coursePanel = new JPanel(new GridLayout(courses.size(), 1));
         //create Panel for each course
         panel = new JPanel(new BorderLayout());
-        scrollPane = new JScrollPane();
         for(Course course: courses) {
             tmpPanel = new JPanel();
             courseNameText = new JLabel(course.getName());
@@ -60,8 +58,6 @@ public class MainPanel extends JPanel implements ActionListener {
             tmpPanel.setPreferredSize(new Dimension(350, 100));
             coursePanel.add(tmpPanel);
         }
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
         addActionListeners();
@@ -87,7 +83,6 @@ public class MainPanel extends JPanel implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        panel.add(scrollPane);
         panel.add(titlePanel, BorderLayout.NORTH);
         panel.add(coursePanel, BorderLayout.CENTER);
 

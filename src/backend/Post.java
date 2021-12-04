@@ -39,6 +39,21 @@ public class Post {
         this.topic = topic;
         this.timestamp = timestamp;
     }
+    
+    public Post(User owner, Course course, String content, String topic, String timestamp, Poll poll) {
+        this.owner = owner;
+        this.content = content;
+        this.topic = topic;
+        this.timestamp = timestamp;
+    }
+
+    public Post(User owner, Course course, String content, String topic, Poll poll) {
+        this.owner = owner;
+        this.content = content;
+        this.topic = topic;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+        timestamp = java.time.LocalDateTime.now().format(formatter);
+    }
 
     public Post() {
         this.owner = new User();
@@ -98,6 +113,14 @@ public class Post {
         if (!user.isTeacher()) return false;
         course.removePost(this);
         return true;
+    }
+    
+    public void addPoll(Poll poll) {
+        this.poll = poll;
+    }
+
+    public Poll getPoll() {
+        return poll;
     }
     
     public String toString() {

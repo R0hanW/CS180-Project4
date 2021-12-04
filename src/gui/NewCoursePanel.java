@@ -33,7 +33,6 @@ public class NewCoursePanel extends JPanel implements ActionListener {
         submitButton = new JButton("Submit");
         panel = new JPanel(new GridLayout(3 , 1));
         addActionListeners();
-        add(new MenuBar(), BorderLayout.NORTH);
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
     }

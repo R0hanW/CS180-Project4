@@ -8,6 +8,7 @@ import java.util.Arrays;
 import backend.ProgramManager;
 public class MainFrame {
     private static MainFrame instance = null;
+    JScrollPane scrollPane;
     JPanel panels;
     JFrame frame;
     JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel;
@@ -88,9 +89,11 @@ public class MainFrame {
             else return;
         }
         if(!panelName.equals("Previous") && !panelName.equals("Next")) prevPanel.add(panelName);
+        if(!panelName.equals("Login") && !panelName.equals("Sign Up")) frame.setJMenuBar(new MenuBar());
         if(panel.getPreferredSize().getHeight() > 500) {
             frame.getContentPane().removeAll();
             frame.getContentPane().add(panel);
+            frame.revalidate();
             frame.getContentPane().validate();
             frame.repaint();
             return;
@@ -104,6 +107,7 @@ public class MainFrame {
         box.add(Box.createVerticalGlue());
         frame.getContentPane().removeAll();
         frame.getContentPane().add(box);
+        frame.revalidate();
         frame.getContentPane().validate();
         frame.repaint();
     }

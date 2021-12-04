@@ -1,4 +1,23 @@
 Course:test,test,true
+Post:test,"This is a test description","Test",12/04 18:24
+Poll
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+Post:test,"we testing","test",12/04 18:28
+
+END OF POST
+Post:test,"lots of words lots of words lots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of wordslots of words","one more test pls",12/04 18:34
+
+END OF POST
+Post:test,"aadsfasjikdfhaljkshfljkasdhfjklahfjklhasljkfhsjaklhfjlkahdljfhalkjhdsjklahfkjlhsaldfkjashlkjafhf","how much more can this take",12/04 18:34
+
+END OF POST
+Post:test,"asdfadfafa","ooh",12/04 18:34
+
+END OF POST
 END OF COURSE
 Course:test1,test,true
 END OF COURSE
