@@ -42,6 +42,8 @@ public class CoursePanel extends JPanel implements ActionListener{
         border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black));
         border.setTitleJustification(TitledBorder.DEFAULT_POSITION);
         for(Post post: posts) {
+            border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black));
+            border.setTitleJustification(TitledBorder.DEFAULT_POSITION);
             border.setTitle(String.format("%s (%s)", post.getTopic(), post.getTimestamp()));
             tmpPanel = new JPanel(new BorderLayout());
             tmpPanel.setBorder(border);

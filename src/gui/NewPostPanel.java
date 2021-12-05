@@ -22,6 +22,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
     JRadioButton pollButton;
     JScrollPane scrollPane;
     JPanel panel, tmpPanel, pollPanel;
+    Post post;
     GridBagConstraints c;
     ProgramManager manager;
     
@@ -43,13 +44,12 @@ public class NewPostPanel extends JPanel implements ActionListener{
         descriptionText = new JTextArea(5, 20);
         descriptionText.setLineWrap(true);
         descriptionText.setWrapStyleWord(true);
+        scrollPane = new JScrollPane(descriptionText);
         pollLabel = new JLabel("Create Poll?");
         pollButton = new JRadioButton("Yes");
         addPollOptionButton = new JButton("Add Poll Option");
         removePollOptionButton = new JButton("Remove Poll Option");
         panel = new JPanel(new GridBagLayout());
-        scrollPane = new JScrollPane();
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         submitButton = new JButton("Submit");
         addActionListeners();
         addComponentsToContainer();
@@ -73,7 +73,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            Post post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(), topicText.getText());
+            post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(), topicText.getText());
             if(pollOptions.size() > 1) {
                 Poll poll = new Poll();
                 pollOptions.stream().forEach(pollOption -> poll.addPollOption(pollOption.getText()));
@@ -97,12 +97,15 @@ public class NewPostPanel extends JPanel implements ActionListener{
                 c.gridx = 0;
                 c.gridy = 4;
                 c.gridwidth = 2;
-                // panel.add(submitButton, c);
+                panel.add(submitButton, c);
                 revalidate();
             } else {
                 panel.remove(addPollOptionButton);
                 panel.remove(removePollOptionButton);
-                
+                pollOptionLabels.stream().forEach(x -> panel.remove(x));
+                pollOptions.stream().forEach(x -> panel.remove(x));
+                pollOptionLabels.removeAll(pollOptionLabels);
+                pollOptions.removeAll(pollOptions);
                 addComponentsToContainer();
                 revalidate();
             }
@@ -157,7 +160,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
         panel.add(descriptionLabel, c);
         c.gridx = 1;
         c.gridy = 1;
-        panel.add(descriptionText, c);
+        panel.add(scrollPane, c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
