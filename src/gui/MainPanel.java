@@ -14,6 +14,7 @@ public class MainPanel extends JPanel implements ActionListener {
     JButton viewCourseButton, createCourseButton;
     MouseListener mouseListener;
     ProgramManager manager;
+
     public MainPanel() {
         setLayout(new BorderLayout());
         try {
@@ -25,18 +26,19 @@ public class MainPanel extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(350, 750));
     }
 
-    private void initComponents(){
-        //create components for top menu bar
+    private void initComponents() {
+        // create components for top menu bar
         titlePanel = new JPanel(new BorderLayout());
         courseFrameTitle = new JLabel("COURSES");
         createCourseButton = new JButton("Create Course");
         createCourseButton.setPreferredSize(new Dimension(150, 20));
-        if(!manager.getCurrUser().isTeacher()) createCourseButton.setVisible(false);
+        if (!manager.getCurrUser().isTeacher())
+            createCourseButton.setVisible(false);
         ArrayList<Course> courses = manager.getCourses();
         coursePanel = new JPanel(new GridLayout(courses.size(), 1));
-        //create Panel for each course
+        // create Panel for each course
         panel = new JPanel(new BorderLayout());
-        for(Course course: courses) {
+        for (Course course : courses) {
             tmpPanel = new JPanel();
             courseNameText = new JLabel(course.getName());
             courseNameText.setForeground(Color.BLUE.darker());
@@ -63,23 +65,26 @@ public class MainPanel extends JPanel implements ActionListener {
         addActionListeners();
     }
 
-    @Override 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == createCourseButton) MainFrame.get().switchPanel("New Course");
+        if (e.getSource() == createCourseButton)
+            MainFrame.get().switchPanel("New Course");
     }
 
     private void addActionListeners() {
         createCourseButton.addActionListener(this);
     }
 
-    public void addComponentsToContainer(){
-        if(manager.getCurrUser().isTeacher()) 
-            titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)), BorderLayout.WEST);
+    public void addComponentsToContainer() {
+        if (manager.getCurrUser().isTeacher())
+            titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)),
+                    BorderLayout.WEST);
         courseFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(courseFrameTitle, BorderLayout.CENTER);
         createCourseButton.setHorizontalAlignment(SwingConstants.RIGHT);
         try {
-            if(ProgramManager.get().getCurrUser().isTeacher()) titlePanel.add(createCourseButton, BorderLayout.EAST);
+            if (ProgramManager.get().getCurrUser().isTeacher())
+                titlePanel.add(createCourseButton, BorderLayout.EAST);
         } catch (Exception e) {
             e.printStackTrace();
         }

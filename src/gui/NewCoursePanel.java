@@ -15,6 +15,7 @@ public class NewCoursePanel extends JPanel implements ActionListener {
     JRadioButton coursePermissionsButton;
     JPanel panel, tmpPanel;
     ProgramManager manager;
+
     public NewCoursePanel() {
         try {
             manager = ProgramManager.get();
@@ -31,33 +32,35 @@ public class NewCoursePanel extends JPanel implements ActionListener {
         createCoursePermissionsLabel = new JLabel("Allow students to create posts?");
         coursePermissionsButton = new JRadioButton("Yes");
         submitButton = new JButton("Submit");
-        panel = new JPanel(new GridLayout(3 , 1));
+        panel = new JPanel(new GridLayout(3, 1));
         addActionListeners();
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == submitButton) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton) {
             try {
                 manager = ProgramManager.get();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            if(manager.findCourse(nameText.getText()) != null) {
-                JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course", JOptionPane.INFORMATION_MESSAGE);
+            if (manager.findCourse(nameText.getText()) != null) {
+                JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course",
+                        JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            manager.addCourse(new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
+            manager.addCourse(
+                    new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
             MainFrame.get().switchPanel("Main");
         }
     }
 
-    public void addActionListeners(){
+    public void addActionListeners() {
         submitButton.addActionListener(this);
     }
-    
+
     public void addComponentsToContainer() {
         tmpPanel = new JPanel(new GridLayout(1, 2));
         tmpPanel.add(nameLabel);

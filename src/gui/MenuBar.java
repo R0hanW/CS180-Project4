@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import backend.ProgramManager;
-public class MenuBar extends JMenuBar implements ActionListener{
+
+public class MenuBar extends JMenuBar implements ActionListener {
     JMenu userMenu;
     JButton backItem, homeItem, forwardItem;
     JMenuItem profileItem, logOutItem;
@@ -52,7 +53,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
         logOutItem = new JMenuItem("Log Out");
         userMenu.add(profileItem);
         userMenu.add(logOutItem);
-        
+
         addActionListeners();
         add(backItem);
         add(homeItem);
@@ -63,15 +64,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == backItem) {
+        if (e.getSource() == backItem) {
             MainFrame.get().switchPanel("Previous");
-        } else if(e.getSource() == forwardItem) {
+        } else if (e.getSource() == forwardItem) {
             MainFrame.get().switchPanel("Next");
-        } else if(e.getSource() == homeItem) {
+        } else if (e.getSource() == homeItem) {
             MainFrame.get().switchPanel("Main");
-        } else if(e.getSource() == profileItem) {
-            //TODO
-        } else if(e.getSource() == logOutItem) {
+        } else if (e.getSource() == profileItem) {
+            // TODO
+        } else if (e.getSource() == logOutItem) {
             try {
                 ProgramManager.get().setCurrUser(null);
             } catch (Exception e1) {
@@ -88,4 +89,4 @@ public class MenuBar extends JMenuBar implements ActionListener{
         profileItem.addActionListener(this);
         logOutItem.addActionListener(this);
     }
-}  
+}

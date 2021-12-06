@@ -7,21 +7,21 @@ import java.util.Arrays;
 
 import backend.*;
 
-public class SignUpPanel extends JPanel implements ActionListener{
+public class SignUpPanel extends JPanel implements ActionListener {
     JLabel nameLabel, userLabel, passwordLabel, confirmPasswordLabel, teacherLabel;
     JTextField nameText, userText;
     JPasswordField passwordText, confirmPasswordText;
     JButton signUpButton;
     JRadioButton teacherButton;
     JPanel panel, tmpPanel;
-    ProgramManager manager; 
+    ProgramManager manager;
 
     public SignUpPanel() {
         initComponents();
         setPreferredSize(new Dimension(350, 300));
     }
 
-    private void initComponents(){
+    private void initComponents() {
         nameLabel = new JLabel("Name:");
         userLabel = new JLabel("Username:");
         passwordLabel = new JLabel("Password:");
@@ -37,39 +37,44 @@ public class SignUpPanel extends JPanel implements ActionListener{
         addActionListeners();
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
-    }   
+    }
 
-    @Override 
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == signUpButton) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == signUpButton) {
             try {
                 manager = ProgramManager.get();
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-            if(!Arrays.equals(passwordText.getPassword(), confirmPasswordText.getPassword())) {
-                JOptionPane.showMessageDialog(null, "Passwords must match!", "Sign Up", JOptionPane.INFORMATION_MESSAGE);
-            } else if(manager.findUser(userText.getText()) != null) {
-                JOptionPane.showMessageDialog(null, "Username is already taken!", "Sign Up", JOptionPane.INFORMATION_MESSAGE);
-            } else if(nameText.getText().equals("") || userText.getText().equals("") || String.valueOf(passwordText.getPassword()).equals("")) {
-                JOptionPane.showMessageDialog(null, "All fields must have a value!", "Sign Up", JOptionPane.INFORMATION_MESSAGE);
+            if (!Arrays.equals(passwordText.getPassword(), confirmPasswordText.getPassword())) {
+                JOptionPane.showMessageDialog(null, "Passwords must match!", "Sign Up",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else if (manager.findUser(userText.getText()) != null) {
+                JOptionPane.showMessageDialog(null, "Username is already taken!", "Sign Up",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else if (nameText.getText().equals("") || userText.getText().equals("")
+                    || String.valueOf(passwordText.getPassword()).equals("")) {
+                JOptionPane.showMessageDialog(null, "All fields must have a value!", "Sign Up",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 try {
                     manager = ProgramManager.get();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                manager.addUser(new User(nameText.getText(), userText.getText(), String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
+                manager.addUser(new User(nameText.getText(), userText.getText(),
+                        String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
                 MainFrame.get().switchPanel("Login");
             }
         }
     }
 
-    public void addActionListeners(){
+    public void addActionListeners() {
         signUpButton.addActionListener(this);
     }
 
-    public void addComponentsToContainer(){
+    public void addComponentsToContainer() {
         tmpPanel = new JPanel(new GridLayout(1, 2));
         tmpPanel.add(nameLabel);
         tmpPanel.add(nameText);

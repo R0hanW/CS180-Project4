@@ -87,6 +87,10 @@ public class Comment {
         return votes;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
     public void addUserUpvote(User user) {
         userUpvotes.add(user);
     }

@@ -1,4 +1,5 @@
 package gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import backend.ProgramManager;
+
 public class MainFrame {
     private static MainFrame instance = null;
     JScrollPane scrollPane;
@@ -17,7 +19,7 @@ public class MainFrame {
     Box box;
     Dimension dimension;
     ProgramManager manager;
-    
+
     public MainFrame() {
         instance = this;
         initComponents();
@@ -30,7 +32,7 @@ public class MainFrame {
     }
 
     public static synchronized MainFrame get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new MainFrame();
         }
         return instance;
@@ -40,16 +42,15 @@ public class MainFrame {
         frame = new JFrame();
         frame.setTitle("Discussion Board");
         frame.setSize(500, 450);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setLocationRelativeTo(null); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 try {
                     ProgramManager.get().writeFile();
-                } catch(Exception e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                System.exit(0);
             }
         });
         box = new Box(BoxLayout.Y_AXIS);
@@ -71,25 +72,32 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName) {
-        if(panelName.equals("Login")){
+        if (panelName.equals("Login")) {
             panel = new LoginPanel();
-        } 
-        else if(panelName.equals("Sign Up")) panel = new SignUpPanel();
-        else if(panelName.equals("Main")) panel = new MainPanel();
-        else if(panelName.equals("New Course")) panel = new NewCoursePanel();
-        else if(panelName.equals("Course")) panel = new CoursePanel();
-        else if(panelName.equals("New Post")) panel = new NewPostPanel();
-        else if(panelName.equals("Previous")) {
-            nextPanel = prevPanel.get(prevPanel.size() -1);
-            switchPanel(prevPanel.get(prevPanel.size()- 2));
-        } 
-        else if(panelName.equals("Next")) {
-            if(nextPanel != null) switchPanel(nextPanel);
-            else return;
+        } else if (panelName.equals("Sign Up"))
+            panel = new SignUpPanel();
+        else if (panelName.equals("Main"))
+            panel = new MainPanel();
+        else if (panelName.equals("New Course"))
+            panel = new NewCoursePanel();
+        else if (panelName.equals("Course"))
+            panel = new CoursePanel();
+        else if (panelName.equals("New Post"))
+            panel = new NewPostPanel();
+        else if (panelName.equals("Previous")) {
+            nextPanel = prevPanel.get(prevPanel.size() - 1);
+            switchPanel(prevPanel.get(prevPanel.size() - 2));
+        } else if (panelName.equals("Next")) {
+            if (nextPanel != null)
+                switchPanel(nextPanel);
+            else
+                return;
         }
-        if(!panelName.equals("Previous") && !panelName.equals("Next")) prevPanel.add(panelName);
-        if(!panelName.equals("Login") && !panelName.equals("Sign Up")) frame.setJMenuBar(new MenuBar());
-        if(panel.getPreferredSize().getHeight() > 500) {
+        if (!panelName.equals("Previous") && !panelName.equals("Next"))
+            prevPanel.add(panelName);
+        if (!panelName.equals("Login") && !panelName.equals("Sign Up"))
+            frame.setJMenuBar(new MenuBar());
+        if (panel.getPreferredSize().getHeight() > 500) {
             frame.getContentPane().removeAll();
             frame.getContentPane().add(panel);
             frame.revalidate();
@@ -101,7 +109,8 @@ public class MainFrame {
         panel.setMaximumSize(dimension);
         panel.setMinimumSize(dimension);
         box = new Box(BoxLayout.Y_AXIS);
-        if(panelName.equals("Login")) box.add(Box.createVerticalGlue());
+        if (panelName.equals("Login"))
+            box.add(Box.createVerticalGlue());
         box.add(panel);
         box.add(Box.createVerticalGlue());
         frame.getContentPane().removeAll();

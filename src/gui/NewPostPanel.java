@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class NewPostPanel extends JPanel implements ActionListener{
+public class NewPostPanel extends JPanel implements ActionListener {
     JLabel topicLabel, descriptionLabel, pollLabel, pollOptionLabel;
     JTextField topicText, userText, pollOption;
     JTextArea descriptionText;
@@ -25,7 +25,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
     Post post;
     GridBagConstraints c;
     ProgramManager manager;
-    
+
     public NewPostPanel() {
         try {
             manager = ProgramManager.get();
@@ -35,7 +35,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
         }
         initComponents();
         setPreferredSize(new Dimension(500, 750));
-    } 
+    }
 
     private void initComponents() {
         topicLabel = new JLabel("Course Topic:");
@@ -57,7 +57,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
 
     }
 
-    private void addActionListeners(){
+    private void addActionListeners() {
         addPollOptionButton.addActionListener(this);
         removePollOptionButton.addActionListener(this);
         submitButton.addActionListener(this);
@@ -66,23 +66,24 @@ public class NewPostPanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == submitButton) {
+        if (e.getSource() == submitButton) {
             try {
                 manager = ProgramManager.get();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(), topicText.getText());
-            if(pollOptions.size() > 1) {
+            post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
+                    topicText.getText());
+            if (pollOptions.size() > 1) {
                 Poll poll = new Poll();
                 pollOptions.stream().forEach(pollOption -> poll.addPollOption(pollOption.getText()));
                 post.addPoll(poll);
             }
             manager.getCurrCourse().addPost(post);
             MainFrame.get().switchPanel("Course");
-        } else if(e.getSource() == pollButton) {
-            if(pollButton.isSelected()) {
+        } else if (e.getSource() == pollButton) {
+            if (pollButton.isSelected()) {
                 panel.remove(submitButton);
                 c = new GridBagConstraints();
                 c.fill = GridBagConstraints.HORIZONTAL;
@@ -92,7 +93,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
                 c.gridx = 1;
                 c.gridy = 3;
                 panel.add(removePollOptionButton, c);
-                //move submit button back to bottom
+                // move submit button back to bottom
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = 0;
                 c.gridy = 4;
@@ -109,7 +110,7 @@ public class NewPostPanel extends JPanel implements ActionListener{
                 addComponentsToContainer();
                 revalidate();
             }
-        } else if(e.getSource() == addPollOptionButton) {
+        } else if (e.getSource() == addPollOptionButton) {
             panel.remove(submitButton);
             c = new GridBagConstraints();
             pollOptionCounter = pollOptions.size() + 1;
@@ -117,26 +118,26 @@ public class NewPostPanel extends JPanel implements ActionListener{
             c.gridx = 0;
             c.gridy = 3 + pollOptionCounter;
             pollOptionLabels.add(new JLabel(String.format("Option %d", pollOptionCounter)));
-            panel.add(pollOptionLabels.get(pollOptionLabels.size() -1), c);
+            panel.add(pollOptionLabels.get(pollOptionLabels.size() - 1), c);
             pollOptions.add(new JTextField());
             c.gridx = 1;
             c.gridy = 3 + pollOptionCounter;
-            panel.add(pollOptions.get(pollOptions.size() -1), c);
-            //move submit button back to bottom
+            panel.add(pollOptions.get(pollOptions.size() - 1), c);
+            // move submit button back to bottom
             c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridx =0;
+            c.gridx = 0;
             c.gridy = 4 + pollOptionCounter;
             c.gridwidth = 2;
             panel.add(submitButton, c);
             revalidate();
-        } else if(e.getSource() == removePollOptionButton) {
-            panel.remove(pollOptionLabels.get(pollOptionLabels.size() -1));
-            panel.remove(pollOptions.get(pollOptions.size() -1));
-            pollOptionLabels.remove(pollOptionLabels.size() -1);
-            pollOptions.remove(pollOptions.size()-1);
+        } else if (e.getSource() == removePollOptionButton) {
+            panel.remove(pollOptionLabels.get(pollOptionLabels.size() - 1));
+            panel.remove(pollOptions.get(pollOptions.size() - 1));
+            pollOptionLabels.remove(pollOptionLabels.size() - 1);
+            pollOptions.remove(pollOptions.size() - 1);
             panel.remove(submitButton);
             c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridx =0;
+            c.gridx = 0;
             c.gridy = 4 + pollOptions.size();
             c.gridwidth = 2;
             panel.add(submitButton, c);
@@ -174,5 +175,4 @@ public class NewPostPanel extends JPanel implements ActionListener{
         c.gridwidth = 2;
         panel.add(submitButton, c);
     }
-}   
-
+}
