@@ -62,7 +62,11 @@ public class SignUpPanel extends JPanel implements ActionListener {
                     manager = ProgramManager.get();
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                }
+                }/*
+                Network network = new Network();
+                network.addUser(nameText.getText(), userText.getText(),
+                        String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
+                        */
                 manager.addUser(new User(nameText.getText(), userText.getText(),
                         String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
                 MainFrame.get().switchPanel("Login");

@@ -287,6 +287,7 @@ public class ProgramManager {
     public Course findCourse(String courseName) {
         return courses.stream().filter(course -> course.getName().equals(courseName)).findFirst().orElse(null);
     }
+    /*
     private void receiveFromGui(String send){
         Client client = new Client(send);
         Server server = new Server();
@@ -296,4 +297,5 @@ public class ProgramManager {
 
 
     }
+     */
 }

@@ -7,17 +7,25 @@ import java.net.Socket;
 public class Client implements Runnable{
     private Socket socket;
     private String input;
-
+    private int portNum;
 
     public void run(){
-        connect("localhost",4242);
+        System.out.println(portNum);
+        connect("localhost",portNum);
         sendToServer(this.input);
         close();
     }
 
-    public Client(String input){
+    public Client(String input, int portNum){
         this.input = input;
+        this.portNum = portNum;
+
     }
+   /* public Client(User user){
+        portNum++;
+    }
+
+    */
     public String getInput(){
         return input;
     }
@@ -56,4 +64,11 @@ public class Client implements Runnable{
         writer.close();
         // System.out.println("sendtoserver");
     }
+    /*
+    public void sendUser(){
+        for (int i = 0;i < 4; i++) {
+            new Thread(this).start();
+        }
+    }
+     */
 }
