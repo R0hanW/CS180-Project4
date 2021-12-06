@@ -58,4 +58,10 @@ public class PostPanel extends JPanel implements ActionListener{
         newCommentButton = new JButton("Add Comment");
         newCommentButton.setPreferredSize(new Dimension(80, 20));
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 }
