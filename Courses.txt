@@ -18,8 +18,22 @@ END OF POST
 Post:test,"sdgcfvkljbnsfvdkbnjlvfdbajhlkadfvlbhjksdafvbjklvdfbjklvcbjklvfbjklvdbkljavcbjkldbjkadfvbjklvdbjklbjkvdbjadbjkladbjklavjkblbjklvcbkjlvjbkljkblvbjklcvcbkjlcjkvbcbkjlcbjkcvbjkcvbcvkbjcvbjklcvbjkcvkbjcvbjklcvkbjvcbjkcbjklcvbjklcvbkjlcjbklcvbjklcvbljkcvbjklcvbkjlcvbjklbkjlcvjbklcxbkljxcvblkjzlkjvzxbckbcvjkzxbvjkxzbvjklzxbvkjlzxbvkljzxcbvjklzxcbvcjklzxbvkjlxzbjklcvbzxcjklbzxkjlvbzjkxcbvkljbvzcxlkjvbzljkv","Wow! ",12/04 19:03
 
 END OF POST
+Post:test,"afasfdafs","sid is a monkey",12/05 15:20
+
+END OF POST
+Post:test,"amfsdlkdahfkjl;hlkjfhasjklhfslajkf","Why is anish gay",12/05 18:18
+Poll
+pollOption:test
+pollOption:test
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
 END OF COURSE
 Course:test1,test,true
 END OF COURSE
 Course:CS180,test,true
+END OF COURSE
+Course:MA 261,test,false
 END OF COURSE

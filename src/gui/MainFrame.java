@@ -71,7 +71,6 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName) {
-        prevPanel.stream().forEach(x -> System.out.print(x + ","));
         if(panelName.equals("Login")){
             panel = new LoginPanel();
         } 
