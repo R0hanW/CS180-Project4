@@ -27,6 +27,7 @@ public class ProgramManager {
     private Course currCourse;
     private Post currPost;
 
+
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
     //can read more here https://stackoverflow.com/questions/18125106/make-global-instance-of-class-java/18125286
     public static synchronized ProgramManager get() throws Exception{
@@ -285,5 +286,14 @@ public class ProgramManager {
 
     public Course findCourse(String courseName) {
         return courses.stream().filter(course -> course.getName().equals(courseName)).findFirst().orElse(null);
+    }
+    private void receiveFromGui(String send){
+        Client client = new Client(send);
+        Server server = new Server();
+
+        new Thread (server).start();
+        new Thread (client).start();
+
+
     }
 }
