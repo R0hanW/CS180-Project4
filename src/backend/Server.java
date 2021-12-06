@@ -3,11 +3,11 @@ import java.io.*;
 import java.net.*;
 
 public class Server implements Runnable{
-    private ProgramManager manager;
+    //private ProgramManager manager;
     private ServerSocket serverSocket;
     private Socket socket;
     private String input;
-    private static int portNum = 4241;
+    private int portNum;
 
     public void run(){
         acceptClient();
@@ -19,14 +19,15 @@ public class Server implements Runnable{
             e.printStackTrace();
         }
     }
-    public Server() {
-
+    public Server(int portNum) {
+        this.portNum = portNum;
         try {
             serverSocket = new ServerSocket(portNum);
+            System.out.println(portNum);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        portNum ++;
+        //portNum ++;
     }
 
     public void acceptClient(){
@@ -66,12 +67,12 @@ public class Server implements Runnable{
         }
 
     }
-     */
+
 
     public void resetPortNum(){
         portNum = 4242;
     }
-
+*/
     public String getInput() {
         return input;
     }
