@@ -10,7 +10,7 @@ public class Client implements Runnable{
     private int portNum;
 
     public void run(){
-        System.out.println(portNum);
+        //System.out.println(portNum);
         connect("localhost",portNum);
         sendToServer(this.input);
         close();
@@ -21,11 +21,6 @@ public class Client implements Runnable{
         this.portNum = portNum;
 
     }
-   /* public Client(User user){
-        portNum++;
-    }
-
-    */
     public String getInput(){
         return input;
     }
@@ -64,11 +59,4 @@ public class Client implements Runnable{
         writer.close();
         // System.out.println("sendtoserver");
     }
-    /*
-    public void sendUser(){
-        for (int i = 0;i < 4; i++) {
-            new Thread(this).start();
-        }
-    }
-     */
 }
