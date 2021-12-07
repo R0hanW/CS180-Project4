@@ -26,6 +26,7 @@ public class ProgramManager {
     static User currUser;
     private Course currCourse;
     private Post currPost;
+    private Comment currComment;
 
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
@@ -70,6 +71,14 @@ public class ProgramManager {
         this.currPost = currPost;
     }
 
+    public Comment getCurrComment() {
+        return currComment;
+    }
+
+    public void setCurrComment(Comment currComment) {
+        this.currComment = currComment;
+    }
+    
     public ArrayList<Course> getCourses() {
         return courses;
     }

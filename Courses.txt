@@ -4,6 +4,16 @@ Poll
 pollResult:0
 pollResult:0
 END OF POLL
+Comment:test,"This is a test comment.",12/07 02:13,-36,0.0
+Reply:test,"reply test",    12/07 02:55,0,0.0
+
+
+Comment:test,"adsfasfd",12/07 02:39,-13,0.0
+
+Comment:test,"asdfasdasf",12/07 02:39,-12,0.0
+
+Comment:test,"asdfasdf",12/07 02:40,0,0.0
+
 
 END OF POST
 Post:test,"we testing","test",12/04 18:28

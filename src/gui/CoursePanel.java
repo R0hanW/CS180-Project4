@@ -27,7 +27,6 @@ public class CoursePanel extends JPanel implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        initMouseListener();
         initComponents();
         setPreferredSize(new Dimension(350, 750));
     }
@@ -62,7 +61,36 @@ public class CoursePanel extends JPanel implements ActionListener {
             contentText.setEditable(false);
             contentTextPane = new JScrollPane(contentText);
             tmpPanel.add(contentTextPane, BorderLayout.CENTER);
-            tmpPanel.addMouseListener(mouseListener);
+            tmpPanel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        manager = ProgramManager.get();
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    manager.setCurrPost(post);
+                    MainFrame.get().switchPanel("Post");
+                }
+    
+                @Override
+                public void mouseEntered(MouseEvent arg0) {
+                }
+    
+                @Override
+                public void mouseExited(MouseEvent arg0) {
+                }
+    
+                @Override
+                public void mousePressed(MouseEvent arg0) {
+                }
+    
+                @Override
+                public void mouseReleased(MouseEvent arg0) {
+                }
+    
+            });
             postPanel.add(tmpPanel);
         }
         addComponentsToContainer();
@@ -94,29 +122,4 @@ public class CoursePanel extends JPanel implements ActionListener {
         panel.add(postPanel, BorderLayout.CENTER);
     }
 
-    public void initMouseListener() {
-        mouseListener = new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // TODO
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent arg0) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent arg0) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent arg0) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent arg0) {
-            }
-
-        };
-    }
 }
