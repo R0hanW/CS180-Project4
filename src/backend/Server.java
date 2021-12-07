@@ -59,20 +59,6 @@ public class Server implements Runnable{
         }
         // System.out.println("closeServer");
     }
-    /*
-    public void addUser(User user){
-        Server[] servers = {new Server(), new Server(), new Server(), new Server()};
-        for (int i =0; i < 4; i++) {
-            new Thread (this).start();
-        }
-
-    }
-
-
-    public void resetPortNum(){
-        portNum = 4242;
-    }
-*/
     public String getInput() {
         return input;
     }
