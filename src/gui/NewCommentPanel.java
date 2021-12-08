@@ -28,6 +28,18 @@ public class NewCommentPanel extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(150, 300));
     }
 
+    public NewCommentPanel() {
+        try {
+            manager = ProgramManager.get();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        this.reply = false;
+        initComponents();
+        setPreferredSize(new Dimension(150, 300));
+    }
+
     private void initComponents() {
         panel = new JPanel(new GridBagLayout());
         commentLabel = new JLabel("Comment:");
