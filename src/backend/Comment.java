@@ -73,16 +73,14 @@ public class Comment {
         this.content = content;
     }
 
-    public void addVote(User user) {
-        if (userUpvotes.contains(user)) {
-            System.out.println("Cannot upvote comment twice!");
-            return;
-        }
+    public void addVote() {
         votes++;
-        userUpvotes.add(user);
-        System.out.println("Comment upvoted.");
     }
 
+    public void removeVote() {
+        votes--;
+    }
+    
     public int getVotes() {
         return votes;
     }
@@ -145,6 +143,7 @@ public class Comment {
     }
 
     public String toString() {
+        content = content.replace("\n", " ");
         String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp,
                 Integer.toString(votes), Double.toString(grade));
         for (Comment reply : replies) out += String.format("Reply:%s\n", reply.toString(false));

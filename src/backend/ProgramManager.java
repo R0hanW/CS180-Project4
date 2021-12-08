@@ -26,7 +26,7 @@ public class ProgramManager {
     static User currUser;
     private Course currCourse;
     private Post currPost;
-    //private Network network;
+    private Comment currComment;
 
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
@@ -69,6 +69,14 @@ public class ProgramManager {
 
     public void setCurrPost(Post currPost) {
         this.currPost = currPost;
+    }
+
+    public Comment getCurrComment() {
+        return currComment;
+    }
+
+    public void setCurrComment(Comment currComment) {
+        this.currComment = currComment;
     }
 
     public ArrayList<Course> getCourses() {
@@ -248,11 +256,6 @@ public class ProgramManager {
 
     public void addCourse(Course course) {
         courses.add(course);
-        try {
-            writeFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void removeCourse(Course course) {
