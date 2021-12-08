@@ -2,8 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import backend.Course;
-import backend.ProgramManager;
+import backend.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -51,8 +50,13 @@ public class NewCoursePanel extends JPanel implements ActionListener {
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            Network network = new Network();
+            network.addCourse(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
+            /*
             manager.addCourse(
                     new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
+
+             */
             MainFrame.get().switchPanel("Main");
         }
     }

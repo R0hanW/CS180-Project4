@@ -26,6 +26,7 @@ public class ProgramManager {
     static User currUser;
     private Course currCourse;
     private Post currPost;
+    //private Network network;
 
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
@@ -104,6 +105,7 @@ public class ProgramManager {
 
     public void readFile() throws Exception {
         //reads from Courses.txt (won't work unless users has already been read)
+        courses.clear();
         BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
         String message;
         Course course = null;
@@ -163,6 +165,7 @@ public class ProgramManager {
     public void readUserFile() { // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
+        users.clear();
         File f = new File("Users.txt");
         try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
             String line = bfr.readLine();
@@ -245,6 +248,11 @@ public class ProgramManager {
 
     public void addCourse(Course course) {
         courses.add(course);
+        try {
+            writeFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeCourse(Course course) {

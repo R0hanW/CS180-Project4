@@ -1,7 +1,28 @@
 package backend;
 
-public class Network {
+public class Network implements Runnable{
     private ProgramManager manager;
+    private static Object obj =  new Object();
+
+    public void run() {
+        while (true) {
+            try {
+                synchronized (obj) {
+                    manager.readFile();
+                    manager.readUserFile();
+                }
+            } catch (Exception e) {
+
+            }
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("refresh");
+
+        }
+    }
 
     public Network(){
         try {
@@ -11,14 +32,6 @@ public class Network {
         }
     }
     public void addUser(String name, String username, String password, boolean isTeacher){
-    /*    Server server = new Server();
-        Client client = new Client(name, 4242);
-        Thread serverThread = new Thread (server);
-        Thread clientThread = new Thread (client);
-
-        serverThread.start();
-        clientThread.start();
-       */
         Server[] servers = {new Server(4242), new Server(4243), new Server(4244), new Server(4245)};
         Client[] clients = {
                 new Client(name,4242),
@@ -37,12 +50,6 @@ public class Network {
             serverThreads[i].start();
             clientThreads[i].start();
         }
-         /*
-        for (int i =0; i < 4; i++) {
-            new Thread (servers[i]).start();
-            new Thread (clients[i]).start();
-        }
-         */
 
         try {
             for (int i = 0; i < 4; i++) {
@@ -60,6 +67,67 @@ public class Network {
                         Boolean.getBoolean(servers[3].getInput())
                 )
         );
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void addCourse(String name, User owner, boolean studentsCanCreatePosts){
+    /*    Server server = new Server();
+        Client client = new Client(name, 4242);
+        Thread serverThread = new Thread (server);
+        Thread clientThread = new Thread (client);
+
+        serverThread.start();
+        clientThread.start();
+       */
+        Server[] servers = {new Server(4242), new Server(4243)};
+        Client[] clients = {
+                new Client(name,4242),
+                new Client(String.valueOf(studentsCanCreatePosts),4243)
+        };
+        Thread[] serverThreads = new Thread[2];
+        Thread[] clientThreads = new Thread[2];
+        for (int i = 0; i < 2; i ++){
+            serverThreads[i] = new Thread(servers[i]);
+            clientThreads[i] = new Thread(clients[i]);
+        }
+
+        for (int i = 0; i < 2; i++){
+            serverThreads[i].start();
+            clientThreads[i].start();
+        }
+         /*
+        for (int i =0; i < 4; i++) {
+            new Thread (servers[i]).start();
+            new Thread (clients[i]).start();
+        }
+         */
+
+        try {
+            for (int i = 0; i < 2; i++) {
+                serverThreads[i].join();
+                clientThreads[i].join();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        manager.addCourse(
+                new Course(servers[0].getInput(), owner,
+                        Boolean.getBoolean(servers[1].getInput())
+                )
+        );
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         //servers[0].resetPortNum();
     }
 
