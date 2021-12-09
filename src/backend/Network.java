@@ -1,5 +1,7 @@
 package backend;
 
+import gui.MainFrame;
+
 public class Network implements Runnable{
     private ProgramManager manager;
     private static Object obj =  new Object();
@@ -10,12 +12,19 @@ public class Network implements Runnable{
                 synchronized (obj) {
                     manager.readFile();
                     manager.readUserFile();
+                    //if (MainFrame.get().getPanelName() == "Main" || 
+                    		  //MainFrame.get().getPanelName() == "Course" || 
+                    		  //MainFrame.get().getPanelName() == "Post") {
+                    	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
+                    	MainFrame.get().update();
+                    //}
+                    
                 }
             } catch (Exception e) {
 
             }
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
