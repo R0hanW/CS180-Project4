@@ -15,7 +15,7 @@ public class Network implements Runnable{
 
             }
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -130,5 +130,23 @@ public class Network implements Runnable{
         }
         //servers[0].resetPortNum();
     }
+    public void addPost(Course course, Post post){
 
+        manager.findCourse(course.getName()).addPost(post);
+        System.out.println(course);
+        System.out.println("array list course: ");
+        System.out.println(manager.findCourse(course.getName()));
+      //  System.out.println(course == manager.findCourse(course.getName()));
+        writeFile();
+
+    }
+    public void writeFile(){
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

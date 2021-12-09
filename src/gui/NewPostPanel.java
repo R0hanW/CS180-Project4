@@ -2,9 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import backend.Poll;
-import backend.Post;
-import backend.ProgramManager;
+import backend.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -80,7 +78,18 @@ public class NewPostPanel extends JPanel implements ActionListener {
                 pollOptions.stream().forEach(pollOption -> poll.addPollOption(pollOption.getText()));
                 post.addPoll(poll);
             }
-            manager.getCurrCourse().addPost(post);
+            //manager.getCurrCourse().addPost(post);
+
+            /*try {
+                manager.writeFile();
+                System.out.println("write to file");
+            }catch(Exception r){
+                r.printStackTrace();
+            }*/
+            Network network = new Network();
+            network.addPost(manager.getCurrCourse(), post);
+
+
             MainFrame.get().switchPanel("Course");
         } else if (e.getSource() == pollButton) {
             if (pollButton.isSelected()) {
