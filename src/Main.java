@@ -10,7 +10,8 @@ public class Main {
             public void run() 
             {
                 new Thread(network).start();
-                new MainFrame();
+                new Thread(new MainFrame()).start();
+                //new MainFrame();
             }
         });
     }

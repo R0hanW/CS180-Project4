@@ -2,8 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import backend.Comment;
-import backend.ProgramManager;
+import backend.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -67,6 +66,8 @@ public class NewCommentPanel extends JPanel implements ActionListener {
             }
             if(reply == true) manager.getCurrComment().addReply(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
             else if(reply == false) manager.getCurrPost().addComment(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            Network network = new Network();
+            network.writeFile();
             MainFrame.get().switchPanel("Post");
         }
     }

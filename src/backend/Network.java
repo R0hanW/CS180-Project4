@@ -140,6 +140,11 @@ public class Network implements Runnable{
         writeFile();
 
     }
+    public void addComment(Course course, Post post, Comment comment){
+        //manager.findCourse(course.getName()).findPost(post.).addComment(comment);
+        writeFile();
+    }
+
     public void writeFile(){
         synchronized (obj) {
             try {
