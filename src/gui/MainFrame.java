@@ -11,6 +11,7 @@ import backend.ProgramManager;
 public class MainFrame {
     private static MainFrame instance = null;
     JScrollPane scrollPane;
+    String panelName = "Login";
     JPanel panels;
     JFrame frame;
     JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel;
@@ -72,6 +73,7 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName) {
+    	this.panelName = panelName;
         if (panelName.equals("Login")) {
             panel = new LoginPanel();
         } else if (panelName.equals("Sign Up"))
@@ -125,6 +127,7 @@ public class MainFrame {
     }
 
     public void switchPanel(String panelName, boolean reply) {
+    	this.panelName = panelName;
         if (panelName.equals("Login")) {
             panel = new LoginPanel();
         } else if (panelName.equals("Sign Up"))
@@ -175,5 +178,13 @@ public class MainFrame {
         frame.revalidate();
         frame.getContentPane().validate();
         frame.repaint();
+    }
+    
+    public String getPanelName() {
+    	return panelName;
+    }
+    
+    public void update() {
+    	panel.revalidate();
     }
 }

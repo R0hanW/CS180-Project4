@@ -8,7 +8,7 @@ public class Server implements Runnable{
     private Socket socket;
     private String input;
     private int portNum;
-
+    
     public void run(){
         acceptClient();
         this.input = receiveFromClient();
