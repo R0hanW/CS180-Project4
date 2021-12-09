@@ -5,8 +5,6 @@ pollResult:0
 pollResult:0
 END OF POLL
 Comment:test,"test",12/07 19:17,0,0.0
-Reply:test,"test",    12/07 19:22,0,0.0
-
 
 Comment:test,"test 1",12/07 19:17,0,0.0
 

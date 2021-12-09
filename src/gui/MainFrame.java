@@ -11,7 +11,7 @@ import backend.ProgramManager;
 public class MainFrame {
     private static MainFrame instance = null;
     JScrollPane scrollPane;
-    String panelName = "Main";
+    String panelName = "Login";
     JPanel panels;
     JFrame frame;
     JPanel panel, loginPanel, signUpPanel, mainPanel, newCoursePanel, coursePanel;
@@ -185,6 +185,6 @@ public class MainFrame {
     }
     
     public void update() {
-    	frame.revalidate();
+    	panel.revalidate();
     }
 }
