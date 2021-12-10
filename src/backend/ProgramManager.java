@@ -34,12 +34,19 @@ public class ProgramManager {
     public static void main(String args[]) throws Exception {
     	ServerSocket serverSocket = new ServerSocket(4040);
     	ProgramManager manager = new ProgramManager();
-    	while(true) {
-    		Socket socket = serverSocket.accept();
-    		System.out.println("connected");
-    		ClientThread client = new ClientThread(socket);
-    		new Thread(client).start();
+    	try {
+    		while(true) {
+    			Socket socket = serverSocket.accept();
+    			System.out.println("connected");
+    			ClientThread client = new ClientThread(socket);
+    			new Thread(client).start();
+    		}
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	} finally {
+    		serverSocket.close();
     	}
+    	
     }
 
 
