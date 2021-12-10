@@ -8,6 +8,8 @@
  * @version 11/15/21
  */
 package backend;
+import java.io.*;
+import java.net.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,12 +23,24 @@ import java.util.Arrays;
 public class ProgramManager {
     private static ProgramManager instance = null;
     private ArrayList<User> users = new ArrayList<User>();
-    // private ArrayList<Post> posts = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<Course>();
     static User currUser;
     private Course currCourse;
     private Post currPost;
     private Comment currComment;
+    
+    //looked at https://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html
+    public static void main(String args[]) throws Exception {
+    	ServerSocket serverSocket = new ServerSocket(4040);
+    	ProgramManager manager = new ProgramManager();
+    	while(true) {
+    		Socket socket = serverSocket.accept();
+    		System.out.println("connected");
+    		ClientThread client = new ClientThread(socket);
+    		new Thread(client).start();
+    	}
+    }
 
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();

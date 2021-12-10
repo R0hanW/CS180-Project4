@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import backend.ProgramManager;
 
-public class MainFrame {
+public class MainFrame implements Runnable{
     private static MainFrame instance = null;
     JScrollPane scrollPane;
     String panelName = "Login";
@@ -20,6 +20,19 @@ public class MainFrame {
     Box box;
     Dimension dimension;
     ProgramManager manager;
+
+    public void run(){
+        while(true){
+            if (panelName == "Course"|| panelName == "Main" || panelName == "Post") {
+                instance.switchPanel(panelName);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public MainFrame() {
         instance = this;
@@ -48,7 +61,7 @@ public class MainFrame {
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 try {
-                    ProgramManager.get().writeFile();
+                    //ProgramManager.get().writeFile();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
