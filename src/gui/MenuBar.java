@@ -8,7 +8,7 @@ import backend.ProgramManager;
 public class MenuBar extends JMenuBar implements ActionListener {
     JMenu userMenu;
     JButton backItem, homeItem, forwardItem;
-    JMenuItem profileItem, logOutItem;
+    JMenuItem deleteAccountItem, editAccountItem, logOutItem;
     ProgramManager manager;
 
     public MenuBar() {
@@ -49,10 +49,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
         forwardItem.setMaximumSize(new Dimension(20, 20));
         forwardItem.setPreferredSize(new Dimension(20, 20));
         userMenu = new JMenu(manager.getCurrUser().getName());
-        profileItem = new JMenuItem("Profile");
+        // profileItem = new JMenuItem("Profile");
         logOutItem = new JMenuItem("Log Out");
-        userMenu.add(profileItem);
+        deleteAccountItem = new JMenuItem("Delete Account");
+        editAccountItem = new JMenuItem("Edit Account");
+        // userMenu.add(profileItem);
         userMenu.add(logOutItem);
+        userMenu.add(editAccountItem);
+        userMenu.add(deleteAccountItem);
 
         addActionListeners();
         add(backItem);
@@ -70,8 +74,20 @@ public class MenuBar extends JMenuBar implements ActionListener {
             MainFrame.get().switchPanel("Next");
         } else if (e.getSource() == homeItem) {
             MainFrame.get().switchPanel("Main");
-        } else if (e.getSource() == profileItem) {
-            // TODO
+        } else if (e.getSource() == editAccountItem) {
+            System.out.println("HEllo ");
+            MainFrame.get().switchPanel("Edit Account");
+        } else if(e.getSource()  == deleteAccountItem) {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?", "Discussion Board", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION) {
+                try {
+                    ProgramManager.get().removeUser(ProgramManager.get().getCurrUser());
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                MainFrame.get().switchPanel("Login");
+            }
         } else if (e.getSource() == logOutItem) {
             try {
                 ProgramManager.get().setCurrUser(null);
@@ -86,7 +102,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
         backItem.addActionListener(this);
         homeItem.addActionListener(this);
         forwardItem.addActionListener(this);
-        profileItem.addActionListener(this);
+        // profileItem.addActionListener(this);
+        editAccountItem.addActionListener(this);
+        deleteAccountItem.addActionListener(this);
         logOutItem.addActionListener(this);
     }
 }
