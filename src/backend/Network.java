@@ -16,7 +16,7 @@ public class Network implements Runnable{
                     		  //MainFrame.get().getPanelName() == "Course" || 
                     		  //MainFrame.get().getPanelName() == "Post") {
                     	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
-                    	MainFrame.get().update();
+                    	//MainFrame.get().update();
                     //}
                     
                 }
