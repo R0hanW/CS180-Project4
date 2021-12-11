@@ -16,7 +16,7 @@ public class Network implements Runnable{
                     		  //MainFrame.get().getPanelName() == "Course" || 
                     		  //MainFrame.get().getPanelName() == "Post") {
                     	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
-                    	MainFrame.get().update();
+                    	//MainFrame.get().update();
                     //}
                     
                 }
@@ -140,17 +140,15 @@ public class Network implements Runnable{
         //servers[0].resetPortNum();
     }
     public void addPost(Course course, Post post){
-
         manager.findCourse(course.getName()).addPost(post);
-        System.out.println(course);
-        System.out.println("array list course: ");
-        System.out.println(manager.findCourse(course.getName()));
-      //  System.out.println(course == manager.findCourse(course.getName()));
         writeFile();
-
     }
     public void addComment(Course course, Post post, Comment comment){
-        //manager.findCourse(course.getName()).findPost(post.).addComment(comment);
+        ((manager.findCourse(course.getName())).findPost(post)).addComment(comment);
+        writeFile();
+    }
+    public void addReply(Course course, Post post, Comment comment, Comment reply){
+        ((manager.findCourse(course.getName())).findPost(post)).findComment(comment).addReply(reply);
         writeFile();
     }
 

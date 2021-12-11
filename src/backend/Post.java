@@ -166,12 +166,22 @@ public class Post {
         return (comments.size() > 0);
     }
 
-    @Override
+    public Comment findComment(Comment comment){
+        for (int i =0; i < comments.size(); i ++){
+            if (comments.get(i).getContent().equals(comment.getContent()) && comments.get(i).getTimestamp().equals(comment.getTimestamp())){
+                System.out.println();
+                return comments.get(i);
+            }
+        }
+        return null;
+    }
+
+    //@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(owner, post.owner) &&
+        return Objects.equals(owner.getUsername(), post.owner.getUsername()) &&
                 Objects.equals(content, post.content) &&
                 Objects.equals(topic, post.topic) &&
                 Objects.equals(course, post.course) &&
