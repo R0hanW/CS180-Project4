@@ -42,10 +42,25 @@ pollResult:0
 END OF POLL
 
 END OF POST
+Post:evan,"Would we like to postpone final exams?","Final Exams",12/11 17:08
+Poll
+pollOption:Yes
+pollOption:No
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+Post:evan,"alerigouhalsiuerahl uanhaurlhu klhfuslhmknhmakafmhjamshkmdmhajh hmufhmjmah","hi",12/11 17:08
+
+END OF POST
 END OF COURSE
 Course:test1,test,true
 END OF COURSE
 Course:CS180,test,true
+Post:evan,"Test","Test",12/11 17:09
+
+END OF POST
 END OF COURSE
 Course:MA 261,test,false
 END OF COURSE
