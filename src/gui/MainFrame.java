@@ -25,16 +25,10 @@ public class MainFrame implements Runnable{
         while(true){
             if (panelName == "Course"|| panelName == "Main" || panelName == "Post") {
                 instance.switchPanel(panelName);
-<<<<<<< HEAD
-            }
-            try {
-                Thread.sleep(1000);
-=======
                 System.out.println("updating? " + panelName);
             }
             try {
                 Thread.sleep(2000);
->>>>>>> main
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
