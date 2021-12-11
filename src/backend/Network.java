@@ -73,7 +73,7 @@ public class Network implements Runnable{
                 new User(servers[0].getInput(),
                         servers[1].getInput(),
                         servers[2].getInput(),
-                        Boolean.getBoolean(servers[3].getInput())
+                        Boolean.parseBoolean(servers[3].getInput())
                 )
         );
         synchronized (obj) {
@@ -124,10 +124,11 @@ public class Network implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(servers[0].getInput());
 
         manager.addCourse(
                 new Course(servers[0].getInput(), owner,
-                        Boolean.getBoolean(servers[1].getInput())
+                        Boolean.parseBoolean(servers[1].getInput())
                 )
         );
         synchronized (obj) {
