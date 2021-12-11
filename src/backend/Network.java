@@ -34,43 +34,34 @@ public class Network implements Runnable{
         }
     }
     public void addUser(String name, String username, String password, boolean isTeacher){
-        //Server[] servers = {new Server(4242), new Server(4243), new Server(4244), new Server(4245)};
+        Server[] servers = {new Server(4242), new Server(4243), new Server(4244), new Server(4245)};
         Client[] clients = {
                 new Client(name,4242),
                 new Client(username,4243),
                 new Client(password,4244),
                 new Client(String.valueOf(isTeacher),4245)
         };
-        //Thread[] serverThreads = new Thread[4];
+        Thread[] serverThreads = new Thread[4];
         Thread[] clientThreads = new Thread[4];
         for (int i = 0; i < 4; i ++){
-            //serverThreads[i] = new Thread(servers[i]);
+            serverThreads[i] = new Thread(servers[i]);
             clientThreads[i] = new Thread(clients[i]);
         }
 
         for (int i = 0; i < 4; i++){
-            //serverThreads[i].start();
+            serverThreads[i].start();
             clientThreads[i].start();
         }
 
         try {
             for (int i = 0; i < 4; i++) {
-                //serverThreads[i].join();
+                serverThreads[i].join();
                 clientThreads[i].join();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-<<<<<<< HEAD
-        //manager.addUser(
-                //new User(servers[0].getInput(),
-                //        servers[1].getInput(),
-                //        servers[2].getInput(),
-                //        Boolean.getBoolean(servers[3].getInput())
-                //)
-        //);
-=======
         manager.addUser(
                 new User(servers[0].getInput(),
                         servers[1].getInput(),
@@ -79,7 +70,6 @@ public class Network implements Runnable{
                 )
         );
 
->>>>>>> main
         synchronized (obj) {
             try {
                 manager.writeFile();
