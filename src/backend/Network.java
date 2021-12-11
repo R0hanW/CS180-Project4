@@ -12,19 +12,12 @@ public class Network implements Runnable{
                 synchronized (obj) {
                     manager.readFile();
                     manager.readUserFile();
-                    //if (MainFrame.get().getPanelName() == "Main" || 
-                    		  //MainFrame.get().getPanelName() == "Course" || 
-                    		  //MainFrame.get().getPanelName() == "Post") {
-                    	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
-                    	//MainFrame.get().update();
-                    //}
-                    
                 }
             } catch (Exception e) {
 
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -73,9 +66,10 @@ public class Network implements Runnable{
                 new User(servers[0].getInput(),
                         servers[1].getInput(),
                         servers[2].getInput(),
-                        Boolean.getBoolean(servers[3].getInput())
+                        Boolean.parseBoolean(servers[3].getInput())
                 )
         );
+
         synchronized (obj) {
             try {
                 manager.writeFile();
@@ -83,16 +77,9 @@ public class Network implements Runnable{
                 e.printStackTrace();
             }
         }
+
     }
     public void addCourse(String name, User owner, boolean studentsCanCreatePosts){
-    /*    Server server = new Server();
-        Client client = new Client(name, 4242);
-        Thread serverThread = new Thread (server);
-        Thread clientThread = new Thread (client);
-
-        serverThread.start();
-        clientThread.start();
-       */
         Server[] servers = {new Server(4242), new Server(4243)};
         Client[] clients = {
                 new Client(name,4242),
@@ -109,12 +96,6 @@ public class Network implements Runnable{
             serverThreads[i].start();
             clientThreads[i].start();
         }
-         /*
-        for (int i =0; i < 4; i++) {
-            new Thread (servers[i]).start();
-            new Thread (clients[i]).start();
-        }
-         */
 
         try {
             for (int i = 0; i < 2; i++) {
@@ -124,12 +105,15 @@ public class Network implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(servers[0].getInput());
 
         manager.addCourse(
                 new Course(servers[0].getInput(), owner,
-                        Boolean.getBoolean(servers[1].getInput())
+                        Boolean.parseBoolean(servers[1].getInput())
                 )
         );
+        //writeFile();
+
         synchronized (obj) {
             try {
                 manager.writeFile();
@@ -137,21 +121,74 @@ public class Network implements Runnable{
                 e.printStackTrace();
             }
         }
-        //servers[0].resetPortNum();
+
+    }
+    public void addPost(User owner, Course course, String content, String topic){
+        Server[] servers = {new Server(4242), new Server(4243)};
+        Client[] clients = {
+                new Client(content,4242),
+                new Client(topic,4243),
+        };
+        Thread[] serverThreads = new Thread[2];
+        Thread[] clientThreads = new Thread[2];
+        for (int i = 0; i < 2; i ++){
+            serverThreads[i] = new Thread(servers[i]);
+            clientThreads[i] = new Thread(clients[i]);
+        }
+
+        for (int i = 0; i < 2; i++){
+            serverThreads[i].start();
+            clientThreads[i].start();
+        }
+
+        try {
+            for (int i = 0; i < 2; i++) {
+                serverThreads[i].join();
+                clientThreads[i].join();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        manager.findCourse(course.getName()).addPost(new Post(
+                owner, course,servers[0].getInput(), servers[1].getInput()
+        ));
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void addPost(Course course, Post post){
-
         manager.findCourse(course.getName()).addPost(post);
-        System.out.println(course);
-        System.out.println("array list course: ");
-        System.out.println(manager.findCourse(course.getName()));
-      //  System.out.println(course == manager.findCourse(course.getName()));
-        writeFile();
-
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void addComment(Course course, Post post, Comment comment){
-        //manager.findCourse(course.getName()).findPost(post.).addComment(comment);
-        writeFile();
+        ((manager.findCourse(course.getName())).findPost(post)).addComment(comment);
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void addReply(Course course, Post post, Comment comment, Comment reply){
+        ((manager.findCourse(course.getName())).findPost(post)).findComment(comment).addReply(reply);
+        synchronized (obj) {
+            try {
+                manager.writeFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void writeFile(){

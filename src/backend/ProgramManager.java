@@ -56,7 +56,7 @@ public class ProgramManager {
     }
 
     public Course getCurrCourse() {
-        return currCourse;
+        return findCourse(currCourse.getName());
     }
 
     public void setCurrCourse(Course currCourse) {
@@ -64,7 +64,8 @@ public class ProgramManager {
     }
 
     public Post getCurrPost() {
-        return currPost;
+        return getCurrCourse().findPost(currPost);
+       // return currPost;
     }
 
     public void setCurrPost(Post currPost) {

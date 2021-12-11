@@ -173,8 +173,8 @@ public class Comment {
         Comment comment = (Comment) o;
         return votes == comment.votes &&
                 Double.compare(comment.grade, grade) == 0 &&
-                Objects.equals(owner, comment.owner) &&
-                Objects.equals(post, comment.post) &&
+                Objects.equals(owner.getUsername(), comment.owner.getUsername()) &&
+                Objects.equals(post.getCourse().getName(), comment.post.getCourse().getName()) &&
                 Objects.equals(content, comment.content) &&
                 Objects.equals(timestamp, comment.timestamp) &&
                 Objects.equals(replies, comment.replies);
