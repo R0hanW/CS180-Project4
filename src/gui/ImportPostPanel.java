@@ -6,8 +6,9 @@ import backend.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 
-public class NewCoursePanel extends JPanel implements ActionListener {
+public class ImportPostPanel extends JPanel implements ActionListener {
     JLabel nameLabel, createCoursePermissionsLabel;
     JTextField nameText;
     JButton submitButton;
@@ -15,7 +16,7 @@ public class NewCoursePanel extends JPanel implements ActionListener {
     JPanel panel, tmpPanel;
     ProgramManager manager;
 
-    public NewCoursePanel() {
+    public ImportPostPanel() {
         try {
             manager = ProgramManager.get();
         } catch (Exception e) {
@@ -26,12 +27,10 @@ public class NewCoursePanel extends JPanel implements ActionListener {
     }
 
     private void initComponents() {
-        nameLabel = new JLabel("Course Name:");
+        nameLabel = new JLabel("File Name:");
         nameText = new JTextField();
-        createCoursePermissionsLabel = new JLabel("Allow students to create posts?");
-        coursePermissionsButton = new JRadioButton("Yes");
         submitButton = new JButton("Submit");
-        panel = new JPanel(new GridLayout(3, 1));
+        panel = new JPanel(new GridLayout(2, 1));
         addActionListeners();
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
@@ -50,13 +49,14 @@ public class NewCoursePanel extends JPanel implements ActionListener {
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            Network network = new Network();
-            network.addCourse(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
-            /*
-            manager.addCourse(
-                    new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
-             */
-            MainFrame.get().switchPanel("Main");
+            // Network network = new Network();
+            // network.getCurrCourse().addPost((nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
+            try {
+                manager.readUserFileImport(nameText.getText(), true, manager.getCurrCourse(), null, manager.getCurrUser());
+                MainFrame.get().switchPanel("Course");
+            } catch (FileNotFoundException e1) {
+                JOptionPane.showMessageDialog(null, "Could Not Find File!", "Import Post", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -69,9 +69,6 @@ public class NewCoursePanel extends JPanel implements ActionListener {
         tmpPanel.add(nameLabel);
         tmpPanel.add(nameText);
         panel.add(tmpPanel);
-        tmpPanel = new JPanel(new GridLayout(1, 2));
-        tmpPanel.add(createCoursePermissionsLabel);
-        tmpPanel.add(coursePermissionsButton);
         panel.add(tmpPanel);
         panel.add(submitButton);
     }

@@ -104,6 +104,8 @@ public class MainFrame implements Runnable{
             panel = new NewCommentPanel(false);
         else if (panelName.equals("New Post"))
             panel = new NewPostPanel();
+        else if (panelName.equals("Import Post"))
+            panel = new ImportPostPanel();
         else if (panelName.equals("Edit Account")) 
             panel = new EditAccountPanel();
         else if (panelName.equals("Previous")) {

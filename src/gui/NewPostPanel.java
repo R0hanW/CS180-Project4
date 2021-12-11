@@ -12,7 +12,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
     JLabel topicLabel, descriptionLabel, pollLabel, pollOptionLabel;
     JTextField topicText, userText, pollOption;
     JTextArea descriptionText;
-    JButton submitButton;
+    JButton submitButton, importPostButton;
     JButton addPollOptionButton, removePollOptionButton;
     ArrayList<JLabel> pollOptionLabels = new ArrayList<JLabel>();
     ArrayList<JTextField> pollOptions = new ArrayList<JTextField>();
@@ -48,6 +48,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
         addPollOptionButton = new JButton("Add Poll Option");
         removePollOptionButton = new JButton("Remove Poll Option");
         panel = new JPanel(new GridBagLayout());
+        importPostButton = new JButton("Import Post");
         submitButton = new JButton("Submit");
         addActionListeners();
         addComponentsToContainer();
@@ -60,6 +61,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
         removePollOptionButton.addActionListener(this);
         submitButton.addActionListener(this);
         pollButton.addActionListener(this);
+        importPostButton.addActionListener(this);
     }
 
     @Override
@@ -148,6 +150,8 @@ public class NewPostPanel extends JPanel implements ActionListener {
             c.gridwidth = 2;
             panel.add(submitButton, c);
             revalidate();
+        } else if(e.getSource() == importPostButton) {
+            MainFrame.get().switchPanel("Import Post");
         }
     }
 
@@ -178,7 +182,10 @@ public class NewPostPanel extends JPanel implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
-        c.gridwidth = 2;
         panel.add(submitButton, c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 3;
+        panel.add(importPostButton, c);
     }
 }
