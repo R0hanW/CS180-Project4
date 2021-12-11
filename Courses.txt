@@ -42,10 +42,33 @@ pollResult:0
 END OF POLL
 
 END OF POST
+Post:test,"","let's see if it persists",12/07 00:44
+
+END OF POST
 END OF COURSE
 Course:test1,test,true
 END OF COURSE
 Course:CS180,test,true
+Post:test,"","update?",12/11 04:48
+Comment:test,"agersfd",12/11 05:57,0,0.0
+
+Comment:test,"ummmm",12/11 06:19,0,0.0
+
+Comment:test,"comment",12/11 06:29,0,0.0
+
+
+END OF POST
+Post:student,"","second update",12/11 04:49
+Comment:test,"work",12/11 06:10,0,0.0
+
+
+END OF POST
+Post:test,"","change?",12/11 05:15
+
+END OF POST
+Post:test,"","asga",12/11 05:57
+
+END OF POST
 END OF COURSE
 Course:MA 261,test,false
 END OF COURSE

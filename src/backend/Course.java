@@ -117,6 +117,16 @@ public class Course implements Serializable {
                 Objects.equals(posts, course.posts);
     }
 
+    public Post findPost(Post post){
+        for (int i =0; i < posts.size(); i ++){
+            if (posts.get(i).getContent().equals(post.getContent()) && posts.get(i).getTimestamp().equals(post.getTimestamp())){
+                System.out.println();
+                return posts.get(i);
+            }
+        }
+        return null;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, owner, posts);

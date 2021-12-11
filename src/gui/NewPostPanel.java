@@ -71,7 +71,10 @@ public class NewPostPanel extends JPanel implements ActionListener {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+            Network network = new Network();
             post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
+                    topicText.getText());
+            network.addPost(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
                     topicText.getText());
             if (pollOptions.size() > 1) {
                 Poll poll = new Poll();
@@ -80,14 +83,8 @@ public class NewPostPanel extends JPanel implements ActionListener {
             }
             //manager.getCurrCourse().addPost(post);
 
-            /*try {
-                manager.writeFile();
-                System.out.println("write to file");
-            }catch(Exception r){
-                r.printStackTrace();
-            }*/
-            Network network = new Network();
-            network.addPost(manager.getCurrCourse(), post);
+            //network.addPost(manager.getCurrCourse(), post);
+
 
 
             MainFrame.get().switchPanel("Course");

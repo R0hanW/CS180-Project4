@@ -25,9 +25,16 @@ public class MainFrame implements Runnable{
         while(true){
             if (panelName == "Course"|| panelName == "Main" || panelName == "Post") {
                 instance.switchPanel(panelName);
+<<<<<<< HEAD
             }
             try {
                 Thread.sleep(1000);
+=======
+                System.out.println("updating? " + panelName);
+            }
+            try {
+                Thread.sleep(2000);
+>>>>>>> main
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -103,6 +110,8 @@ public class MainFrame implements Runnable{
             panel = new NewCommentPanel(false);
         else if (panelName.equals("New Post"))
             panel = new NewPostPanel();
+        else if (panelName.equals("Edit Account")) 
+            panel = new EditAccountPanel();
         else if (panelName.equals("Previous")) {
             nextPanel = prevPanel.get(prevPanel.size() - 1);
             switchPanel(prevPanel.get(prevPanel.size() - 2));
@@ -157,6 +166,8 @@ public class MainFrame implements Runnable{
             panel = new NewCommentPanel(reply);
         else if (panelName.equals("New Post"))
             panel = new NewPostPanel();
+        else if (panelName.equals("Edit Account")) 
+            panel = new EditAccountPanel();
         else if (panelName.equals("Previous")) {
             nextPanel = prevPanel.get(prevPanel.size() - 1);
             switchPanel(prevPanel.get(prevPanel.size() - 2));
@@ -165,7 +176,7 @@ public class MainFrame implements Runnable{
                 switchPanel(nextPanel);
             else
                 return;
-        }
+        } 
         if (!panelName.equals("Previous") && !panelName.equals("Next"))
             prevPanel.add(panelName);
         if (!panelName.equals("Login") && !panelName.equals("Sign Up"))
