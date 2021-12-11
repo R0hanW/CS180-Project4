@@ -12,7 +12,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
     JTextArea commentText;
     JScrollPane scrollPane;
     JPanel panel;
-    JButton submitButton;
+    JButton submitButton, importCommentButton;
     ProgramManager manager;
     boolean reply;
     public NewCommentPanel(boolean reply) {
@@ -46,6 +46,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
         commentText.setLineWrap(true);
         commentText.setWrapStyleWord(true);
         scrollPane = new JScrollPane(commentText);
+        importCommentButton = new JButton("Import Comment");
         submitButton = new JButton("Submit");
         addComponentsToContainer();
         addActionListeners();
@@ -53,6 +54,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
 
     private void addActionListeners() {
        submitButton.addActionListener(this);
+       importCommentButton.addActionListener(this);
     }
 
     @Override
@@ -75,6 +77,9 @@ public class NewCommentPanel extends JPanel implements ActionListener {
             }
             network.writeFile();
             MainFrame.get().switchPanel("Post");
+        } else if (e.getSource() == importCommentButton) {
+            System.out.println("WYA");  
+            MainFrame.get().switchPanel("Import Comment");
         }
     }
 
@@ -91,8 +96,11 @@ public class NewCommentPanel extends JPanel implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
-        c.gridwidth = 2;
         panel.add(submitButton, c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        panel.add(importCommentButton, c);
         add(panel, BorderLayout.CENTER);
     }
 }
