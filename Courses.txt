@@ -71,20 +71,4 @@ Post:test,"","asga",12/11 05:57
 END OF POST
 END OF COURSE
 Course:MA 261,test,false
-Post:test,"","sssss",12/11 06:19
-Comment:test,"post",12/11 06:19,0,0.0
-
-
-END OF POST
-END OF COURSE
-Course:course,test,false
-Post:test,"","post",12/11 06:29
-Comment:test,"comment",12/11 06:29,0,0.0
-
-Comment:test,"another comment",12/11 06:38,0,0.0
-Reply:test,"test",    12/11 06:38,0,0.0
-
-
-
-END OF POST
 END OF COURSE
