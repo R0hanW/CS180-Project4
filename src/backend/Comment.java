@@ -9,10 +9,11 @@
  */
 package backend;
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Comment {
+public class Comment implements Serializable{
     private User owner;
     private Post post;
     private String content;

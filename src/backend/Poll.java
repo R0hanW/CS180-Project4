@@ -1,7 +1,8 @@
 package backend;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Poll {
+public class Poll implements Serializable {
     private ArrayList<Integer> pollResults;
     private ArrayList<String> pollOptions; 
 

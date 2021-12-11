@@ -9,11 +9,12 @@
  */
 
 package backend;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Course {
-    private String name;
+public class Course implements Serializable {
+    private String name; 
     private User owner;
     private Boolean studentsCanCreatePosts;
 

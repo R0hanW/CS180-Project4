@@ -12,10 +12,11 @@ package backend;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Post {
+public class Post implements Serializable {
     private User owner;
     private String content;
     private String topic;

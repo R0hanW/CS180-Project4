@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.*;
 import java.io.*;
 import java.net.*;
 public class ClientThread implements Runnable {
@@ -11,29 +12,46 @@ public class ClientThread implements Runnable {
 
 	@Override
 	public void run() {
-		BufferedReader reader = null;
-		PrintWriter writer = null;
+		ObjectOutputStream output = null;
+		ObjectInputStream input = null;
 		try {
-			writer = new PrintWriter(socket.getOutputStream());
-			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			while (socket.isConnected()) {
-				ProgramManager.get().readFile();
-				ProgramManager.get().readUserFile();
-				Thread.sleep(1000);
+			output = new ObjectOutputStream(socket.getOutputStream());
+			input = new ObjectInputStream((socket.getInputStream()));
+
+			//if((ArrayList<User>)input.readObject() instanceof ArrayList<User>) {
+			Object o = input.readObject();
+			RunningServer.users = (ArrayList<User>)o;
+			//RunningServer.writeFile();
+			//RunningServer.update();
+			//}
+			//if((ArrayList<Course>)input.readObject() instanceof ArrayList<Course>) {
+			o = input.readObject();
+			RunningServer.courses = (ArrayList<Course>)o;
+			//RunningServer.writeFile();
+			//RunningServer.update();
+			//}
+			for (int i = 0; i < RunningServer.users.size(); i++) {
+				System.out.println(RunningServer.users.get(i).toString());
+			}
+			for (int i = 0; i < RunningServer.courses.size(); i++) {
+				System.out.println(RunningServer.courses.get(i).toString());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-		}
-		try {
-			writer.close();
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				if (output != null) {
+					output.close();
+				}
+				if (input != null) {
+					input.close();
+					socket.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
 		}
 	}
 }
-
-

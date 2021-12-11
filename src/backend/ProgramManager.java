@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ProgramManager {
+public class ProgramManager implements Runnable{
     private static ProgramManager instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<Post> posts = new ArrayList<>();
@@ -30,23 +30,32 @@ public class ProgramManager {
     private Post currPost;
     private Comment currComment;
     
-    //looked at https://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html
-    public static void main(String args[]) throws Exception {
-    	ServerSocket serverSocket = new ServerSocket(4040);
-    	ProgramManager manager = new ProgramManager();
-    	try {
-    		while(true) {
-    			Socket socket = serverSocket.accept();
-    			System.out.println("connected");
-    			ClientThread client = new ClientThread(socket);
-    			new Thread(client).start();
-    		}
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	} finally {
-    		serverSocket.close();
-    	}
-    	
+    Object obj;
+    public void run() {
+        while (true) {
+            try {
+                synchronized (obj) {
+                    readFile();
+                    readUserFile();
+                    //if (MainFrame.get().getPanelName() == "Main" || 
+                    		  //MainFrame.get().getPanelName() == "Course" || 
+                    		  //MainFrame.get().getPanelName() == "Post") {
+                    	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
+                    	//MainFrame.get().update();
+                    //}
+                    
+                }
+            } catch (Exception e) {
+
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("refresh");
+
+        }
     }
 
 
