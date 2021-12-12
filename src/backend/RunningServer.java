@@ -18,7 +18,6 @@ public class RunningServer {
 			serverSocket.setReuseAddress(true);
     		while(true) {
     			Socket socket = serverSocket.accept();
-    			System.out.println("connected");
     			ClientThread client = new ClientThread(socket);
     			new Thread(client).start();
     		}

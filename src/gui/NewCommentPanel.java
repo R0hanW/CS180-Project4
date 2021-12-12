@@ -75,7 +75,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
 					e1.printStackTrace();
 				}
             }
-            else if(reply == false) {
+            else {
             	manager.getCurrPost().addComment(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
             	try {
 					manager.writeCourseFile();

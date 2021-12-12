@@ -20,7 +20,6 @@ public class ClientThread implements Runnable {
 			input = new ObjectInputStream((socket.getInputStream()));
 			Object o = input.readObject();
 			if (o instanceof Collection) {
-				System.out.println(true);
 				if (((List) o).get(0) instanceof User) {
 					RunningServer.users = (ArrayList<User>)o;
 					RunningServer.writeFile();
@@ -58,7 +57,6 @@ public class ClientThread implements Runnable {
 				if (input != null) {
 					input.close();
 					socket.close();
-					System.out.println("disconnected");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -87,10 +87,22 @@ public class PostPanel extends JPanel implements ActionListener{
                         if(likeButton.isSelected()) {
                             likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                             comment.addVote();
+                            try {
+								manager.writeCourseFile();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
                             likeButton.setText(Integer.toString(comment.getVotes()));
                         } else {
                             likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));
                             comment.removeVote();
+                            try {
+								manager.writeCourseFile();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
                             likeButton.setText(Integer.toString(comment.getVotes()));
                         }
                     }
@@ -108,6 +120,7 @@ public class PostPanel extends JPanel implements ActionListener{
                 public void actionPerformed(ActionEvent e) {
                     try {
                         ProgramManager.get().setCurrComment(comment);
+                        manager.writeCourseFile();
                     } catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -149,6 +162,12 @@ public class PostPanel extends JPanel implements ActionListener{
                             if(likeButton.isSelected()) {
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                                 comment.addVote();
+                                try {
+									manager.writeCourseFile();
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
                                 likeButton.setText(Integer.toString(comment.getVotes()));
                             } else {
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));

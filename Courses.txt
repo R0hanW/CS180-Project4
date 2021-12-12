@@ -106,4 +106,11 @@ END OF POST
 Post:t,"","persist again",12/11 22:48
 
 END OF POST
+Post:wuh,"","work",12/11 23:07
+Comment:test,"work",12/11 23:08,12,0.0
+
+
+END OF POST
+END OF COURSE
+Course:new,test,false
 END OF COURSE
