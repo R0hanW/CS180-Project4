@@ -5,8 +5,6 @@ pollResult:0
 pollResult:0
 END OF POLL
 Comment:test,"test",12/07 19:17,0,0.0
-Reply:arjav,"hi",    12/12 01:04,0,0.0
-
 
 Comment:test,"test 1",12/07 19:17,0,0.0
 
@@ -58,6 +56,9 @@ Comment:arjav,"hello again",12/12 00:56,0,0.0
 END OF POST
 END OF COURSE
 Course:test1,test,true
+Post:test,"Complete HW","Bio",12/12 14:24
+
+END OF POST
 END OF COURSE
 Course:CS180,test,true
 Post:test,"","update?",12/11 04:48
@@ -85,6 +86,23 @@ END OF POST
 END OF COURSE
 Course:MA 261,test,false
 Post:test,"hasdfjahfds","Test",12/11 17:11
+
+END OF POST
+END OF COURSE
+Course:Science,test,true
+END OF COURSE
+Course:CS193,test1234,true
+Post:test1234,"Complete Homework","Homework",12/12 15:50
+
+END OF POST
+Post:test1234,"Complete Test","Test",12/12 15:52
+
+END OF POST
+Post:student1,"I need Help","Homework Help",12/12 16:06
+Comment:student1,"I will Help you",12/12 16:07,0,0.0
+Reply:student1,"Thanks",    12/12 16:08,0,0.0
+
+
 
 END OF POST
 END OF COURSE

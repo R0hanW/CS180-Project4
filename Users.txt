@@ -8,3 +8,5 @@ User{name="testing",username="testing",password="1234",isTeacher="false"}
 User{name="g",username="g",password="g",isTeacher="false"}
 User{name="Evan",username="evan",password="1234",isTeacher="false"}
 User{name="arjav",username="arjav",password="arjav",isTeacher="false"}
+User{name="John",username="test1234",password="test1234",isTeacher="true"}
+User{name="Alex",username="student1",password="student1",isTeacher="false"}
