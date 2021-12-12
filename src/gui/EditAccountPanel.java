@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Arrays;
 
 import backend.*;
@@ -76,7 +77,12 @@ public class EditAccountPanel extends JPanel implements ActionListener {
                     e2.printStackTrace();
                 }
                 User user = manager.getCurrUser();
-                manager.modifyUser(user, nameText.getText(), userText.getText(), String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
+                try {
+					manager.modifyUser(user, nameText.getText(), userText.getText(), String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
              //   manager.addUser(new User(nameText.getText(), userText.getText(),
              //           String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));

@@ -1,5 +1,7 @@
 package backend;
 
+import java.io.IOException;
+
 import gui.MainFrame;
 
 public class Network implements Runnable{
@@ -11,7 +13,6 @@ public class Network implements Runnable{
             try {
                 synchronized (obj) {
                     manager.readFile();
-                    manager.readUserFile();
                 }
             } catch (Exception e) {
 
@@ -62,14 +63,6 @@ public class Network implements Runnable{
             e.printStackTrace();
         }
 
-        manager.addUser(
-                new User(servers[0].getInput(),
-                        servers[1].getInput(),
-                        servers[2].getInput(),
-                        Boolean.parseBoolean(servers[3].getInput())
-                )
-        );
-
         synchronized (obj) {
             try {
                 manager.writeFile();
@@ -107,11 +100,16 @@ public class Network implements Runnable{
         }
         System.out.println(servers[0].getInput());
 
-        manager.addCourse(
-                new Course(servers[0].getInput(), owner,
-                        Boolean.parseBoolean(servers[1].getInput())
-                )
-        );
+        try {
+			manager.addCourse(
+			        new Course(servers[0].getInput(), owner,
+			                Boolean.parseBoolean(servers[1].getInput())
+			        )
+			);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         //writeFile();
 
         synchronized (obj) {

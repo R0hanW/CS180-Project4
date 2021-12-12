@@ -6,4 +6,12 @@ User{name="b",username="b",password="b",isTeacher="false"}
 User{name="e",username="e",password="e",isTeacher="false"}
 User{name="testing",username="testing",password="1234",isTeacher="false"}
 User{name="g",username="g",password="g",isTeacher="false"}
+<<<<<<< Updated upstream
 User{name="Evan",username="evan",password="1234",isTeacher="false"}
+=======
+User{name="test",username="test",password="test",isTeacher="true"}
+User{name="test",username="test",password="test",isTeacher="true"}
+User{name="aa",username="aa",password="aa",isTeacher="false"}
+User{name="plswork",username="plswork",password="work",isTeacher="false"}
+User{name="work",username="work",password="work",isTeacher="false"}
+>>>>>>> Stashed changes

@@ -8,13 +8,9 @@
  * @version 11/15/21
  */
 package backend;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,7 +23,52 @@ public class ProgramManager {
     private Course currCourse;
     private Post currPost;
     private Comment currComment;
+    
+    Object obj;
+    public void run() {
+    	try {
+    		//writeFile();
+			//readFile();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        /*while (true) {
+            try {
+                synchronized (obj) {
+                    //readUserFile();
+                    //readFile();
+                    //if (MainFrame.get().getPanelName() == "Main" || 
+                    		  //MainFrame.get().getPanelName() == "Course" || 
+                    		  //MainFrame.get().getPanelName() == "Post") {
+                    	//MainFrame.get().switchPanel(MainFrame.get().getPanelName());
+                    	//MainFrame.get().update();
+                    //}
+                    
+                }
+            } catch (Exception e) {
 
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("refresh");
+
+        }*/
+    }
+    
+    public void update() throws IOException {
+    	Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		ObjectInputStream input = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		input = new ObjectInputStream((socket.getInputStream()));
+		output.writeObject(users);
+		output.writeObject(courses);
+		socket.close();
+    }
 
     //creates one synchronized ProgramManager object that can be called anywhere in code using ProgramManager.get();
     //can read more here https://stackoverflow.com/questions/18125106/make-global-instance-of-class-java/18125286
@@ -43,8 +84,22 @@ public class ProgramManager {
     }
     
     public ProgramManager() throws Exception {
-        readUserFile();
-        readFile();
+        //readUserFile();
+    	Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject("initialize");
+		users = (ArrayList<User>)input.readObject();
+		courses = (ArrayList<Course>)input.readObject();
+		System.out.println("initialized");
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).toString());
+		}
+		for (int i = 0; i < courses.size(); i++) {
+			System.out.println(courses.get(i).toString());
+		}
+		socket.close();
     }
 
     public User getCurrUser() {
@@ -90,88 +145,33 @@ public class ProgramManager {
         //write from arraylist to txt files
         //updates the txt files
         //if writing to the user storage file
-        File f = new File("Users.txt");
-        PrintWriter pw = new PrintWriter(new FileWriter(f, false));
-        for (int i = 0; i < users.size(); i++) {    //loop to print a user to each line in file
-            pw.println(users.get(i).toString());
-        }
-        pw.flush();
-        //writes to Courses.txt
-        pw = new PrintWriter(new FileWriter(new File("Courses.txt"), false));
-        for (Course course : courses) pw.println(course.toString());
-        pw.close();
-        // } else {	//if writing to post storage file
-        // 	File f = new File("Posts.txt");
-        // 	try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
-        //     	for (int i = 0; i < users.size(); i++) {	//loop to print a post to each line in file
-        //     		pw.println(posts.get(i).toString());
-        //     	}
-        //     } catch (IOException e) {	//exception handling
-        //     	e.printStackTrace();
-        //     }
-        // }
+    	Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(users);
+		socket.close();
+		socket = new Socket("localhost", 4040);
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(courses);
+		socket.close();
     }
 
     public void readFile() throws Exception {
         //reads from Courses.txt (won't work unless users has already been read)
-        courses.clear();
-        BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
-        String message;
-        Course course = null;
-        Post post = null;
-        Poll poll = null;
-        Comment comment = null;
-        String[] messageArr;
-        while ((message = reader.readLine()) != null) {
-            if (message.contains("Course")) {
-                //finds everything after colon in message
-                message = message.substring(message.indexOf(":") + 1);
-                //.split(",") returns an array that splits the message by comma
-                course = new Course(message.split(",")[0], findUser(message.split(",")[1]), Boolean.parseBoolean(message.split(",")[2]));
-            } else if (message.contains("Post")) {
-                message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);    
-                messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
-                messageArr[2] = messageArr[2].substring(1, messageArr[2].length() - 1);
-                post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
-            } else if(message.contains("Poll")) {
-                poll = new Poll();
-            } else if(message.contains("pollOption")) {
-                message = message.substring(message.indexOf(":") + 1);
-                poll.addPollOption(message, false);
-            } else if (message.contains("pollResult")) {
-                message = message.substring(message.indexOf(":") + 1);
-                poll.addPollResult(Integer.parseInt(message));
-            } else if (message.contains("Comment")) {
-                message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
-                        Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
-                post.addComment(comment);
-            } else if (message.contains("Reply")) {
-                message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
-                System.out.println(Arrays.toString(messageArr));
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
-                        Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
-            } else if (message.contains("Upvote")) {
-                message = message.substring(message.indexOf(":") + 1);
-                comment.addUserUpvote(findUser(message));
-
-            } else if(message.equals("END OF POLL")) {
-                post.addPoll(poll);
-            } else if (message.equals("END OF POST")) {
-                course.addPost(post);
-            } else if (message.equals("END OF COURSE")) {
-                courses.add(course);
-            }
-        }
-        reader.close();
+    	//users.clear();
+        //courses.clear();
+        Socket socket = new Socket("localhost", 4040);
+        ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+        output.writeObject("refresh");
+        Object o = input.readObject();
+        users = (ArrayList<User>) o;
+        Object o2 = input.readObject();
+        courses = (ArrayList<Course>) o;
+        socket.close();
     }
 
-    public void readUserFile() { // works
+    /*public void readUserFile() { // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
         users.clear();
@@ -215,7 +215,7 @@ public class ProgramManager {
         } catch (IOException e) { //exception handling
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user)
             throws FileNotFoundException {
@@ -255,34 +255,66 @@ public class ProgramManager {
         System.out.println("Successfully created.");
     }
 
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws IOException {
         courses.add(course);
+        Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(courses);
+		socket.close();
     }
 
-    public void removeCourse(Course course) {
+    public void removeCourse(Course course) throws IOException{
         courses.remove(course);
+        Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(courses);
+		socket.close();
     }
 
-    public void modifyCourse(Course oldCourse, String name) {
+    public void modifyCourse(Course oldCourse, String name) throws IOException {
         oldCourse.setName(name);
+        Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(courses);
+		socket.close();
 
     }
 
-    public void addUser(User user) { // works
-        users.add(user);
+    public synchronized void addUser(User user) throws IOException{ // works
+    	users.add(user);
+    	Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(users);
+		
+		socket.close();
     }
 
-    public boolean removeUser(User user) { // works
+    public boolean removeUser(User user) throws IOException { // works
         user.removeComments();
         users.remove(user);
+        Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(users);
+		socket.close();
         return false; //if user asked to remove doesnt exist
     }
 
-    public void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher) { // works
+    public void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher) throws IOException { // works
         oldUser.setName(name);
         oldUser.setUsername(username);
         oldUser.setPassword(password);
         oldUser.setIsTeacher(isTeacher);// an object from the array has to be passed
+        Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(users);
+		socket.close();
         // (or another reference object in the array)
     }
 
