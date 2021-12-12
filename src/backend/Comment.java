@@ -91,7 +91,15 @@ public class Comment implements Serializable {
     }
 
     public void addUserUpvote(User user) {
+        if(userUpvotes.contains(user)) return;
+        votes++;
         userUpvotes.add(user);
+    }
+
+    public void removeUserUpvote(User user) {
+        if(!userUpvotes.contains(user)) return;
+        votes--;
+        userUpvotes.remove(user);
     }
 
     public ArrayList<User> getUserUpvotes() {

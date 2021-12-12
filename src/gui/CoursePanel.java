@@ -50,6 +50,7 @@ public class CoursePanel extends JPanel implements ActionListener {
             border.setTitle(String.format("%s (%s)", post.getTopic(), post.getTimestamp()));
             tmpPanel = new JPanel(new BorderLayout());
             tmpPanel.setBorder(border);
+
             tmpPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             if (post.getContent().length() > 250)
                 contentText = new JTextArea(post.getContent().substring(0, 250));
@@ -92,10 +93,13 @@ public class CoursePanel extends JPanel implements ActionListener {
     
             });
             postPanel.add(tmpPanel);
+            ;
         }
         addComponentsToContainer();
         add(panel, BorderLayout.CENTER);
         addActionListeners();
+        JScrollPane scroller = new JScrollPane(panel);
+        add(scroller);
     }
 
     @Override
