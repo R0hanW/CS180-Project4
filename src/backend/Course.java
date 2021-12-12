@@ -9,10 +9,14 @@
  */
 
 package backend;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
     private String name;
     private User owner;
     private Boolean studentsCanCreatePosts;
@@ -55,7 +59,7 @@ public class Course {
         return this.posts;
     }
 
-    public void addPost(Post post) {
+    public void addPost(Post post) throws Exception {
         posts.add(post);
     }
 

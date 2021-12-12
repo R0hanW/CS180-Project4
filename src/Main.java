@@ -9,8 +9,8 @@ public class Main {
         {
             public void run() 
             {
-                new Thread(network).start(); // refreshes arraylists
                 new Thread(new MainFrame()).start(); // updates gui
+                new Thread(network).start(); // refreshes arraylists
                 // new Thread(server).start; // always wait for data
                 /*
                 gui have a client object to send data to server

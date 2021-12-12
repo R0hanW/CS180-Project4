@@ -94,9 +94,21 @@ public class PostPanel extends JPanel implements ActionListener{
                             likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                             comment.addUserUpvote(manager.getCurrUser());
                             likeButton.setText(Integer.toString(comment.getVotes()));
+                          try {
+								manager.writeCourseFile();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
                         } else {
                             likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));
                             comment.removeUserUpvote(manager.getCurrUser());
+                          try {
+								manager.writeCourseFile();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
                             likeButton.setText(Integer.toString(comment.getVotes()));
                         }
                     }
@@ -109,7 +121,6 @@ public class PostPanel extends JPanel implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        manager = ProgramManager.get();
                     } catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -166,6 +177,12 @@ public class PostPanel extends JPanel implements ActionListener{
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                                 reply.addUserUpvote(manager.getCurrUser());
                                 likeButton.setText(Integer.toString(reply.getVotes()));
+                              try {
+								manager.writeCourseFile();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
                             } else {
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));
                                 reply.removeUserUpvote(manager.getCurrUser());
