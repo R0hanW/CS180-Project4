@@ -7,3 +7,4 @@ User{name="e",username="e",password="e",isTeacher="false"}
 User{name="testing",username="testing",password="1234",isTeacher="false"}
 User{name="g",username="g",password="g",isTeacher="false"}
 User{name="Evan",username="evan",password="1234",isTeacher="false"}
+User{name="arjav",username="arjav",password="arjav",isTeacher="false"}

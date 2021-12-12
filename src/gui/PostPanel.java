@@ -23,6 +23,7 @@ public class PostPanel extends JPanel implements ActionListener{
     EmptyBorder replyBorder;
     JButton newCommentButton, replyCommentButton;
     ArrayList<JToggleButton> likeButtons = new ArrayList<JToggleButton>();
+    ArrayList<JToggleButton> upvoteButtons = new ArrayList<>();
 
     public PostPanel() {
         setLayout(new BorderLayout());
@@ -47,10 +48,43 @@ public class PostPanel extends JPanel implements ActionListener{
         descriptionTextField.setOpaque(false);
         descriptionTextField.setEditable(false);
         descriptionTextPane = new JScrollPane(descriptionTextField);
-        
+
         if(post.getPoll() != null) {
             Poll poll = post.getPoll();
             JPanel postPanel = new JPanel(new GridLayout());
+            ArrayList<String> pollOption = poll.getPollOptions();
+            for (int i = 0; i < pollOption.size(); i++) {
+                tmpPanel = new JPanel();
+
+                ArrayList<Integer> votes = poll.getPollResults();
+                JTextField pollOptionText = new JTextField(pollOption.get(i) + votes.get(i).toString());
+                JToggleButton upvote = new JToggleButton("Upvote");
+                tmpPanel.add(pollOptionText);
+                tmpPanel.add(upvote);
+                upvoteButtons.add(upvote);
+                postPanel.add(tmpPanel);
+                upvote.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        if(upvoteButtons.contains(e.getSource())) {
+                            int currentUpvote = upvoteButtons.indexOf(upvote);
+                            if (upvote.isSelected()) {
+                                upvote.setBackground(Color.cyan);
+                                poll.addPollVote(currentUpvote);
+                                upvote.setText("Upvoted");
+                            }
+                            else{
+                                upvote.setBackground(Color.white);
+                                poll.subtractPollVote(currentUpvote);
+                                upvote.setText("Upvote");
+                            }
+                        }
+                        revalidate();
+                    }
+                });
+
+            }
+            //add(postPanel);
+            revalidate();
         }
         //find number of panels needed
         int total = post.getComments().size();
@@ -169,6 +203,7 @@ public class PostPanel extends JPanel implements ActionListener{
         newCommentButton.setPreferredSize(new Dimension(100, 20));
         addComponentsToContainer();
         addActionListeners();
+
     }
 
     @Override
@@ -192,8 +227,11 @@ public class PostPanel extends JPanel implements ActionListener{
         titlePanel.add(newCommentButton, BorderLayout.EAST);
         titlePanel.add(descriptionTextPane, BorderLayout.SOUTH);
         panel.add(titlePanel, BorderLayout.NORTH);
+
         JScrollPane commentScrollPane = new JScrollPane(commentPanel);
         panel.add(commentScrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.CENTER);
+        JScrollPane scroller = new JScrollPane(panel);
+        add(scroller);
     }
 }
