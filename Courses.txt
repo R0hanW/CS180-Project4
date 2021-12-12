@@ -1,0 +1,39 @@
+Course:Blah,test,true
+Post:test,"test","Test",12/12 17:29
+Poll
+pollOption:1
+pollOption:2
+pollOption:3
+pollResult:0
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+Post:test,"asdfadsf","Test",12/12 17:47
+Poll
+pollOption:1
+pollOption:2
+pollOption:3
+pollResult:0
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+END OF COURSE
+Course:test,test,true
+Post:test,"adsf","test",12/12 17:50
+Poll
+pollOption:1
+pollOption:2
+pollOption:3
+pollOption:4
+pollResult:0
+pollResult:0
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+END OF COURSE

@@ -99,6 +99,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
         } else if (e.getSource() == pollButton) {
             if (pollButton.isSelected()) {
                 panel.remove(submitButton);
+                panel.remove(importPostButton);
                 c = new GridBagConstraints();
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = 0;
@@ -126,6 +127,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == addPollOptionButton) {
             panel.remove(submitButton);
+            panel.remove(importPostButton);
             c = new GridBagConstraints();
             pollOptionCounter = pollOptions.size() + 1;
             c.fill = GridBagConstraints.HORIZONTAL;
@@ -146,6 +148,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
             revalidate();
         } else if (e.getSource() == removePollOptionButton) {
             panel.remove(pollOptionLabels.get(pollOptionLabels.size() - 1));
+            panel.remove(importPostButton);
             panel.remove(pollOptions.get(pollOptions.size() - 1));
             pollOptionLabels.remove(pollOptionLabels.size() - 1);
             pollOptions.remove(pollOptions.size() - 1);

@@ -65,6 +65,9 @@ public class RunningServer {
             } else if (message.contains("pollResult")) {
                 message = message.substring(message.indexOf(":") + 1);
                 poll.addPollResult(Integer.parseInt(message));
+            } else if (message.contains("pollUser")) {
+                message = message.substring(message.indexOf(":") + 1);
+                poll.addPollUser(findUser(message));
             } else if (message.contains("Comment")) {
                 message = message.substring(message.indexOf(":") + 1);
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
