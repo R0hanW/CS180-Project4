@@ -12,3 +12,8 @@ User{name="test",username="test",password="test",isTeacher="true"}
 User{name="aa",username="aa",password="aa",isTeacher="false"}
 User{name="plswork",username="plswork",password="work",isTeacher="false"}
 User{name="work",username="work",password="work",isTeacher="false"}
+User{name="huh",username="huh",password="huh",isTeacher="false"}
+User{name="wuh",username="wuh",password="wuh",isTeacher="false"}
+User{name="buh",username="buh",password="buh",isTeacher="false"}
+User{name="thanmaya",username="maya",password="pass",isTeacher="true"}
+User{name="Thanmaya",username="thanmaya",password="password",isTeacher="false"}

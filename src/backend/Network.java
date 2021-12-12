@@ -106,7 +106,7 @@ public class Network implements Runnable{
 			                Boolean.parseBoolean(servers[1].getInput())
 			        )
 			);
-		} catch (IOException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

@@ -76,14 +76,14 @@ public class NewPostPanel extends JPanel implements ActionListener {
             Network network = new Network();
             post = new Post(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
                     topicText.getText());
-            network.addPost(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
-                    topicText.getText());
+            //network.addPost(manager.getCurrUser(), manager.getCurrCourse(), descriptionText.getText(),
+            //        topicText.getText());
             if (pollOptions.size() > 1) {
                 Poll poll = new Poll();
                 pollOptions.stream().forEach(pollOption -> poll.addPollOption(pollOption.getText()));
                 post.addPoll(poll);
             }
-            //manager.getCurrCourse().addPost(post);
+            manager.getCurrCourse().addPost(post);
 
             //network.addPost(manager.getCurrCourse(), post);
 

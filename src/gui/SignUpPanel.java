@@ -71,7 +71,7 @@ public class SignUpPanel extends JPanel implements ActionListener {
                 try {
 					manager.addUser(new User(nameText.getText(), userText.getText(),
 					        String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
-				} catch (IOException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

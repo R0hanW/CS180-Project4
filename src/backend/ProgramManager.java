@@ -164,10 +164,8 @@ public class ProgramManager {
         ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
         output.writeObject("refresh");
-        Object o = input.readObject();
-        users = (ArrayList<User>) o;
-        Object o2 = input.readObject();
-        courses = (ArrayList<Course>) o;
+		users = (ArrayList<User>)input.readObject();
+		courses = (ArrayList<Course>)input.readObject();
         socket.close();
     }
 
@@ -255,25 +253,28 @@ public class ProgramManager {
         System.out.println("Successfully created.");
     }
 
-    public void addCourse(Course course) throws IOException {
+    public synchronized void addCourse(Course course) throws Exception {
         courses.add(course);
         Socket socket = new Socket("localhost", 4040);
 		ObjectOutputStream output = null;
+		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 		output = new ObjectOutputStream(socket.getOutputStream());
 		output.writeObject(courses);
+		courses = (ArrayList<Course>)input.readObject();
 		socket.close();
     }
 
-    public void removeCourse(Course course) throws IOException{
+    public synchronized void removeCourse(Course course) throws IOException{
         courses.remove(course);
         Socket socket = new Socket("localhost", 4040);
 		ObjectOutputStream output = null;
 		output = new ObjectOutputStream(socket.getOutputStream());
 		output.writeObject(courses);
+		
 		socket.close();
     }
 
-    public void modifyCourse(Course oldCourse, String name) throws IOException {
+    public synchronized void modifyCourse(Course oldCourse, String name) throws IOException {
         oldCourse.setName(name);
         Socket socket = new Socket("localhost", 4040);
 		ObjectOutputStream output = null;
@@ -283,18 +284,18 @@ public class ProgramManager {
 
     }
 
-    public synchronized void addUser(User user) throws IOException{ // works
+    public synchronized void addUser(User user) throws Exception{ // works
     	users.add(user);
     	Socket socket = new Socket("localhost", 4040);
 		ObjectOutputStream output = null;
 		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 		output = new ObjectOutputStream(socket.getOutputStream());
 		output.writeObject(users);
-		
+		users = (ArrayList<User>)input.readObject();
 		socket.close();
     }
 
-    public boolean removeUser(User user) throws IOException { // works
+    public synchronized boolean removeUser(User user) throws IOException { // works
         user.removeComments();
         users.remove(user);
         Socket socket = new Socket("localhost", 4040);
@@ -305,7 +306,7 @@ public class ProgramManager {
         return false; //if user asked to remove doesnt exist
     }
 
-    public void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher) throws IOException { // works
+    public synchronized void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher) throws IOException { // works
         oldUser.setName(name);
         oldUser.setUsername(username);
         oldUser.setPassword(password);

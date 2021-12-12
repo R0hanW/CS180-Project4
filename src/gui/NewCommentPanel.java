@@ -66,16 +66,16 @@ public class NewCommentPanel extends JPanel implements ActionListener {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            //if(reply == true) manager.getCurrComment().addReply(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
-           // else if(reply == false) manager.getCurrPost().addComment(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            if(reply == true) manager.getCurrComment().addReply(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            else if(reply == false) manager.getCurrPost().addComment(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
             Network network = new Network();
-            if (reply){
-                network.addReply(manager.getCurrCourse(), manager.getCurrPost(),  manager.getCurrComment(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
-
-            } else {
-                network.addComment(manager.getCurrCourse(), manager.getCurrPost(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
-            }
-            network.writeFile();
+            //if (reply){
+            //    network.addReply(manager.getCurrCourse(), manager.getCurrPost(),  manager.getCurrComment(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            //
+            //} else {
+            //    network.addComment(manager.getCurrCourse(), manager.getCurrPost(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            //}
+            //network.writeFile();
             MainFrame.get().switchPanel("Post");
         } else if (e.getSource() == importCommentButton) {
             System.out.println("WYA");  

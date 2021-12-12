@@ -6,6 +6,7 @@ import backend.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class NewCoursePanel extends JPanel implements ActionListener {
     JLabel nameLabel, createCoursePermissionsLabel;
@@ -51,11 +52,16 @@ public class NewCoursePanel extends JPanel implements ActionListener {
                 return;
             }
             Network network = new Network();
-            network.addCourse(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
-            /*
-            manager.addCourse(
-                    new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
-             */
+            //network.addCourse(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
+            
+            try {
+				manager.addCourse(
+				        new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            
             MainFrame.get().switchPanel("Main");
         }
     }
