@@ -15,7 +15,7 @@ Click Sign Up
 ## Login
 Username: "test1234",
 Password: "test1234",
-Click Login,
+Click Login
 
 ## Test 1: Create Courses as Teacher
 Click Create Course,
