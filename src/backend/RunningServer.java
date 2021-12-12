@@ -8,7 +8,7 @@ public class RunningServer {
 	public static ArrayList<User> users = new ArrayList<User>();
 	public static ArrayList<Course> courses = new ArrayList<Course>();
 	
-	
+	//https://www.oracle.com/java/technologies/jpl2-socket-communication.html
 	public static void main(String[] args) throws Exception{
 		readUserFile();
 		readFile();

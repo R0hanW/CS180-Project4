@@ -1,1 +1,25 @@
 User{name="test",username="test",password="test",isTeacher="true"}
+User{name="Real Name",username="student",password="test",isTeacher="false"}
+User{name="Ooga Booga",username="ooga",password="ooga",isTeacher="false"}
+User{name="a",username="a",password="a",isTeacher="false"}
+User{name="b",username="b",password="b",isTeacher="false"}
+User{name="e",username="e",password="e",isTeacher="false"}
+User{name="testing",username="testing",password="1234",isTeacher="false"}
+User{name="g",username="g",password="g",isTeacher="false"}
+User{name="Evan",username="evan",password="1234",isTeacher="false"}
+User{name="test",username="test",password="test",isTeacher="true"}
+User{name="test",username="test",password="test",isTeacher="true"}
+User{name="aa",username="aa",password="aa",isTeacher="false"}
+User{name="plswork",username="plswork",password="work",isTeacher="false"}
+User{name="work",username="work",password="work",isTeacher="false"}
+User{name="huh",username="huh",password="huh",isTeacher="false"}
+User{name="wuh",username="wuh",password="wuh",isTeacher="false"}
+User{name="buh",username="buh",password="buh",isTeacher="false"}
+User{name="thanmaya",username="maya",password="pass",isTeacher="true"}
+User{name="Thanmaya",username="thanmaya",password="password",isTeacher="false"}
+User{name="sdfadsgasgdasdg",username="muh",password="muh",isTeacher="false"}
+User{name="yuh",username="yuh",password="yuh",isTeacher="false"}
+User{name="j;k",username="j",password="j",isTeacher="false"}
+User{name="te",username="t",password="t",isTeacher="false"}
+User{name="eh",username="eh",password="eh",isTeacher="false"}
+User{name="l",username="l",password="l",isTeacher="false"}
