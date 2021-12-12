@@ -45,7 +45,7 @@ Click Back Button,
 ## Test 3: Edit Account
 Click John,
 Click Edit Account,
-Change Name: "Jane",
+Changee Name: "Jane",
 Chang Username: "test12345",
 Are you a teacher: yes,
 Password: "test12345",
@@ -95,6 +95,11 @@ Click Thumbs Up,
 Click Reply,
 Comment: "Thanks",
 Click Submit
+
+## Vote In Poll
+Click View Poll, 
+Choose an option,
+Click "OK"
 
 ## Delete Account
 Click Alex,
