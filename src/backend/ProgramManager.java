@@ -139,24 +139,38 @@ public class ProgramManager {
         return courses;
     }
 
-    
+    public void setCourses(ArrayList<Course> courses) {
+    	this.courses = courses;
+    }
 
-    public void writeFile() throws Exception {// works
+    public synchronized void writeCourseFile() throws Exception {// works
         //write from arraylist to txt files
         //updates the txt files
         //if writing to the user storage file
     	Socket socket = new Socket("localhost", 4040);
 		ObjectOutputStream output = null;
-		output = new ObjectOutputStream(socket.getOutputStream());
-		output.writeObject(users);
-		socket.close();
-		socket = new Socket("localhost", 4040);
+        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 		output = new ObjectOutputStream(socket.getOutputStream());
 		output.writeObject(courses);
+		courses = (ArrayList<Course>)input.readObject();
+		socket.close();
+    }
+    
+    public synchronized void writeUserFile() throws Exception {// works
+        //write from arraylist to txt files
+        //updates the txt files
+        //if writing to the user storage file
+    	Socket socket = new Socket("localhost", 4040);
+		ObjectOutputStream output = null;
+        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+		output = new ObjectOutputStream(socket.getOutputStream());
+		output.writeObject(new ArrayList<Integer>());
+		output.writeObject(users);
+		users = (ArrayList<User>)input.readObject();
 		socket.close();
     }
 
-    public void readFile() throws Exception {
+    public synchronized void readFile() throws Exception {
         //reads from Courses.txt (won't work unless users has already been read)
     	//users.clear();
         //courses.clear();
@@ -168,52 +182,6 @@ public class ProgramManager {
 		courses = (ArrayList<Course>)input.readObject();
         socket.close();
     }
-
-    /*public void readUserFile() { // works
-        //parse through the lines in the file to the Array list
-        //updates the arraylist
-        users.clear();
-        File f = new File("Users.txt");
-        try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
-            String line = bfr.readLine();
-            if (line == null) {
-                return;
-            }
-            while (line != null) {
-                int numQuotes = 0;
-                int[] quoteIndices = new int[8];    //each line should have 8 quotation marks
-                //one pair for each field of a user
-                for (int i = 0; i < line.length(); i++) {
-                    if (line.charAt(i) == '"') {
-                        numQuotes++;
-                        if (numQuotes < 9) {
-                            quoteIndices[numQuotes - 1] = i;
-                        }
-                    }
-                }
-
-                if (numQuotes != 8) {    //checking for storage format error
-                    System.out.println("Internal storage error. Your account may have been deleted.");
-                    try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
-                        for (int i = 0; i < users.size(); i++) {
-                            pw.println(users.get(i).toString());    //salvages user info before error
-                        }
-                    } catch (IOException e) {    //exception handling
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-                //adds new user to list of users
-                users.add(new User(line.substring(quoteIndices[0] + 1, quoteIndices[1]),
-                        line.substring(quoteIndices[2] + 1, quoteIndices[3]),
-                        line.substring(quoteIndices[4] + 1, quoteIndices[5]),
-                        (line.substring(quoteIndices[6] + 1, quoteIndices[7]).toLowerCase().equals("true"))));
-                line = bfr.readLine();
-            }
-        } catch (IOException e) { //exception handling
-            e.printStackTrace();
-        }
-    }*/
 
     public void readUserFileImport(String filename, boolean isPost, Course course, Post post, User user)
             throws FileNotFoundException {
@@ -295,7 +263,7 @@ public class ProgramManager {
 		socket.close();
     }
 
-    public synchronized boolean removeUser(User user) throws IOException { // works
+    public synchronized void removeUser(User user) throws IOException { // works
         user.removeComments();
         users.remove(user);
         Socket socket = new Socket("localhost", 4040);
@@ -303,7 +271,7 @@ public class ProgramManager {
 		output = new ObjectOutputStream(socket.getOutputStream());
 		output.writeObject(users);
 		socket.close();
-        return false; //if user asked to remove doesnt exist
+        //return false; //if user asked to remove doesnt exist
     }
 
     public synchronized void modifyUser(User oldUser, String name, String username, String password, boolean isTeacher) throws IOException { // works

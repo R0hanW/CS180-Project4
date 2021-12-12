@@ -9,7 +9,10 @@
  */
 
 package backend;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -56,7 +59,7 @@ public class Course implements Serializable {
         return this.posts;
     }
 
-    public void addPost(Post post) {
+    public void addPost(Post post) throws Exception {
         posts.add(post);
     }
 

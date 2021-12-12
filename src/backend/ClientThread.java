@@ -31,6 +31,15 @@ public class ClientThread implements Runnable {
 					RunningServer.writeFile();
 					RunningServer.update();
 					output.writeObject(RunningServer.courses);
+				} else {
+					Object o2 = input.readObject();
+					Object o3 = input.readObject();
+					RunningServer.users = (ArrayList<User>)o2;
+					RunningServer.courses = (ArrayList<Course>)o3;
+					RunningServer.writeFile();
+					RunningServer.update();
+					output.writeObject(RunningServer.users);
+					output.writeObject(RunningServer.courses);
 				}
 			} else {
 				output.writeObject(RunningServer.users);

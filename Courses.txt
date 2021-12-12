@@ -75,3 +75,35 @@ Course:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,test,false
 END OF COURSE
 Course:course,test,false
 END OF COURSE
+Course:uh,test,false
+Post:test,"","persist pls",12/11 22:03
+
+END OF POST
+Post:test,"","persist",12/11 22:03
+
+END OF POST
+Post:test,"","this time too",12/11 22:04
+
+END OF POST
+Post:test,"","and this one as well",12/11 22:04
+Poll
+pollOption:1
+pollOption:2
+pollOption:3
+pollResult:0
+pollResult:0
+pollResult:0
+END OF POLL
+
+END OF POST
+END OF COURSE
+Course:new Course,test,true
+Post:test,"","persist",12/11 22:47
+Comment:test,"test",12/11 22:55,0,0.0
+
+
+END OF POST
+Post:t,"","persist again",12/11 22:48
+
+END OF POST
+END OF COURSE

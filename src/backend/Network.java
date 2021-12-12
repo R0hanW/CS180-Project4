@@ -65,7 +65,8 @@ public class Network implements Runnable{
 
         synchronized (obj) {
             try {
-                manager.writeFile();
+            	manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -114,7 +115,8 @@ public class Network implements Runnable{
 
         synchronized (obj) {
             try {
-                manager.writeFile();
+            	manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,22 +149,33 @@ public class Network implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        manager.findCourse(course.getName()).addPost(new Post(
-                owner, course,servers[0].getInput(), servers[1].getInput()
-        ));
+        try {
+			manager.findCourse(course.getName()).addPost(new Post(
+			        owner, course,servers[0].getInput(), servers[1].getInput()
+			));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         synchronized (obj) {
             try {
-                manager.writeFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
     public void addPost(Course course, Post post){
-        manager.findCourse(course.getName()).addPost(post);
+        try {
+			manager.findCourse(course.getName()).addPost(post);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         synchronized (obj) {
             try {
-                manager.writeFile();
+                manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -172,7 +185,8 @@ public class Network implements Runnable{
         ((manager.findCourse(course.getName())).findPost(post)).addComment(comment);
         synchronized (obj) {
             try {
-                manager.writeFile();
+                manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,7 +196,8 @@ public class Network implements Runnable{
         ((manager.findCourse(course.getName())).findPost(post)).findComment(comment).addReply(reply);
         synchronized (obj) {
             try {
-                manager.writeFile();
+                manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -192,7 +207,8 @@ public class Network implements Runnable{
     public void writeFile(){
         synchronized (obj) {
             try {
-                manager.writeFile();
+                manager.writeUserFile();
+                manager.writeCourseFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
