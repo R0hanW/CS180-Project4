@@ -17,9 +17,9 @@
 Expected Output: A main menu with the name 'John' at the top right and a create course button under the name.
 
 ## Login
-Username: "test1234",
-Password: "test1234",
-Click Login
+1.Username: "test1234",
+2. Password: "test1234",
+3. Click Login
 
 ## Test 1: Create Courses as Teacher
 Click Create Course,
