@@ -3,14 +3,18 @@
 ## Login and Sign up as Teacher
 
 ## Sign Up
-Click Sign Up
+ 1. Click Sign Up
+ 2. Input Name: "John",
+ 3. Input Username "test1234",
+ 4. Input Password: "test123",
+ 5. Input Confirm Password: "test1234",
+ 6. Select Are you a teacher: yes,
+ 7. Client will be redirected to the Login Page
+ 8. Input Username "test1234",
+ 9. Input Password: "test123",
+ 10. Click Login
 
-Name: "John",
-Username "test1234",
-Password: "test123",
-Confirm Password: "test1234",
-Are you a teacher: yes,
-Click Sign Up
+Expected Output: A main menu with the name 'John' at the top right and a create course button under the name.
 
 ## Login
 Username: "test1234",
