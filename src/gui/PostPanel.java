@@ -228,12 +228,10 @@ public class PostPanel extends JPanel implements ActionListener{
             String[] poll = new String[pollDisplay.size()];
             for(int i=0; i < poll.length; i++) poll[i] = pollDisplay.get(i);
             String in = (String) (JOptionPane.showInputDialog(null, "Poll", "Poll", JOptionPane.QUESTION_MESSAGE, null, poll, poll[0]));
-            try{
-                int input = pollDisplay.indexOf(in);
-                boolean out = manager.getCurrPost().getPoll().addPollVote(input, manager.getCurrUser());
+            if(in != null) {
+                int input2 = pollDisplay.indexOf(in);
+                boolean out = manager.getCurrPost().getPoll().addPollVote(input2, manager.getCurrUser());
                 if(out == false) JOptionPane.showMessageDialog(null, "Cannot vote in poll twice!", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch(NumberFormatException e1){
-                JOptionPane.showMessageDialog(null, "There was an error!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }   
     }
