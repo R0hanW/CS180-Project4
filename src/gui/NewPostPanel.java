@@ -36,7 +36,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
     }
 
     private void initComponents() {
-        topicLabel = new JLabel("Course Topic:");
+        topicLabel = new JLabel("Post Topic:");
         topicText = new JTextField();
         descriptionLabel = new JLabel("Post Description:");
         descriptionText = new JTextArea(5, 20);
