@@ -124,7 +124,7 @@ Expected Output: Post Created
  4. Username: "student1",
  5. Password: "student1"
 
-Expected Output: Back at default login page
+Expected Output: Back at default login page - if you log in with a different account, all posts/comments created by that user will be deleted
 
 
 
