@@ -12,7 +12,7 @@ public class ClientThread implements Runnable {
 
 	//looked at https://stackoverflow.com/questions/12895450/sending-an-arrayliststring-from-the-server-side-to-the-client-side-over-tcp-us
 	@Override
-	public void run() {
+	public void run(){
 		ObjectOutputStream output = null;
 		ObjectInputStream input = null;
 		try {
