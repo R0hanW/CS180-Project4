@@ -128,7 +128,8 @@ public class ProgramManager {
 	}
 
 	public Comment getCurrComment() {
-		return currComment;
+		return getCurrPost().findComment(currComment);
+		//return currComment;
 	}
 
 	public void setCurrComment(Comment currComment) {
