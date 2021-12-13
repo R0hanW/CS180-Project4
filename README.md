@@ -14,10 +14,7 @@ posts and depending on the restrictions the teacher made you can add replies and
 
 
 # Classes 
-## GUI
-There are multiple different classes that fall under the GUI Folder, each of these classes
-have a purpose, The classes help set up the structure of what the frame will look like such as dimensions
- and then to mainly create appropriate JPanels that can be used when the scenario rises
+##
 
 
 ## ProgramManager
@@ -90,15 +87,22 @@ have a purpose, The classes help set up the structure of what the frame will loo
 - Interaction with other classes: Used by post, main, comments to store author of each object and view of user editing object had permissions to do so. Used by main to login and create new users.
 
 ## Main
-- Utilizes all other classes (besides runTest) to print all the menus and edit existing objects
-- Testing done:
-    - Wrote test cases for main and ran main and went through every respective menu multiple times
-    - Examples of bugs found/fixed:
-        - **Bug:** When user typed in wrong password, they would get stuck in an infinite loop
-        - **Fix:** Added break statement to escape while loop
-        - **Bug:** Invalid option when choosing a comment number to reply to would result in an arrayOutOfBounds exception
-        - **Fix:** Added if statement to ensure option chosen was in bounds of comment arrayList
-- Interaction with other classes: Uses every other class to display courses, posts, etc. and to edit objects if user wishes to do so. 
-## RunTest
-- Runs JUnit tests to see if main matches expected output
-- Interaction with other classes: Tested all other classes through main
+- Contains one main method that runs the GUI in a thread safe manner.
+
+## Client Thread
+- Constructs a new thread of the client using runnable
+- Communicates data to ProgramManager, which then communicates data to RunningServer
+- Relationship with other classes: Communicates data to server by writing data to file
+
+## Running Server
+- Takes arrayLists from programManager and writes it to textFiles, which is then read by Network to update the client.
+
+## Network
+- Continously reads text files every 5 seconds in order to refresh arrays and update GUI.
+## GUI Package
+- Utilizes all other classes (besides runTest) to display all the menus and edit existing objects
+- Contains many different java classes that are used to construct the GUI
+- MainFrame.java constructs the JFrame of the GUI and is used to switch from window to window using a switchPanel() method
+- LoginPanel, ImportPostPanel, PostPanel, etc. are all windows/JPanels of the program used to display different things (names are self-explanatory)
+- Relationship with other classes: Use every backend java class to store data, interpret inputs, etc. 
+

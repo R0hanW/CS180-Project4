@@ -147,23 +147,23 @@ public class Post implements Serializable {
     //     }
     // }
 
-    public void displayGradeDashboard(User user) {
-        for (Comment comment : comments)
-            if (comment.getOwner().equals(user)) comment.displayComment(false, true);
-    }
+    // public void displayGradeDashboard(User user) {
+    //     for (Comment comment : comments)
+    //         if (comment.getOwner().equals(user)) comment.displayComment(false, true);
+    // }
 
-    public void displayCommentDashboard(boolean sortByVotes) {
-        ArrayList<Comment> sortedComments = comments;
-        // if(sortedComments.size() <= 1) return sortedComments;
-        if (sortByVotes) {
-            sortedComments.sort(Comparator.comparing(Comment::getVotes));
-            Collections.reverse(sortedComments);
-        } else Collections.sort(sortedComments
-                , (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-        //System.out.printf("Dashboard for %s\n", topic);
-        sortedComments.stream()
-                .forEach(comment -> comment.displayComment(false));
-    }
+    // public void displayCommentDashboard(boolean sortByVotes) {
+    //     ArrayList<Comment> sortedComments = comments;
+    //     // if(sortedComments.size() <= 1) return sortedComments;
+    //     if (sortByVotes) {
+    //         sortedComments.sort(Comparator.comparing(Comment::getVotes));
+    //         Collections.reverse(sortedComments);
+    //     } else Collections.sort(sortedComments
+    //             , (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+    //     //System.out.printf("Dashboard for %s\n", topic);
+    //     sortedComments.stream()
+    //             .forEach(comment -> comment.displayComment(false));
+    // }
 
     public boolean hasComments() {
         return (comments.size() > 0);
