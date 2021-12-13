@@ -22,16 +22,24 @@ have a purpose, The classes help set up the structure of what the frame will loo
 
 ## ProgramManager
 - Contains utility methods for program, e.g.
-    - Reading/Writing to Users.txt and Courses.txt so program has Object Permanancy
+    - Sends ArrayList Objects to the Running Server class
     - Stores all users and courses in arrayList and provides methods for them (findUser, modifyUser, removeCourse, etc.)
 - Testing Done:
-    - Read/Write methods was tested through testcases and every time main was run, since object permanancy would be lost if these methods didn't work
-    - Examples of bugs found/fixed:
-        - **Bug:** Reading comments + posts would return InvalidFormatException when comment had comma/post had comma anywhere in content/title
-        - **Fix:** Was using commas to split author,content, etc. of each comment/post; so we surrounded all the String values with "" and made our regex expression for splitting the comment ignore information inside quotes
-        - **Bug:** Forgot to add object permanancy when new variables were added (e.x. polls, grades)
-        - **Fix:** Updated necessary toString() methods in the respective class and ensured write method in programManager looked for the variables
+    - Checking to see if the RunningServer class received the ArrayLists properly
     - Interaction with other classes: Ensures that User, Comment, Post, and Course classes have object permanancy and provides utility methods so the objects of these classes can be used easily in Main.
+## RunningServer
+- Contains the writeFile/ReadFile methods 
+- Runs before main to handle any incoming data from any machine
+    - Receives the ArrayLists from the ProgramManager class and updates the text file with updated data.
+- Testing Done:
+    - Checking if the Text Files were updating properly
+## Network
+- Starts up as a thread when Main is called to update the data that the clients have access to
+- Testing Done:
+    - Check to see if the ArrayLists are updating every second
+    - Examples of bugs found/fixed
+       - **Bug:** Data would be lost in both the Text file and the ArrayList
+       - **Fix:** Synchronize the write and read file methods and add Thread.sleep so a race condition isn't possible
 ## Course  
 - Stores all the necessary data for each course and contains methods to process this data, including:
     - ArrayList of Discussion Posts for each course
@@ -90,15 +98,11 @@ have a purpose, The classes help set up the structure of what the frame will loo
 - Interaction with other classes: Used by post, main, comments to store author of each object and view of user editing object had permissions to do so. Used by main to login and create new users.
 
 ## Main
-- Utilizes all other classes (besides runTest) to print all the menus and edit existing objects
+- Starts the Thread for the graphic user interface and the data handling classes to run together.
 - Testing done:
-    - Wrote test cases for main and ran main and went through every respective menu multiple times
     - Examples of bugs found/fixed:
-        - **Bug:** When user typed in wrong password, they would get stuck in an infinite loop
-        - **Fix:** Added break statement to escape while loop
-        - **Bug:** Invalid option when choosing a comment number to reply to would result in an arrayOutOfBounds exception
-        - **Fix:** Added if statement to ensure option chosen was in bounds of comment arrayList
+        - **Bug:** When the GUI was refreshed a new JFrame would be created
+        - **Fix:** Made the GUI functionality concurrent so the start of the thread would also only call one JFrame
+        - **Bug:** Data would be updating every second causing the Text Fields to empty as the user tried to input data
+        - **Fix:** Added an if statement to ensure the GUI would only refresh as the panels display data. 
 - Interaction with other classes: Uses every other class to display courses, posts, etc. and to edit objects if user wishes to do so. 
-## RunTest
-- Runs JUnit tests to see if main matches expected output
-- Interaction with other classes: Tested all other classes through main
