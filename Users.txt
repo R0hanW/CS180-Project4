@@ -1,1 +1,1 @@
-User{name="asdfhjklahfkjhasdlfkjhasdkljfh",username="DO NOT DELETE THIS OR THE PROGRAM WILL BREAK",password="ashdfkjahalsdkjfhasdf",isTeacher="asdfjhlkasjfdkl;saj;fkl"}
+User{name="asdfhjklahfkjhasdlfkjhasdkljfh",username="DO NOT DELETE THIS OR THE PROGRAM WILL BREAK",password="ashdfkjahalsdkjfhasdf",isTeacher="false"}

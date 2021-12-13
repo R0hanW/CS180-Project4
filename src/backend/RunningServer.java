@@ -44,6 +44,7 @@ public class RunningServer {
         Post post = null;
         Poll poll = null;
         Comment comment = null;
+        Comment reply = null;
         String[] messageArr;
         while ((message = reader.readLine()) != null) {
             if (message.contains("Course")) {
@@ -80,8 +81,9 @@ public class RunningServer {
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 System.out.println(Arrays.toString(messageArr));
-                comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
+                reply = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
                         Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
+                comment.addReply(reply);
             } else if (message.contains("Upvote")) {
                 message = message.substring(message.indexOf(":") + 1);
                 comment.addUserUpvote(findUser(message));

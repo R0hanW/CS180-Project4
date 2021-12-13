@@ -140,8 +140,9 @@ public class PostPanel extends JPanel implements ActionListener{
             tmpPanel.add(commentButtons, BorderLayout.SOUTH);
             commentPanel.add(tmpPanel);
             for(Comment reply: comment.getReplies()) {
+                System.out.println("DO WE EVEN GET HERE");
                 tmpPanel = new JPanel(new BorderLayout());
-                tmpPanel.setBorder(new EmptyBorder(0, 20, 0, 0));
+                tmpPanel.setBorder(new EmptyBorder(0, 15, 0, 0));
                 commentAuthorTitle = new JLabel(reply.getOwner().getUsername() + "    " + reply.getTimestamp());
                 f = commentAuthorTitle.getFont();
                 commentAuthorTitle.setFont(f.deriveFont(f.getStyle() | Font.BOLD));
