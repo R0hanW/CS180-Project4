@@ -9,6 +9,7 @@
  */
 
 package backend;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -120,9 +121,10 @@ public class Course implements Serializable {
                 Objects.equals(posts, course.posts);
     }
 
-    public Post findPost(Post post){
-        for (int i =0; i < posts.size(); i ++){
-            if (posts.get(i).getContent().equals(post.getContent()) && posts.get(i).getTimestamp().equals(post.getTimestamp())){
+    public Post findPost(Post post) {
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getContent().equals(post.getContent()) &&
+                    posts.get(i).getTimestamp().equals(post.getTimestamp())) {
                 System.out.println();
                 return posts.get(i);
             }

@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for importing Post files
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;

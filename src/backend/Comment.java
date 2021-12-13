@@ -8,6 +8,7 @@
  * @version 11/15/21
  */
 package backend;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
@@ -81,7 +82,7 @@ public class Comment implements Serializable {
     public void removeVote() {
         votes--;
     }
-    
+
     public int getVotes() {
         return votes;
     }
@@ -91,13 +92,13 @@ public class Comment implements Serializable {
     }
 
     public void addUserUpvote(User user) {
-        if(userUpvotes.contains(user)) return;
+        if (userUpvotes.contains(user)) return;
         votes++;
         userUpvotes.add(user);
     }
 
     public void removeUserUpvote(User user) {
-        if(!userUpvotes.contains(user)) return;
+        if (!userUpvotes.contains(user)) return;
         votes--;
         userUpvotes.remove(user);
     }

@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for importing Comment files
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -45,17 +52,21 @@ public class ImportCommentPanel extends JPanel implements ActionListener {
                 e1.printStackTrace();
             }
             if (manager.findCourse(nameText.getText()) != null) {
-                JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course",
+                JOptionPane.showMessageDialog(null, "Course Name is already taken!",
+                        "New Course",
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             // Network network = new Network();
-            // network.getCurrCourse().addPost((nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
+            // network.getCurrCourse().addPost((nameText.getText(), manager.getCurrUser(),
+            // coursePermissionsButton.isSelected());
             try {
-                manager.readUserFileImport(nameText.getText(), false, manager.getCurrCourse(), manager.getCurrPost(), manager.getCurrUser());
+                manager.readUserFileImport(nameText.getText(), false, manager.getCurrCourse(),
+                        manager.getCurrPost(), manager.getCurrUser());
                 MainFrame.get().switchPanel("Post");
             } catch (FileNotFoundException e1) {
-                JOptionPane.showMessageDialog(null, "Could Not Find File!", "Import Post", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Could Not Find File!",
+                        "Import Post", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

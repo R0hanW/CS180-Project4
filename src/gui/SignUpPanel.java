@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for sign up
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -52,11 +59,13 @@ public class SignUpPanel extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Passwords must match!", "Sign Up",
                         JOptionPane.INFORMATION_MESSAGE);
             } else if (manager.findUser(userText.getText()) != null) {
-                JOptionPane.showMessageDialog(null, "Username is already taken!", "Sign Up",
+                JOptionPane.showMessageDialog(null, "Username is already taken!",
+                        "Sign Up",
                         JOptionPane.INFORMATION_MESSAGE);
             } else if (nameText.getText().equals("") || userText.getText().equals("")
                     || String.valueOf(passwordText.getPassword()).equals("")) {
-                JOptionPane.showMessageDialog(null, "All fields must have a value!", "Sign Up",
+                JOptionPane.showMessageDialog(null, "All fields must have a value!",
+                        "Sign Up",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
                 try {
@@ -69,12 +78,12 @@ public class SignUpPanel extends JPanel implements ActionListener {
                 //        String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
 
                 try {
-					manager.addUser(new User(nameText.getText(), userText.getText(),
-					        String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    manager.addUser(new User(nameText.getText(), userText.getText(),
+                            String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 MainFrame.get().switchPanel("Login");
             }
         }

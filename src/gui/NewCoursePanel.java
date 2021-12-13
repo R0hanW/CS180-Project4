@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for making a new course
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -47,21 +54,22 @@ public class NewCoursePanel extends JPanel implements ActionListener {
                 e1.printStackTrace();
             }
             if (manager.findCourse(nameText.getText()) != null) {
-                JOptionPane.showMessageDialog(null, "Course Name is already taken!", "New Course",
+                JOptionPane.showMessageDialog(null,
+                        "Course Name is already taken!", "New Course",
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             Network network = new Network();
             //network.addCourse(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected());
-            
+
             try {
-				manager.addCourse(
-				        new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            
+                manager.addCourse(
+                        new Course(nameText.getText(), manager.getCurrUser(), coursePermissionsButton.isSelected()));
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
             MainFrame.get().switchPanel("Main");
         }
     }

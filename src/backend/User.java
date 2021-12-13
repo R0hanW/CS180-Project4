@@ -8,6 +8,7 @@
  */
 
 package backend;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;

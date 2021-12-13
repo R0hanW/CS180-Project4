@@ -1,3 +1,11 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI structure for the common frame/page, especially
+ * with login and other features such as back and home button
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -8,7 +16,7 @@ import java.util.Arrays;
 
 import backend.ProgramManager;
 
-public class MainFrame implements Runnable{
+public class MainFrame implements Runnable {
     private static MainFrame instance = null;
     JScrollPane scrollPane;
     String panelName = "Login";
@@ -21,9 +29,9 @@ public class MainFrame implements Runnable{
     Dimension dimension;
     ProgramManager manager;
 
-    public void run(){
-        while(true){
-            if (panelName == "Course"|| panelName == "Main" || panelName == "Post") {
+    public void run() {
+        while (true) {
+            if (panelName == "Course" || panelName == "Main" || panelName == "Post") {
                 instance.switchPanel(panelName);
                 System.out.println("updating? " + panelName);
             }
@@ -87,7 +95,7 @@ public class MainFrame implements Runnable{
     }
 
     public void switchPanel(String panelName) {
-    	this.panelName = panelName;
+        this.panelName = panelName;
         if (panelName.equals("Login")) {
             panel = new LoginPanel();
         } else if (panelName.equals("Sign Up"))
@@ -108,7 +116,7 @@ public class MainFrame implements Runnable{
             panel = new ImportPostPanel();
         else if (panelName.equals("Import Comment"))
             panel = new ImportCommentPanel();
-        else if (panelName.equals("Edit Account")) 
+        else if (panelName.equals("Edit Account"))
             panel = new EditAccountPanel();
         else if (panelName.equals("Previous")) {
             nextPanel = prevPanel.get(prevPanel.size() - 1);
@@ -147,7 +155,7 @@ public class MainFrame implements Runnable{
     }
 
     public void switchPanel(String panelName, boolean reply) {
-    	this.panelName = panelName;
+        this.panelName = panelName;
         if (panelName.equals("Login")) {
             panel = new LoginPanel();
         } else if (panelName.equals("Sign Up"))
@@ -167,8 +175,7 @@ public class MainFrame implements Runnable{
         else if (panelName.equals("Import Comment")) {
             System.out.println("HELLO");
             panel = new ImportCommentPanel();
-        }
-        else if (panelName.equals("Edit Account")) 
+        } else if (panelName.equals("Edit Account"))
             panel = new EditAccountPanel();
         else if (panelName.equals("Previous")) {
             nextPanel = prevPanel.get(prevPanel.size() - 1);
@@ -178,7 +185,7 @@ public class MainFrame implements Runnable{
                 switchPanel(nextPanel);
             else
                 return;
-        } 
+        }
         if (!panelName.equals("Previous") && !panelName.equals("Next"))
             prevPanel.add(panelName);
         if (!panelName.equals("Login") && !panelName.equals("Sign Up"))
@@ -205,12 +212,12 @@ public class MainFrame implements Runnable{
         frame.getContentPane().validate();
         frame.repaint();
     }
-    
+
     public String getPanelName() {
-    	return panelName;
+        return panelName;
     }
-    
+
     public void update() {
-    	panel.revalidate();
+        panel.revalidate();
     }
 }

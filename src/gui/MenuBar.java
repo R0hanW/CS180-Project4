@@ -1,8 +1,16 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panel menu bar that includes back, home btn etc
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 import backend.ProgramManager;
 
 public class MenuBar extends JMenuBar implements ActionListener {
@@ -76,9 +84,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
             MainFrame.get().switchPanel("Main");
         } else if (e.getSource() == editAccountItem) {
             MainFrame.get().switchPanel("Edit Account");
-        } else if(e.getSource()  == deleteAccountItem) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?", "Discussion Board", JOptionPane.YES_NO_OPTION);
-            if(option == JOptionPane.YES_OPTION) {
+        } else if (e.getSource() == deleteAccountItem) {
+            int option = JOptionPane.showConfirmDialog(null,
+                    "Are you sure you want to delete your account?",
+                    "Discussion Board", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
                 try {
                     ProgramManager.get().removeUser(ProgramManager.get().getCurrUser());
                 } catch (Exception e1) {

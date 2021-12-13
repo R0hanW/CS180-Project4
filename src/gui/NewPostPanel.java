@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for new post panel.
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -84,15 +91,14 @@ public class NewPostPanel extends JPanel implements ActionListener {
                 post.addPoll(poll);
             }
             try {
-				manager.getCurrCourse().addPost(post);
-				manager.writeCourseFile();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+                manager.getCurrCourse().addPost(post);
+                manager.writeCourseFile();
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
 
             //network.addPost(manager.getCurrCourse(), post);
-
 
 
             MainFrame.get().switchPanel("Course");
@@ -159,7 +165,7 @@ public class NewPostPanel extends JPanel implements ActionListener {
             c.gridwidth = 2;
             panel.add(submitButton, c);
             revalidate();
-        } else if(e.getSource() == importPostButton) {
+        } else if (e.getSource() == importPostButton) {
             MainFrame.get().switchPanel("Import Post");
         }
     }

@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for making a new comment
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -15,6 +22,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
     JButton submitButton, importCommentButton;
     ProgramManager manager;
     boolean reply;
+
     public NewCommentPanel(boolean reply) {
         try {
             manager = ProgramManager.get();
@@ -53,8 +61,8 @@ public class NewCommentPanel extends JPanel implements ActionListener {
     }
 
     private void addActionListeners() {
-       submitButton.addActionListener(this);
-       importCommentButton.addActionListener(this);
+        submitButton.addActionListener(this);
+        importCommentButton.addActionListener(this);
     }
 
     @Override
@@ -66,35 +74,39 @@ public class NewCommentPanel extends JPanel implements ActionListener {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            if(reply == true) {
-            	manager.getCurrComment().addReply(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
-            	try {
-					manager.writeCourseFile();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            }
-            else {
-            	manager.getCurrPost().addComment(new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
-            	try {
-					manager.writeCourseFile();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+            if (reply == true) {
+                manager.getCurrComment().addReply(new Comment(manager.getCurrUser(),
+                        manager.getCurrPost(), commentText.getText()));
+                try {
+                    manager.writeCourseFile();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            } else {
+                manager.getCurrPost().addComment(new Comment(manager.getCurrUser(),
+                        manager.getCurrPost(), commentText.getText()));
+                try {
+                    manager.writeCourseFile();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
             Network network = new Network();
             //if (reply){
-            //    network.addReply(manager.getCurrCourse(), manager.getCurrPost(),  manager.getCurrComment(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            //    network.addReply(manager.getCurrCourse(), manager.getCurrPost(),
+            //    manager.getCurrComment(), new Comment(manager.getCurrUser(),
+            //    manager.getCurrPost(), commentText.getText()));
             //
             //} else {
-            //    network.addComment(manager.getCurrCourse(), manager.getCurrPost(), new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
+            //    network.addComment(manager.getCurrCourse(), manager.getCurrPost(),
+            //    new Comment(manager.getCurrUser(), manager.getCurrPost(), commentText.getText()));
             //}
             //network.writeFile();
             MainFrame.get().switchPanel("Post");
         } else if (e.getSource() == importCommentButton) {
-            System.out.println("WYA");  
+            System.out.println("WYA");
             MainFrame.get().switchPanel("Import Comment");
         }
     }

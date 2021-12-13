@@ -1,3 +1,10 @@
+/***
+ * This class should be run right after running the server, it helps run the program to the initial page etc.
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 import gui.MainFrame;
 import backend.Network;
 

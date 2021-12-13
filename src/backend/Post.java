@@ -9,6 +9,7 @@
  */
 
 package backend;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,7 +41,7 @@ public class Post implements Serializable {
         this.topic = topic;
         this.timestamp = timestamp;
     }
-    
+
     public Post(User owner, Course course, String content, String topic, String timestamp, Poll poll) {
         this.owner = owner;
         this.content = content;
@@ -115,7 +116,7 @@ public class Post implements Serializable {
         course.removePost(this);
         return true;
     }
-    
+
     public void addPoll(Poll poll) {
         this.poll = poll;
     }
@@ -123,10 +124,10 @@ public class Post implements Serializable {
     public Poll getPoll() {
         return poll;
     }
-    
+
     public String toString() {
         String out = String.format("Post:%s,\"%s\",\"%s\",%s\n", owner.getUsername(), content, topic, timestamp);
-        if(poll != null) out += poll.toString();
+        if (poll != null) out += poll.toString();
         for (Comment comment : comments) out += String.format("Comment:%s\n", comment.toString());
         return out;
     }
@@ -157,7 +158,8 @@ public class Post implements Serializable {
         if (sortByVotes) {
             sortedComments.sort(Comparator.comparing(Comment::getVotes));
             Collections.reverse(sortedComments);
-        } else Collections.sort(sortedComments, (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
+        } else Collections.sort(sortedComments
+                , (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
         System.out.printf("Dashboard for %s\n", topic);
         sortedComments.stream()
                 .forEach(comment -> comment.displayComment(false));
@@ -167,9 +169,10 @@ public class Post implements Serializable {
         return (comments.size() > 0);
     }
 
-    public Comment findComment(Comment comment){
-        for (int i =0; i < comments.size(); i ++){
-            if (comments.get(i).getContent().equals(comment.getContent()) && comments.get(i).getTimestamp().equals(comment.getTimestamp())){
+    public Comment findComment(Comment comment) {
+        for (int i = 0; i < comments.size(); i++) {
+            if (comments.get(i).getContent().equals(comment.getContent()) &&
+                    comments.get(i).getTimestamp().equals(comment.getTimestamp())) {
                 System.out.println();
                 return comments.get(i);
             }
@@ -189,7 +192,6 @@ public class Post implements Serializable {
                 Objects.equals(comments, post.comments) &&
                 Objects.equals(timestamp, post.timestamp);
     }
-
 
 
 }

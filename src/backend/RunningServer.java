@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the backend, helps in setting up and running the server. This class must be run before
+ * the main could be run, helps initializing connections and such.
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package backend;
 
 import java.net.*;
@@ -5,37 +12,36 @@ import java.io.*;
 import java.util.*;
 
 public class RunningServer {
-	public static ArrayList<User> users = new ArrayList<User>();
-	public static ArrayList<Course> courses = new ArrayList<Course>();
-	
-	//https://www.oracle.com/java/technologies/jpl2-socket-communication.html
-	public static void main(String[] args) throws Exception{
-		readUserFile();
-		readFile();
-		ServerSocket serverSocket = null;
-    	try {
-    		serverSocket = new ServerSocket(4040);
-			serverSocket.setReuseAddress(true);
-    		while(true) {
-    			Socket socket = serverSocket.accept();
-    			ClientThread client = new ClientThread(socket);
-    			new Thread(client).start();
-    		}
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	} finally {
+    public static ArrayList<User> users = new ArrayList<User>();
+    public static ArrayList<Course> courses = new ArrayList<Course>();
+
+    //https://www.oracle.com/java/technologies/jpl2-socket-communication.html
+    public static void main(String[] args) throws Exception {
+        readUserFile();
+        readFile();
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(4040);
+            serverSocket.setReuseAddress(true);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                ClientThread client = new ClientThread(socket);
+                new Thread(client).start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             if (serverSocket != null) {
                 try {
                     serverSocket.close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-	}
-	
-	public static synchronized void readFile() throws Exception {
+    }
+
+    public static synchronized void readFile() throws Exception {
         //reads from Courses.txt (won't work unless users has already been read)
         courses.clear();
         BufferedReader reader = new BufferedReader(new FileReader("Courses.txt"));
@@ -51,16 +57,17 @@ public class RunningServer {
                 //finds everything after colon in message
                 message = message.substring(message.indexOf(":") + 1);
                 //.split(",") returns an array that splits the message by comma
-                course = new Course(message.split(",")[0], findUser(message.split(",")[1]), Boolean.parseBoolean(message.split(",")[2]));
+                course = new Course(message.split(",")[0], findUser(message.split(",")[1]),
+                        Boolean.parseBoolean(message.split(",")[2]));
             } else if (message.contains("Post")) {
                 message = message.substring(message.indexOf(":") + 1);
-                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);    
+                messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
                 messageArr[2] = messageArr[2].substring(1, messageArr[2].length() - 1);
                 post = new Post(findUser(messageArr[0]), course, messageArr[1], messageArr[2], messageArr[3]);
-            } else if(message.contains("Poll")) {
+            } else if (message.contains("Poll")) {
                 poll = new Poll();
-            } else if(message.contains("pollOption")) {
+            } else if (message.contains("pollOption")) {
                 message = message.substring(message.indexOf(":") + 1);
                 poll.addPollOption(message, false);
             } else if (message.contains("pollResult")) {
@@ -88,7 +95,7 @@ public class RunningServer {
                 message = message.substring(message.indexOf(":") + 1);
                 comment.addUserUpvote(findUser(message));
 
-            } else if(message.equals("END OF POLL")) {
+            } else if (message.equals("END OF POLL")) {
                 post.addPoll(poll);
             } else if (message.equals("END OF POST")) {
                 course.addPost(post);
@@ -98,8 +105,8 @@ public class RunningServer {
         }
         reader.close();
     }
-	
-	public static synchronized void readUserFile() { // works
+
+    public static synchronized void readUserFile() { // works
         //parse through the lines in the file to the Array list
         //updates the arraylist
         users.clear();
@@ -144,7 +151,7 @@ public class RunningServer {
             e.printStackTrace();
         }
     }
-	
+
     public synchronized static void writeFile() throws Exception {// works
         //write from arraylist to txt files
         //updates the txt files
@@ -161,7 +168,7 @@ public class RunningServer {
         pw.close();
 
     }
-    
+
     public static User findUser(String username) { // works
         // for (int i = 0; i < users.size(); i++) {
         //     if (users.get(i).getUsername().equals(username)) {
@@ -171,14 +178,14 @@ public class RunningServer {
         // return null;
         return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
-    
+
     public static void update() {
-    	readUserFile();
-    	try {
-			readFile();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
+        readUserFile();
+        try {
+            readFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up the GUI panels for courses and its related features
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -74,23 +81,23 @@ public class CoursePanel extends JPanel implements ActionListener {
                     manager.setCurrPost(post);
                     MainFrame.get().switchPanel("Post");
                 }
-    
+
                 @Override
                 public void mouseEntered(MouseEvent arg0) {
                 }
-    
+
                 @Override
                 public void mouseExited(MouseEvent arg0) {
                 }
-    
+
                 @Override
                 public void mousePressed(MouseEvent arg0) {
                 }
-    
+
                 @Override
                 public void mouseReleased(MouseEvent arg0) {
                 }
-    
+
             });
             postPanel.add(tmpPanel);
             ;
@@ -115,7 +122,8 @@ public class CoursePanel extends JPanel implements ActionListener {
 
     public void addComponentsToContainer() {
         if (manager.getCurrUser().isTeacher() || manager.getCurrCourse().studentsCanCreatePosts())
-            titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20), new Dimension(100, 20)),
+            titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20),
+                            new Dimension(100, 20)),
                     BorderLayout.WEST);
         postFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(postFrameTitle, BorderLayout.CENTER);

@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panel to compliment the structure we made earlier.
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -77,7 +84,8 @@ public class MainPanel extends JPanel implements ActionListener {
 
     public void addComponentsToContainer() {
         if (manager.getCurrUser().isTeacher())
-            titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)),
+            titlePanel.add(new Box.Filler(new Dimension(150, 20),
+                            new Dimension(150, 20), new Dimension(150, 20)),
                     BorderLayout.WEST);
         courseFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(courseFrameTitle, BorderLayout.CENTER);

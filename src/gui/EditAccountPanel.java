@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up the GUI panels for editing Accounts
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -57,12 +64,15 @@ public class EditAccountPanel extends JPanel implements ActionListener {
             if (!Arrays.equals(passwordText.getPassword(), confirmPasswordText.getPassword())) {
                 JOptionPane.showMessageDialog(null, "Passwords must match!", "Edit Account",
                         JOptionPane.INFORMATION_MESSAGE);
-            } else if (manager.findUser(userText.getText()) != null && userText.getText() != manager.getCurrUser().getUsername()) {
-                JOptionPane.showMessageDialog(null, "Username is already taken!", "Edit Account",
+            } else if (manager.findUser(userText.getText()) != null && userText.getText() !=
+                    manager.getCurrUser().getUsername()) {
+                JOptionPane.showMessageDialog(null, "Username is already taken!",
+                        "Edit Account",
                         JOptionPane.INFORMATION_MESSAGE);
             } else if (nameText.getText().equals("") || userText.getText().equals("")
                     || String.valueOf(passwordText.getPassword()).equals("")) {
-                JOptionPane.showMessageDialog(null, "All fields must have a value!", "Edit Account",
+                JOptionPane.showMessageDialog(null, "All fields must have a value!",
+                        "Edit Account",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
                 try {
@@ -78,14 +88,15 @@ public class EditAccountPanel extends JPanel implements ActionListener {
                 }
                 User user = manager.getCurrUser();
                 try {
-					manager.modifyUser(user, nameText.getText(), userText.getText(), String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    manager.modifyUser(user, nameText.getText(), userText.getText(),
+                            String.valueOf(passwordText.getPassword()), teacherButton.isSelected());
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
 
-             //   manager.addUser(new User(nameText.getText(), userText.getText(),
-             //           String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
+                //   manager.addUser(new User(nameText.getText(), userText.getText(),
+                //           String.valueOf(passwordText.getPassword()), teacherButton.isSelected()));
                 MainFrame.get().switchPanel("Main");
             }
         }

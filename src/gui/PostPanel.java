@@ -1,3 +1,10 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for posts that already exist
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
@@ -13,7 +20,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PostPanel extends JPanel implements ActionListener{
+public class PostPanel extends JPanel implements ActionListener {
     ProgramManager manager;
     JPanel panel, titlePanel, commentPanel, tmpPanel, commentButtons, titleButtons;
     JScrollPane descriptionTextPane, commentTextPane, commentScrollPane;
@@ -25,7 +32,7 @@ public class PostPanel extends JPanel implements ActionListener{
     ArrayList<JToggleButton> likeButtons = new ArrayList<JToggleButton>();
     ArrayList<JButton> replyCommentButtons = new ArrayList<JButton>();
     GridBagConstraints c;
-    
+
     public PostPanel() {
         setLayout(new BorderLayout());
         try {
@@ -54,10 +61,10 @@ public class PostPanel extends JPanel implements ActionListener{
         viewPollButton.setPreferredSize(new Dimension(150, 20));
         newCommentButton = new JButton("Add Comment");
         newCommentButton.setPreferredSize(new Dimension(150, 20));
-        
-        commentPanel = new JPanel(new GridLayout(0 , 1));
-        post.getComments().stream().forEach(x -> System.out.print(x +", "));
-        for(Comment comment: post.getComments()) {
+
+        commentPanel = new JPanel(new GridLayout(0, 1));
+        post.getComments().stream().forEach(x -> System.out.print(x + ", "));
+        for (Comment comment : post.getComments()) {
             tmpPanel = new JPanel(new BorderLayout());
             commentAuthorTitle = new JLabel(comment.getOwner().getUsername() + "    " + comment.getTimestamp());
             Font f = commentAuthorTitle.getFont();
@@ -69,18 +76,19 @@ public class PostPanel extends JPanel implements ActionListener{
             commentText.setOpaque(false);
             commentText.setText(comment.getContent());
             commentTextPane = new JScrollPane(commentText);
-            likeButton = new JToggleButton(String.valueOf(comment.getVotes()), new ImageIcon("src/gui/icons/like.png"));
+            likeButton = new JToggleButton(String.valueOf(comment.getVotes()),
+                    new ImageIcon("src/gui/icons/like.png"));
             likeButton.setOpaque(true);
             likeButton.setContentAreaFilled(false);
             likeButton.setBorderPainted(false);
             likeButton.setFocusable(true);
             likeButtons.add(likeButton);
-            if(comment.getUserUpvotes().contains(manager.getCurrUser()) && likeButton.isSelected()) {
+            if (comment.getUserUpvotes().contains(manager.getCurrUser()) && likeButton.isSelected()) {
                 comment.removeUserUpvote(manager.getCurrUser());
                 likeButton.doClick();
             }
-            likeButton.addActionListener(new ActionListener(){
-                @Override 
+            likeButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
                         manager = ProgramManager.get();
@@ -88,27 +96,27 @@ public class PostPanel extends JPanel implements ActionListener{
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    if(likeButtons.contains((e.getSource()))) {
+                    if (likeButtons.contains((e.getSource()))) {
                         likeButton = (JToggleButton) e.getSource();
-                        if(likeButton.isSelected()) {
+                        if (likeButton.isSelected()) {
                             likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                             comment.addUserUpvote(manager.getCurrUser());
                             likeButton.setText(Integer.toString(comment.getVotes()));
-                          try {
-								manager.writeCourseFile();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+                            try {
+                                manager.writeCourseFile();
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
                         } else {
                             likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));
                             comment.removeUserUpvote(manager.getCurrUser());
-                          try {
-								manager.writeCourseFile();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+                            try {
+                                manager.writeCourseFile();
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
                             likeButton.setText(Integer.toString(comment.getVotes()));
                         }
                     }
@@ -125,7 +133,7 @@ public class PostPanel extends JPanel implements ActionListener{
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    if(replyCommentButtons.contains(e.getSource())) {
+                    if (replyCommentButtons.contains(e.getSource())) {
                         replyCommentButton = (JButton) e.getSource();
                         manager.setCurrComment(post.getComments().get(replyCommentButtons.indexOf(replyCommentButton)));
                         MainFrame.get().switchPanel("New Comment", true);
@@ -139,7 +147,7 @@ public class PostPanel extends JPanel implements ActionListener{
             commentButtons.add(replyCommentButton);
             tmpPanel.add(commentButtons, BorderLayout.SOUTH);
             commentPanel.add(tmpPanel);
-            for(Comment reply: comment.getReplies()) {
+            for (Comment reply : comment.getReplies()) {
                 System.out.println("DO WE EVEN GET HERE");
                 tmpPanel = new JPanel(new BorderLayout());
                 tmpPanel.setBorder(new EmptyBorder(0, 15, 0, 0));
@@ -153,18 +161,19 @@ public class PostPanel extends JPanel implements ActionListener{
                 commentText.setOpaque(false);
                 commentText.setText(reply.getContent());
                 commentTextPane = new JScrollPane(commentText);
-                likeButton = new JToggleButton(String.valueOf(reply.getVotes()), new ImageIcon("src/gui/icons/like.png"));
+                likeButton = new JToggleButton(String.valueOf(reply.getVotes()),
+                        new ImageIcon("src/gui/icons/like.png"));
                 likeButton.setOpaque(true);
                 likeButton.setContentAreaFilled(false);
                 likeButton.setBorderPainted(false);
                 likeButton.setFocusable(true);
                 likeButtons.add(likeButton);
-                if(reply.getUserUpvotes().contains(manager.getCurrUser()) && likeButton.isSelected()) {
+                if (reply.getUserUpvotes().contains(manager.getCurrUser()) && likeButton.isSelected()) {
                     reply.removeUserUpvote(manager.getCurrUser());
                     likeButton.doClick();
                 }
-                likeButton.addActionListener(new ActionListener(){
-                    @Override 
+                likeButton.addActionListener(new ActionListener() {
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         try {
                             manager = ProgramManager.get();
@@ -172,18 +181,18 @@ public class PostPanel extends JPanel implements ActionListener{
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
-                        if(likeButtons.contains((e.getSource()))) {
+                        if (likeButtons.contains((e.getSource()))) {
                             likeButton = (JToggleButton) e.getSource();
-                            if(likeButton.isSelected()) {
+                            if (likeButton.isSelected()) {
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/likeFilled.png"));
                                 reply.addUserUpvote(manager.getCurrUser());
                                 likeButton.setText(Integer.toString(reply.getVotes()));
-                              try {
-								manager.writeCourseFile();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+                                try {
+                                    manager.writeCourseFile();
+                                } catch (Exception e1) {
+                                    // TODO Auto-generated catch block
+                                    e1.printStackTrace();
+                                }
                             } else {
                                 likeButton.setIcon(new ImageIcon("src/gui/icons/like.png"));
                                 reply.removeUserUpvote(manager.getCurrUser());
@@ -204,16 +213,16 @@ public class PostPanel extends JPanel implements ActionListener{
         addActionListeners();
     }
 
-    private void addActionListeners(){
+    private void addActionListeners() {
         viewPollButton.addActionListener(this);
         newCommentButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == newCommentButton) {
+        if (e.getSource() == newCommentButton) {
             MainFrame.get().switchPanel("New Comment", false);
-        } else if(e.getSource() == viewPollButton) {
+        } else if (e.getSource() == viewPollButton) {
             try {
                 manager = ProgramManager.get();
             } catch (Exception e1) {
@@ -223,30 +232,35 @@ public class PostPanel extends JPanel implements ActionListener{
             ArrayList<String> pollOptions = manager.getCurrPost().getPoll().getPollOptions();
             ArrayList<Integer> pollVotes = manager.getCurrPost().getPoll().getPollResults();
             ArrayList<String> pollDisplay = new ArrayList<String>();
-            for(int i = 0; i < pollOptions.size(); i++) {
+            for (int i = 0; i < pollOptions.size(); i++) {
                 pollDisplay.add(pollOptions.get(i) + ": " + Integer.toString(pollVotes.get(i)) + " votes");
             }
             String[] poll = new String[pollDisplay.size()];
-            for(int i=0; i < poll.length; i++) poll[i] = pollDisplay.get(i);
-            String in = (String) (JOptionPane.showInputDialog(null, "Poll", "Poll", JOptionPane.QUESTION_MESSAGE, null, poll, poll[0]));
-            if(in != null) {
+            for (int i = 0; i < poll.length; i++) poll[i] = pollDisplay.get(i);
+            String in = (String) (JOptionPane.showInputDialog(null,
+                    "Poll", "Poll", JOptionPane.QUESTION_MESSAGE, null, poll, poll[0]));
+            if (in != null) {
                 int input2 = pollDisplay.indexOf(in);
                 boolean out = manager.getCurrPost().getPoll().addPollVote(input2, manager.getCurrUser());
-                if(out == false) JOptionPane.showMessageDialog(null, "Cannot vote in poll twice!", "Error", JOptionPane.ERROR_MESSAGE);
+                if (out == false)
+                    JOptionPane.showMessageDialog(null,
+                            "Cannot vote in poll twice!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }   
+        }
     }
 
     public void addComponentsToContainer() {
         panel = new JPanel(new BorderLayout());
         titleButtons.add(newCommentButton, BorderLayout.NORTH);
         titleButtons.add(viewPollButton, BorderLayout.SOUTH);
-        titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20), new Dimension(100, 20)),
-        BorderLayout.WEST);
+        titlePanel.add(new Box.Filler(new Dimension(100, 20), new Dimension(100, 20),
+                        new Dimension(100, 20)),
+                BorderLayout.WEST);
         Post post = manager.getCurrPost();
-        if(post.getPoll() != null) titlePanel.add(viewPollButton, BorderLayout.WEST);
-        else titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20), new Dimension(150, 20)),
-        BorderLayout.WEST);
+        if (post.getPoll() != null) titlePanel.add(viewPollButton, BorderLayout.WEST);
+        else titlePanel.add(new Box.Filler(new Dimension(150, 20), new Dimension(150, 20),
+                        new Dimension(150, 20)),
+                BorderLayout.WEST);
         postFrameTitle.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(postFrameTitle, BorderLayout.CENTER);
         newCommentButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -258,7 +272,6 @@ public class PostPanel extends JPanel implements ActionListener{
         panel.add(commentScrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.CENTER);
     }
-
 
 
 }

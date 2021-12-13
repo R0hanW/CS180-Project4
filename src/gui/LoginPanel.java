@@ -1,8 +1,16 @@
+/***
+ * This class which is part of the frontend, helps in setting up GUI panels for Login page.
+ *
+ * @author Team 043
+ * @version 12/13/2021
+ *
+ */
 package gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 import backend.*;
 
 public class LoginPanel extends JPanel implements ActionListener {
@@ -48,11 +56,13 @@ public class LoginPanel extends JPanel implements ActionListener {
             // check if username exists
             User user = manager.findUser(userText.getText());
             if (user == null) {
-                JOptionPane.showMessageDialog(null, "Username does not exist! Click sign up to create an account!",
+                JOptionPane.showMessageDialog(null,
+                        "Username does not exist! Click sign up to create an account!",
                         "Login",
                         JOptionPane.INFORMATION_MESSAGE);
             } else if (!user.getPassword().equals(String.valueOf(passwordText.getPassword()))) {
-                JOptionPane.showMessageDialog(null, "Incorrect Password!", "Login", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Incorrect Password!",
+                        "Login", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 manager.setCurrUser(user);
                 MainFrame.get().switchPanel("Main");
