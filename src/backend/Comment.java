@@ -131,35 +131,35 @@ public class Comment implements Serializable {
         post.removeComment(this);
     }
 
-    public void displayComment(boolean displayReplies) {
-        System.out.println(owner.getName() + "\t" + timestamp);
-        System.out.println(content);
-        System.out.printf("Likes: %d\n", votes);
-        if (displayReplies) {
-            for (Comment r : replies) r.displayComment(false);
-        }
-        System.out.println();
-    }
+//    public void displayComment(boolean displayReplies) {
+//        System.out.println(owner.getName() + "\t" + timestamp);
+//        System.out.println(content);
+//        System.out.printf("Likes: %d\n", votes);
+//        if (displayReplies) {
+//            for (Comment r : replies) r.displayComment(false);
+//        }
+//        System.out.println();
+//    }
 
-    public void displayComment(boolean displayReplies, boolean displayGrade) {
-        if (displayGrade) System.out.println(owner.getName() + "\t" + timestamp + " Grade" + grade);
-        else System.out.println(owner.getName() + "\t" + timestamp);
-        System.out.println(content);
-        System.out.printf("Likes: %d\n", votes);
-        if (displayReplies) {
-            for (Comment r : replies) r.displayComment(false, false);
-        }
-        System.out.println();
-    }
+//    public void displayComment(boolean displayReplies, boolean displayGrade) {
+//        if (displayGrade) System.out.println(owner.getName() + "\t" + timestamp + " Grade" + grade);
+//        else System.out.println(owner.getName() + "\t" + timestamp);
+//        System.out.println(content);
+//        System.out.printf("Likes: %d\n", votes);
+//        if (displayReplies) {
+//            for (Comment r : replies) r.displayComment(false, false);
+//        }
+//        System.out.println();
+//    }
 
-    public String toString() {
-        content = content.replace("\n", " ");
-        String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp,
-                Integer.toString(votes), Double.toString(grade));
-        for (Comment reply : replies) out += String.format("Reply:%s\n", reply.toString(false));
-        for (User user : userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
-        return out;
-    }
+//    public String toString() {
+//        content = content.replace("\n", " ");
+//        String out = String.format("%s,\"%s\",%s,%s,%s\n", owner.getUsername(), content, timestamp,
+//                Integer.toString(votes), Double.toString(grade));
+//        for (Comment reply : replies) out += String.format("Reply:%s\n", reply.toString(false));
+//        for (User user : userUpvotes) out += String.format("Upvote:%s\n", user.getUsername());
+//        return out;
+//    }
 
     public String toString(boolean displayReplies) {
         if (displayReplies == false)

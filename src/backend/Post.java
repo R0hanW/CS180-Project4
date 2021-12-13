@@ -160,7 +160,7 @@ public class Post implements Serializable {
             Collections.reverse(sortedComments);
         } else Collections.sort(sortedComments
                 , (c1, c2) -> c1.getOwner().getName().compareTo(c2.getOwner().getName()));
-        System.out.printf("Dashboard for %s\n", topic);
+        //System.out.printf("Dashboard for %s\n", topic);
         sortedComments.stream()
                 .forEach(comment -> comment.displayComment(false));
     }
@@ -173,7 +173,7 @@ public class Post implements Serializable {
         for (int i = 0; i < comments.size(); i++) {
             if (comments.get(i).getContent().equals(comment.getContent()) &&
                     comments.get(i).getTimestamp().equals(comment.getTimestamp())) {
-                System.out.println();
+               // System.out.println();
                 return comments.get(i);
             }
         }

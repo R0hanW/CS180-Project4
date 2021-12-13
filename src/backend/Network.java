@@ -28,7 +28,7 @@ public class Network implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("refresh");
+           // System.out.println("refresh");
 
         }
     }

@@ -63,7 +63,7 @@ public class PostPanel extends JPanel implements ActionListener {
         newCommentButton.setPreferredSize(new Dimension(150, 20));
 
         commentPanel = new JPanel(new GridLayout(0, 1));
-        post.getComments().stream().forEach(x -> System.out.print(x + ", "));
+       // post.getComments().stream().forEach(x -> System.out.print(x + ", "));
         for (Comment comment : post.getComments()) {
             tmpPanel = new JPanel(new BorderLayout());
             commentAuthorTitle = new JLabel(comment.getOwner().getUsername() + "    " + comment.getTimestamp());
@@ -148,7 +148,7 @@ public class PostPanel extends JPanel implements ActionListener {
             tmpPanel.add(commentButtons, BorderLayout.SOUTH);
             commentPanel.add(tmpPanel);
             for (Comment reply : comment.getReplies()) {
-                System.out.println("DO WE EVEN GET HERE");
+               // System.out.println("DO WE EVEN GET HERE");
                 tmpPanel = new JPanel(new BorderLayout());
                 tmpPanel.setBorder(new EmptyBorder(0, 15, 0, 0));
                 commentAuthorTitle = new JLabel(reply.getOwner().getUsername() + "    " + reply.getTimestamp());

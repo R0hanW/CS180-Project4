@@ -72,7 +72,7 @@ public class TestClient {
                 message = message.substring(message.indexOf(":") + 1);
                 messageArr = message.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 messageArr[1] = messageArr[1].substring(1, messageArr[1].length() - 1);
-                System.out.println(Arrays.toString(messageArr));
+               // System.out.println(Arrays.toString(messageArr));
                 comment = new Comment(findUser(messageArr[0]), post, messageArr[1], messageArr[2],
                         Integer.parseInt(messageArr[3]), Double.parseDouble(messageArr[4]));
             } else if (message.contains("Upvote")) {
@@ -114,7 +114,7 @@ public class TestClient {
                 }
 
                 if (numQuotes != 8) {    //checking for storage format error
-                    System.out.println("Internal storage error. Your account may have been deleted.");
+                   // System.out.println("Internal storage error. Your account may have been deleted.");
                     try (PrintWriter pw = new PrintWriter(new FileWriter(f, false))) {
                         for (int i = 0; i < users.size(); i++) {
                             pw.println(users.get(i).toString());    //salvages user info before error

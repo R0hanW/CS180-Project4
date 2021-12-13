@@ -33,7 +33,7 @@ public class MainFrame implements Runnable {
         while (true) {
             if (panelName == "Course" || panelName == "Main" || panelName == "Post") {
                 instance.switchPanel(panelName);
-                System.out.println("updating? " + panelName);
+                //System.out.println("updating? " + panelName);
             }
             try {
                 Thread.sleep(2000);
@@ -173,7 +173,7 @@ public class MainFrame implements Runnable {
         else if (panelName.equals("New Post"))
             panel = new NewPostPanel();
         else if (panelName.equals("Import Comment")) {
-            System.out.println("HELLO");
+            //System.out.println("HELLO");
             panel = new ImportCommentPanel();
         } else if (panelName.equals("Edit Account"))
             panel = new EditAccountPanel();

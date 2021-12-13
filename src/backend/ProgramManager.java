@@ -94,12 +94,12 @@ public class ProgramManager {
         output.writeObject("initialize");
         users = (ArrayList<User>) input.readObject();
         courses = (ArrayList<Course>) input.readObject();
-        System.out.println("initialized");
+        //System.out.println("initialized");
         for (int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i).toString());
+           // System.out.println(users.get(i).toString());
         }
         for (int i = 0; i < courses.size(); i++) {
-            System.out.println(courses.get(i).toString());
+            //System.out.println(courses.get(i).toString());
         }
         socket.close();
     }

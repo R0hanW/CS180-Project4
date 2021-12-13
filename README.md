@@ -1,12 +1,25 @@
 # README
-Rohan Wadhwa - Submitted Vocareum Workspace
-Aidan Chen - Submitted Report on Brightspace
+- Rohan Wadhwa - Submitted Vocareum Workspace
+- Aidan Chen - Submitted Report on Brightspace
+- Arjav Seshachalam - Submitted presentation
 
 # Instructions
-1. Compile all java files
-2. Run Main.java
-3. If you wish to run testCases, run RunTest.java instead of main. 
+1. Run RunningServer.java from backend
+2. Run Main.java 
+
+By following the above steps you will be landing in the login page, after which you sign up or login accordingly
+once you are successfully logged in, you will be able to see the courses available, to view each course
+you click on the course name which will take you to the course page in which you should be able to make the appropriate
+posts and depending on the restrictions the teacher made you can add replies and react to polls
+
+
 # Classes 
+## GUI
+There are multiple different classes that fall under the GUI Folder, each of these classes
+have a purpose, The classes help set up the structure of what the frame will look like such as dimensions
+ and then to mainly create appropriate JPanels that can be used when the scenario rises
+
+
 ## ProgramManager
 - Contains utility methods for program, e.g.
     - Reading/Writing to Users.txt and Courses.txt so program has Object Permanancy

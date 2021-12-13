@@ -106,7 +106,7 @@ public class NewCommentPanel extends JPanel implements ActionListener {
             //network.writeFile();
             MainFrame.get().switchPanel("Post");
         } else if (e.getSource() == importCommentButton) {
-            System.out.println("WYA");
+           // System.out.println("WYA");
             MainFrame.get().switchPanel("Import Comment");
         }
     }
