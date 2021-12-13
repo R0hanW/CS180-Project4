@@ -105,4 +105,3 @@ have a purpose, The classes help set up the structure of what the frame will loo
         - **Fix:** Made the GUI functionality concurrent so the start of the thread would also only call one JFrame
         - **Bug:** Data would be updating every second causing the Text Fields to empty as the user tried to input data
         - **Fix:** Added an if statement to ensure the GUI would only refresh as the panels display data. 
-- Interaction with other classes: Uses every other class to display courses, posts, etc. and to edit objects if user wishes to do so. 
