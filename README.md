@@ -19,16 +19,24 @@ posts and depending on the restrictions the teacher made you can add replies and
 
 ## ProgramManager
 - Contains utility methods for program, e.g.
-    - Reading/Writing to Users.txt and Courses.txt so program has Object Permanancy
+    - Sends ArrayList Objects to the Running Server class
     - Stores all users and courses in arrayList and provides methods for them (findUser, modifyUser, removeCourse, etc.)
 - Testing Done:
-    - Read/Write methods was tested through testcases and every time main was run, since object permanancy would be lost if these methods didn't work
-    - Examples of bugs found/fixed:
-        - **Bug:** Reading comments + posts would return InvalidFormatException when comment had comma/post had comma anywhere in content/title
-        - **Fix:** Was using commas to split author,content, etc. of each comment/post; so we surrounded all the String values with "" and made our regex expression for splitting the comment ignore information inside quotes
-        - **Bug:** Forgot to add object permanancy when new variables were added (e.x. polls, grades)
-        - **Fix:** Updated necessary toString() methods in the respective class and ensured write method in programManager looked for the variables
+    - Checking to see if the RunningServer class received the ArrayLists properly
     - Interaction with other classes: Ensures that User, Comment, Post, and Course classes have object permanancy and provides utility methods so the objects of these classes can be used easily in Main.
+## RunningServer
+- Contains the writeFile/ReadFile methods 
+- Runs before main to handle any incoming data from any machine
+    - Receives the ArrayLists from the ProgramManager class and updates the text file with updated data.
+- Testing Done:
+    - Checking if the Text Files were updating properly
+## Network
+- Starts up as a thread when Main is called to update the data that the clients have access to
+- Testing Done:
+    - Check to see if the ArrayLists are updating every second
+    - Examples of bugs found/fixed
+       - **Bug:** Data would be lost in both the Text file and the ArrayList
+       - **Fix:** Synchronize the write and read file methods and add Thread.sleep so a race condition isn't possible
 ## Course  
 - Stores all the necessary data for each course and contains methods to process this data, including:
     - ArrayList of Discussion Posts for each course
