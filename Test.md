@@ -27,6 +27,8 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  3. Allow Students to create posts: yes,
  4. Click Submit
 
+Expected Output: Course Created
+
 ## Create Posts
  1. Click Create Post,
  2. Course Topic: "Homework",
@@ -39,11 +41,15 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  9. Create poll: no,
  10. Click Submit
 
+Expected Output: Post Created
+
 ## Test 2: Home, Back, and Forward Button
 1. Click Home Button,
 2. Click CS193,
 3. Click Home Button,
 4. Click Back Button,
+
+Expected Output: Back at the Course Screen
 
 ## Test 3: Edit Account
  1. Click John,
@@ -55,9 +61,13 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  7. Confirm Password: "test12345",
  8. Click Sign Up
 
+Expected Output: New Username and Password
+
 ## Test 4: Logout
  1. Click Jane,
  2. Click Logout
+
+Expected Output: Back at the default login page
 
 ## Login and Sign up as a student
 
@@ -69,6 +79,8 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  5. Confirm Password: "student1",
  6. Are you a teacher: no,
  7. Click Sign Up
+
+Expected Output: A main menu with the name 'Alex' at the top right and a create course button under the name.
 
 ## Login
  1. Username: "student1",
@@ -86,6 +98,8 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  8. Click Add Poll Option,
  9. Option2: "HW2",
  10. Click Submit,
+
+Expected Output: Post Created
 
 ## Create Comment
  1. Click HomeWork Help,
@@ -109,6 +123,8 @@ Expected Output: A main menu with the name 'John' at the top right and a create 
  3. Try to relogin with,
  4. Username: "student1",
  5. Password: "student1"
+
+Expected Output: Back at default login page
 
 
 
