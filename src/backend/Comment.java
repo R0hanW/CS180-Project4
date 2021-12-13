@@ -183,7 +183,6 @@ public class Comment implements Serializable {
         return votes == comment.votes &&
                 Double.compare(comment.grade, grade) == 0 &&
                 Objects.equals(owner.getUsername(), comment.owner.getUsername()) &&
-                Objects.equals(post.getCourse().getName(), comment.post.getCourse().getName()) &&
                 Objects.equals(content, comment.content) &&
                 Objects.equals(timestamp, comment.timestamp) &&
                 Objects.equals(replies, comment.replies);

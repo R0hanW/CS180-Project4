@@ -75,7 +75,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
         } else if (e.getSource() == homeItem) {
             MainFrame.get().switchPanel("Main");
         } else if (e.getSource() == editAccountItem) {
-            System.out.println("HEllo ");
             MainFrame.get().switchPanel("Edit Account");
         } else if(e.getSource()  == deleteAccountItem) {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?", "Discussion Board", JOptionPane.YES_NO_OPTION);
